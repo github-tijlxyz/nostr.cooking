@@ -35,6 +35,7 @@
 	"dependencies": {
 		"@nostr-dev-kit/ndk": "^1.2.1",
 		"@nostr-dev-kit/ndk-cache-dexie": "^1.2.0",
+		"@sveltejs/adapter-cloudflare": "^2.3.3",
 		"@tailwindcss/forms": "^0.5.6",
 		"@tailwindcss/typography": "^0.5.10",
 		"markdown-it": "^13.0.1",
