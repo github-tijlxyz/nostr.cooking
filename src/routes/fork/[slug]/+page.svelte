@@ -230,7 +230,7 @@
 				</div>
 
 				<div class="sm:col-span-6">
-					<TagsComboBox {selectedTags} />
+					<TagsComboBox updateSelectedTags={(a) => selectedTags = a} />
 				</div>
 			</div>
 
@@ -321,7 +321,7 @@
 				</div>
 				<div class="sm:col-span-6">
 					<div class="mt-1">
-						<StringComboBox placeholder={'2 eggs'} selected={ingredientsArray} showIndex={false} />
+						<StringComboBox placeholder={'2 eggs'} selected={(a) => ingredientsArray = a} showIndex={false} />
 					</div>
 				</div>
 			</div>
@@ -334,12 +334,11 @@
 					<div class="mt-1">
 						<StringComboBox
 							placeholder={'bake it for 30 min'}
-							selected={directionsArray}
+							selected={(a) => directionsArray = a}
 							showIndex={true}
 						/>
 					</div>
 				</div>
-			</div>
 
 			<!-- <details class="pt-8">
 				<summary>Add Addtional Resources (Custom Markdown)</summary>
