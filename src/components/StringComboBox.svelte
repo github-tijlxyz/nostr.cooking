@@ -1,47 +1,46 @@
 <script lang="ts">
 	let inputNewThing: string = '';
-	export let selected: (selected: string[]) => void;
+	export let selected: string[] = [];
 	export let placeholder: string;
 	export let showIndex: boolean;
-	let tmpSelected: string[] = [];
 
 	function removeTag(index: number) {
-		tmpSelected = tmpSelected.filter((_, i) => i !== index);
-		selected(tmpSelected);
+		selected = selected.filter((_, i) => i !== index);
+		selected = selected;
 	}
 
 	function addTag() {
 		if (inputNewThing) {
 			let tag = inputNewThing;
 			inputNewThing = '';
-			tmpSelected.push(tag);
-			selected(tmpSelected);
+			selected.push(tag);
+			selected = selected;
 		}
 	}
 
 	function moveTagUp(index: number) {
 		if (index > 0) {
-			const temp = tmpSelected[index];
-			tmpSelected[index] = tmpSelected[index - 1];
-			tmpSelected[index - 1] = temp;
-			selected(tmpSelected);
+			const temp = selected[index];
+			selected[index] = selected[index - 1];
+			selected[index - 1] = temp;
+			selected = selected;
 		}
 	}
 
 	function moveTagDown(index: number) {
 		if (index < selected.length - 1) {
-			const temp = tmpSelected[index];
-			tmpSelected[index] = tmpSelected[index + 1];
-			tmpSelected[index + 1] = temp;
-			selected(tmpSelected);
+			const temp = selected[index];
+			selected[index] = selected[index + 1];
+			selected[index + 1] = temp;
+			selected = selected;
 		}
 	}
 </script>
 
 <div class="mb-2">
-	{#if tmpSelected.length > 0}
+	{#if selected.length > 0}
 		<ul class="bg-white border border-gray-300 rounded-lg mt-1">
-			{#each tmpSelected as tag, index}
+			{#each selected as tag, index}
 				<li class="flex items-center justify-between p-2 hover:bg-gray-100">
 					<div class="flex items-center pl-1">
 						{#if showIndex}{index + 1}. {/if}{tag}
@@ -56,7 +55,7 @@
 								↑
 							</button>
 						{/if}
-						{#if showIndex && index < tmpSelected.length - 1}
+						{#if showIndex && index < selected.length - 1}
 							<button
 								type="button"
 								class="ml-2 px-2 py-[0.05rem] bg-gray-400 hover:bg-gray-500 text-white rounded"

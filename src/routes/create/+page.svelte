@@ -47,7 +47,6 @@
 			resultMessage = ' ';
 			const md = createMarkdown(chefsnotes, preptime, cooktime, servings, ingredients, directions, additionalMarkdown);
 			const va = validateMarkdownTemplate(md);
-			console.log(va);
 			if (va != null) {
 				previewEvent = new NDKEvent($ndk);
 				previewEvent.kind = 30023;
@@ -176,7 +175,7 @@
 				</div>
 
 				<div class="sm:col-span-6">
-					<TagsComboBox updateSelectedTags={(a) => selectedTags = a} />
+					<TagsComboBox {selectedTags} />
 				</div>
 			</div>
 
@@ -267,7 +266,7 @@
 				</div>
 				<div class="sm:col-span-6">
 					<div class="mt-1">
-						<StringComboBox placeholder={'2 eggs'} selected={(a) => ingredientsArray = a} showIndex={false} />
+						<StringComboBox placeholder={'2 eggs'} selected={ingredientsArray} showIndex={false} />
 					</div>
 				</div>
 			</div>
@@ -280,7 +279,7 @@
 					<div class="mt-1">
 						<StringComboBox
 							placeholder={'bake it for 30 min'}
-							selected={(a) => directionsArray = a}
+							selected={directionsArray}
 							showIndex={true}
 						/>
 					</div>

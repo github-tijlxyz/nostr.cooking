@@ -2,12 +2,10 @@
 	import { recipeTags, type recipeTagSimple } from '$lib/consts';
 	import TagsSearchAutocomplete from './TagsSearchAutocomplete.svelte';
 
-	export let updateSelectedTags: (selectedTags: recipeTagSimple[]) => void;
-	let selectedTags: recipeTagSimple[] = [];
+	export let selectedTags: recipeTagSimple[] = [];
 
 	function removeTag(index: number) {
 		selectedTags = selectedTags.filter((_, i) => i !== index);
-		updateSelectedTags(selectedTags);
 	}
 
 	function addTag(query: string) {
@@ -18,7 +16,7 @@
 			tag = { title: query };
 		}
 		selectedTags.push(tag);
-		updateSelectedTags(selectedTags);
+		selectedTags = selectedTags;
 	}
 </script>
 
