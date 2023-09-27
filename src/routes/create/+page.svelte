@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { writable, type Writable } from 'svelte/store';
 	import TagsComboBox from '../../components/TagsComboBox.svelte';
 	import StringComboBox from '../../components/StringComboBox.svelte';
 	import { ndk } from '$lib/nostr';
@@ -7,21 +8,20 @@
 	import type { recipeTagSimple } from '$lib/consts';
 	import FeedItem from '../../components/FeedItem.svelte';
 	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
 
 	let previewEvent: NDKEvent | undefined = undefined;
 
 	let title = '';
 	let image = '';
-	let selectedTags: recipeTagSimple[] = [];
+	let selectedTags: Writable<recipeTagSimple[]> = writable([]);
 	let summary = '';
 	let chefsnotes = '';
 	let preptime = '';
 	let cooktime = '';
 	let servings = '';
-	let ingredientsArray: string[] = [];
+	let ingredientsArray: Writable<string[]> = writable([]);
 	let ingredients = ``;
-	let directionsArray: string[] = [];
+	let directionsArray: Writable<string[]> = writable([]);
 	let directions = ``;
 	let additionalMarkdown = "";
 
@@ -30,12 +30,12 @@
 
 	function formatStringArrays() {
 		ingredients = '';
-		ingredientsArray.forEach((e) => {
+		$ingredientsArray.forEach((e) => {
 			ingredients += `- ${e}\n`;
 		});
 		directions = '';
 		let i = 0;
-		directionsArray.forEach((e) => {
+		$directionsArray.forEach((e) => {
 			i++;
 			directions += `${i}. ${e}\n`;
 		});
@@ -60,7 +60,7 @@
 				if (image !== '') {
 					previewEvent.tags.push(['image', image]);
 				}
-				selectedTags.forEach((t) => {
+				$selectedTags.forEach((t) => {
 					if (t.title) {
 						previewEvent?.tags.push([
 							't',
@@ -95,7 +95,7 @@
 				if (image !== '') {
 					event.tags.push(['image', image]);
 				}
-				selectedTags.forEach((t) => {
+				$selectedTags.forEach((t) => {
 					if (t.title) {
 						event.tags.push(['t', `nostrcooking-${t.title.toLowerCase().replaceAll(' ', '-')}`]);
 					}
@@ -175,7 +175,7 @@
 				</div>
 
 				<div class="sm:col-span-6">
-					<TagsComboBox {selectedTags} />
+					<TagsComboBox selectedTags={selectedTags} />
 				</div>
 			</div>
 

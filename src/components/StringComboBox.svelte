@@ -1,46 +1,56 @@
 <script lang="ts">
+	import type { Writable } from "svelte/store";
+
 	let inputNewThing: string = '';
-	export let selected: string[] = [];
+	export let selected: Writable<string[]>;
 	export let placeholder: string;
 	export let showIndex: boolean;
 
 	function removeTag(index: number) {
-		selected = selected.filter((_, i) => i !== index);
-		selected = selected;
+		let nSelected = $selected;
+		if (index < 0 || index >= nSelected.length) {
+			return; // Index out of bounds
+		}
+
+		nSelected = [...nSelected.slice(0, index), ...nSelected.slice(index + 1)];
+		selected.set(nSelected);
 	}
 
 	function addTag() {
+		let nSelected = $selected;
 		if (inputNewThing) {
 			let tag = inputNewThing;
 			inputNewThing = '';
-			selected.push(tag);
-			selected = selected;
+			nSelected.push(tag);
+			selected.set(nSelected);
 		}
 	}
 
 	function moveTagUp(index: number) {
+		let nSelected = $selected;
 		if (index > 0) {
-			const temp = selected[index];
-			selected[index] = selected[index - 1];
-			selected[index - 1] = temp;
-			selected = selected;
+			const temp = nSelected[index];
+			nSelected[index] = nSelected[index - 1];
+			nSelected[index - 1] = temp;
+			selected.set(nSelected);
 		}
 	}
 
 	function moveTagDown(index: number) {
-		if (index < selected.length - 1) {
-			const temp = selected[index];
-			selected[index] = selected[index + 1];
-			selected[index + 1] = temp;
-			selected = selected;
+		let nSelected = $selected;
+		if (index < nSelected.length - 1) {
+			const temp = nSelected[index];
+			nSelected[index] = nSelected[index + 1];
+			nSelected[index + 1] = temp;
+			selected.set(nSelected);
 		}
 	}
 </script>
 
 <div class="mb-2">
-	{#if selected.length > 0}
+	{#if $selected.length > 0}
 		<ul class="bg-white border border-gray-300 rounded-lg mt-1">
-			{#each selected as tag, index}
+			{#each $selected as tag, index}
 				<li class="flex items-center justify-between p-2 hover:bg-gray-100">
 					<div class="flex items-center pl-1">
 						{#if showIndex}{index + 1}. {/if}{tag}
@@ -55,7 +65,7 @@
 								↑
 							</button>
 						{/if}
-						{#if showIndex && index < selected.length - 1}
+						{#if showIndex && index < $selected.length - 1}
 							<button
 								type="button"
 								class="ml-2 px-2 py-[0.05rem] bg-gray-400 hover:bg-gray-500 text-white rounded"

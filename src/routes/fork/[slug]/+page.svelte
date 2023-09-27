@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import StringComboBox from '../../../components/StringComboBox.svelte';
+	import { writable, type Writable } from 'svelte/store';
 
 	let forkEvent = $page.params.slug;
 	let previewEvent: NDKEvent | undefined = undefined;
@@ -20,7 +21,7 @@
 		if (!tag) {
 			tag = { title: query };
 		}
-		selectedTags.push(tag);
+		$selectedTags.push(tag);
 		selectedTags = selectedTags;
 	}
 
@@ -51,13 +52,13 @@
 						i++;
 						directions += `${i}. ${e}\n`;
 					});
-					directionsArray = va.directions;
+					$directionsArray = va.directions;
 				}
 				if (va.ingredients) {
 					va.ingredients.forEach((e) => {
 						ingredients += `- ${e}\n`;
 					});
-					ingredientsArray = va.ingredients;
+					$ingredientsArray = va.ingredients;
 				}
 				if (va.information?.cookTime) cooktime = va.information.cookTime;
 				if (va.information?.prepTime) preptime = va.information.prepTime;
@@ -69,12 +70,12 @@
 
 	function formatStringArrays() {
 		ingredients = '';
-		ingredientsArray.forEach((e) => {
+		$ingredientsArray.forEach((e) => {
 			ingredients += `- ${e}\n`;
 		});
 		directions = '';
 		let i = 0;
-		directionsArray.forEach((e) => {
+		$directionsArray.forEach((e) => {
 			i++;
 			directions += `${i}. ${e}\n`;
 		});
@@ -82,16 +83,16 @@
 
 	let title = '';
 	let image = '';
-	let selectedTags: recipeTagSimple[] = [];
+	let selectedTags: Writable<recipeTagSimple[]> = writable([]);
 	let summary = '';
 	let chefsnotes = '';
 	let preptime = '';
 	let cooktime = '';
 	let servings = '';
+	let ingredientsArray: Writable<string[]> = writable([]);
 	let ingredients = ``;
+	let directionsArray: Writable<string[]> = writable([]);
 	let directions = ``;
-	let ingredientsArray: string[] = [];
-	let directionsArray: string[] = [];
 	let additionalMarkdown = "";
 
 	let resultMessage = ' ';
@@ -115,7 +116,7 @@
 				if (image !== '') {
 					previewEvent.tags.push(['image', image]);
 				}
-				selectedTags.forEach((t) => {
+				$selectedTags.forEach((t) => {
 					if (t.title) {
 						previewEvent?.tags.push([
 							't',
@@ -150,7 +151,7 @@
 				if (image !== '') {
 					event.tags.push(['image', image]);
 				}
-				selectedTags.forEach((t) => {
+				$selectedTags.forEach((t) => {
 					if (t.title) {
 						event.tags.push(['t', `nostrcooking-${t.title.toLowerCase().replaceAll(' ', '-')}`]);
 					}
@@ -230,7 +231,7 @@
 				</div>
 
 				<div class="sm:col-span-6">
-					<TagsComboBox {selectedTags} />
+					<TagsComboBox selectedTags={$selectedTags} />
 				</div>
 			</div>
 
@@ -321,7 +322,7 @@
 				</div>
 				<div class="sm:col-span-6">
 					<div class="mt-1">
-						<StringComboBox placeholder={'2 eggs'} selected={ingredientsArray} showIndex={false} />
+						<StringComboBox placeholder={'2 eggs'} selected={$ingredientsArray} showIndex={false} />
 					</div>
 				</div>
 			</div>
@@ -334,7 +335,7 @@
 					<div class="mt-1">
 						<StringComboBox
 							placeholder={'bake it for 30 min'}
-							selected={directionsArray}
+							selected={$directionsArray}
 							showIndex={true}
 						/>
 					</div>
