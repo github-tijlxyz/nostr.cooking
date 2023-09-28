@@ -37,7 +37,6 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
   const sections = markdown.match(/## [A-Za-z\s']+\n[^#]+/g);
 
   if (!sections) {
-    console.error('Invalid markdown format. Sections are missing.');
     return 'Sections are missing.';
   }
 
@@ -45,7 +44,6 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
     if (section.startsWith("## Chef's notes")) {
       const chefNotes = section.split("## Chef's notes")[1].trim();
       if (chefNotes.length > 10000) {
-        console.error("Chef's notes exceed character limit.");
         return "Chef's notes exceed character limit.";
       }
       template.chefNotes = chefNotes;
@@ -55,19 +53,16 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
         const [key, value] = line.split(': ');
         if (key === '- ⏲️ Prep time') {
           if (value.length > 128) {
-            console.error('Prep time exceeds character limit.');
             return 'Prep time exceeds character limit.';
           }
           template.information.prepTime = value;
         } else if (key === '- 🍳 Cook time') {
           if (value.length > 128) {
-            console.error('Cook time exceeds character limit.');
             return 'Cook time exceeds character limit.';
           }
           template.information.cookTime = value;
         } else if (key === '- 🍽️ Servings') {
           if (value.length > 128) {
-            console.error('Servings exceed character limit.');
             return 'Servings exceed character limit.';
           }
           template.information.servings = value;
@@ -79,7 +74,6 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
         if (line.startsWith('- ')) {
           const ingredient = line.substring(2).trim();
           if (ingredient.length > 512) {
-            console.error('An ingredient exceeds the character limit.');
             return 'An ingredient exceeds the character limit.';
           }
           template.ingredients.push(ingredient);
@@ -92,18 +86,15 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
         if (line.match(/^\d+\./)) {
           const stepNumber = parseInt(line.match(/^\d+/)[0], 10);
           if (stepNumber !== prevStepNumber + 1) {
-            console.error('Directions are not in the correct ordered list format.');
             return 'Directions are not in the correct ordered list format.';
           }
           const stepDescription = line.split(/^\d+\./)[1].trim();
           if (stepDescription.length > 256) {
-            console.error('A step in the directions exceeds the character limit.');
             return 'A step in the directions exceeds the character limit.';
           }
           template.directions.push(stepDescription);
           prevStepNumber = stepNumber;
         } else if (line.trim() !== '') {
-          console.error('Directions are not in the correct ordered list format.');
           return 'Directions are not in the correct ordered list format.';
         }
       }

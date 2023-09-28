@@ -26,7 +26,7 @@
     if (translation !== '' && translationLanguage !== '') {
       localStorage.setItem(
         'nostrcooking_translationOptions',
-        JSON.stringify({option: translation, lang: translationLanguage})
+        JSON.stringify({ option: translation, lang: translationLanguage })
       );
     } else {
       localStorage.removeItem('nostrcooking_translationOptions');

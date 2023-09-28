@@ -11,6 +11,7 @@
   import { nip19 } from 'nostr-tools';
   import { translate } from '$lib/translation';
   import { translateOption } from '$lib/state';
+  import TotalZaps from '../../../components/TotalZaps.svelte';
 
   let event: NDKEvent;
   let zapModal = false;
@@ -74,10 +75,10 @@
             &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Edit</a>
           {:else if $userPublickey}
             &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Fork</a>{/if}
-          {#if $userPublickey}
-            &nbsp;•&nbsp; <a on:click={() => (zapModal = true)} class="underline cursor-pointer">
-              ⚡ Zap</a
-            >{/if} &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
+          &nbsp;•&nbsp; {#if $userPublickey}
+            <a on:click={() => (zapModal = true)} class="underline cursor-pointer"> ⚡ Zap</a>{/if}
+          {#if $userPublickey}({/if}<TotalZaps {event} /> zapped{#if $userPublickey}){/if} &nbsp;•&nbsp;
+          updated on {event.created_at && formatDate(event.created_at)}
         </p>
         <p class="mb-6 mt-1">
           {#each event.tags.filter((e) => e[0] == 't' && e[1].startsWith('nostrcooking-') && e[1].slice(13) !== event.tags.find((a) => a[0] == 'd')?.[1]) as tag, i}{#if i !== 0}
@@ -117,18 +118,25 @@
       {#await translate($translateOption.lang, parseMarkdown(event.content))}
         ...
       {:then result}
-	  	{#if result.from.language.iso == $translateOption.lang}
-		  {@html parseMarkdown(event.content)}
-		{:else}
-		<hr />
+        {#if result.from.language.iso == $translateOption.lang}
+          {@html parseMarkdown(event.content)}
+        {:else}
+          <hr />
+          <p class="font-medium">
+            Warning: The contents below are translated from <code>{result.from.language.iso}</code>
+            to
+            <code>{$translateOption.lang}</code>
+            <a class="block" href="/settings">open translation setttings</a>
+          </p>
+          <hr />
+          {@html result.text}
+        {/if}
+      {:catch err}
         <p class="font-medium">
-          Warning: The contents below are translated from <code>{result.from.language.iso}</code> to
-          <code>{$translateOption.lang}</code>
+          Error loading translation. Error Message: <code>{err}</code>
+
           <a class="block" href="/settings">open translation setttings</a>
         </p>
-        <hr />
-        {@html result.text}
-		{/if}
       {/await}
     {:else}
       {@html parseMarkdown(event.content)}

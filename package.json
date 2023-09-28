@@ -13,6 +13,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@gandlaf21/bolt11-decode": "^3.0.6",
     "@nostr-dev-kit/ndk": "^1.2.1",
     "@nostr-dev-kit/ndk-cache-dexie": "^1.2.0",
     "@sveltejs/adapter-auto": "^2.0.0",
@@ -27,6 +28,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte": "^2.30.0",
     "google-translate-api-browser": "^3.0.1",
+    "light-bolt11-decoder": "^3.0.0",
     "markdown-it": "^13.0.1",
     "node-gyp": "^9.4.0",
     "nostr-tools": "^1.15.0",
