@@ -5,7 +5,7 @@
 
   export let events: NDKEvent[];
 
-  events = events.filter((e) => validateMarkdownTemplate(e.content) !== null);
+  events = events.filter((e) => typeof validateMarkdownTemplate(e.content) !== 'string');
 </script>
 
 <div class="">

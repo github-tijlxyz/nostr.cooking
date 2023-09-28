@@ -99,8 +99,7 @@
       const va = validateMarkdownTemplate(md);
       if (typeof va == 'string') {
         resultMessage = `Error: ${va}`;
-      }
-      if (va) {
+      } else if (va) {
         const event = new NDKEvent($ndk);
         event.kind = 30023;
         event.content = md;
