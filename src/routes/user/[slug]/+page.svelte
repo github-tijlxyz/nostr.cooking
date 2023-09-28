@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import Feed from '../../../components/Feed.svelte';
 	import { validateMarkdownTemplate } from '$lib/pharser';
+	import { goto } from '$app/navigation';
 
 	let hexpubkey: string | undefined = undefined;
 	let events: NDKEvent[] = [];
@@ -15,7 +16,7 @@
 	if ($page.params.slug.startsWith(`npub1`)) {
 		hexpubkey = nip19.decode($page.params.slug).data.toString();
 	} else {
-		hexpubkey = $page.params.slug;
+		goto(`/r/user/${nip19.npubEncode($page.params.slug)}`)
 	}
 
 	onMount(async () => {
@@ -47,8 +48,8 @@
 
 <div class="prose mb-6">
 	<h1>
-		<a class="underline" href="nostr:{hexpubkey}"
-			>{#if user}{user.name}{:else}...{/if}</a
+		<a class="underline" href="nostr:{$page.params.slug}"
+			>{#if user && user.name}{user.name}{:else}...{/if}</a
 		>'s Recipes
 	</h1>
 </div>

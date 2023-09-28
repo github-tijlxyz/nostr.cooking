@@ -4,7 +4,7 @@ import NDKCacheAdapterDexie from '@nostr-dev-kit/ndk-cache-dexie';
 import { writable, type Writable } from 'svelte/store';
 import { standardRelays } from './consts';
 
-const relays = JSON.parse(
+export const relays = JSON.parse(
 	(browser && localStorage.getItem('nostrcooking_relays')) || JSON.stringify(standardRelays)
 );
 

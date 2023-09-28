@@ -22,7 +22,7 @@ interface MarkdownTemplate {
 	additionalMarkdown?: string;
 }
 
-export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | null {
+export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | string {
 	const template: MarkdownTemplate = {
 		ingredients: [],
 		directions: []
@@ -38,7 +38,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | n
 
 	if (!sections) {
 		console.error('Invalid markdown format. Sections are missing.');
-		return null;
+		return ("Sections are missing.");
 	}
 
 	for (const section of sections) {
@@ -46,7 +46,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | n
 			const chefNotes = section.split("## Chef's notes")[1].trim();
 			if (chefNotes.length > 10000) {
 				console.error("Chef's notes exceed character limit.");
-				return null;
+				return "Chef's notes exceed character limit.";
 			}
 			template.chefNotes = chefNotes;
 		} else if (section.startsWith('## Details')) {
@@ -54,21 +54,21 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | n
 			for (const line of detailsLines) {
 				const [key, value] = line.split(': ');
 				if (key === '- ⏲️ Prep time') {
-					if (value.length > 64) {
+					if (value.length > 128) {
 						console.error('Prep time exceeds character limit.');
-						return null;
+						return "Prep time exceeds character limit.";
 					}
 					template.information.prepTime = value;
 				} else if (key === '- 🍳 Cook time') {
-					if (value.length > 64) {
+					if (value.length > 128) {
 						console.error('Cook time exceeds character limit.');
-						return null;
+						return "Cook time exceeds character limit.";
 					}
 					template.information.cookTime = value;
 				} else if (key === '- 🍽️ Servings') {
-					if (value.length > 64) {
+					if (value.length > 128) {
 						console.error('Servings exceed character limit.');
-						return null;
+						return "Servings exceed character limit.";
 					}
 					template.information.servings = value;
 				}
@@ -78,9 +78,9 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | n
 			for (const line of ingredientsLines) {
 				if (line.startsWith('- ')) {
 					const ingredient = line.substring(2).trim();
-					if (ingredient.length > 256) {
+					if (ingredient.length > 512) {
 						console.error('An ingredient exceeds the character limit.');
-						return null;
+						return "An ingredient exceeds the character limit.";
 					}
 					template.ingredients.push(ingredient);
 				}
@@ -93,18 +93,18 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | n
 					const stepNumber = parseInt(line.match(/^\d+/)[0], 10);
 					if (stepNumber !== prevStepNumber + 1) {
 						console.error('Directions are not in the correct ordered list format.');
-						return null;
+						return "Directions are not in the correct ordered list format.";
 					}
 					const stepDescription = line.split(/^\d+\./)[1].trim();
 					if (stepDescription.length > 256) {
 						console.error('A step in the directions exceeds the character limit.');
-						return null;
+						return "A step in the directions exceeds the character limit.";
 					}
 					template.directions.push(stepDescription);
 					prevStepNumber = stepNumber;
 				} else if (line.trim() !== '') {
 					console.error('Directions are not in the correct ordered list format.');
-					return null;
+					return "Directions are not in the correct ordered list format.";
 				}
 			}
 		} else if (section.startsWith("## Additional Resources")) {
@@ -114,7 +114,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | n
 	}
 
 	if (template.directions.length < 1 || template.ingredients.length < 1) {
-		return null;
+		return "Directions and/or ingredients list too short.";
 	}
 
 	return template;

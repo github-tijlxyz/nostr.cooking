@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { recipeTags } from '$lib/consts';
-	import { ndk, userPublickey } from '$lib/nostr';
+	import { ndk, userPublickey, relays } from '$lib/nostr';
 	import { parseMarkdown } from '$lib/pharser';
 	import { formatDate } from '$lib/utils';
 	import type { NDKEvent } from '@nostr-dev-kit/ndk';
 	import { onMount } from 'svelte';
 	import { requestProvider } from 'webln';
 	import ZapModal from '../../../components/ZapModal.svelte';
+	import { nip19 } from 'nostr-tools';
+	import { goto } from '$app/navigation';
 
 	let event: NDKEvent;
 	let zapModal = false;
@@ -28,7 +30,11 @@
 	}
 
 	onMount(async () => {
-		let e = await $ndk.fetchEvent($page.params.slug);
+		let a = $page.params.slug;
+		if ($page.params.slug.startsWith("naddr1")) {
+			a = nip19.decode($page.params.slug).data.toString()
+		}
+		let e = await $ndk.fetchEvent(a);
 		if (e) {
 			event = e;
 		}
@@ -61,8 +67,7 @@
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					by
 					<a class="underline" href="/user/{event.author.npub}"
-						>{#await event.author?.fetchProfile()}...{:then result}{result !== null &&
-								result.name}{/await}</a
+						>{#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}</a
 					>
 					{#if event.author.hexpubkey == $userPublickey} &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Edit</a>
 					{:else if $userPublickey}

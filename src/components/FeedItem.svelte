@@ -40,7 +40,7 @@
 		</h5>
 		<p class="text-base mt-0">
 			{#each event.tags.filter((e) => e[0] == 't' && e[1].startsWith('nostrcooking-') && e[1].slice(13) !== event.tags.find((a) => a[0] == 'd')?.[1]) as tag, i}{#if i !== 0}
-					&nbsp;•&nbsp;
+					 &nbsp;•&nbsp;
 				{/if}{#if recipeTags.find((e) => e.title
 							.toLowerCase()
 							.replaceAll(' ', '-') == tag[1].slice(13))}{`${
@@ -64,8 +64,7 @@
 		</p>
 		{#if event.sig}
 			<p class="text-base mb-2 mt-0">
-				by {#await event.author?.fetchProfile()}...{:then result}{result !== null &&
-						result.name}{/await} &nbsp;•&nbsp; updated on {event.created_at &&
+				by {#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await} &nbsp;•&nbsp; updated on {event.created_at &&
 					formatDate(event.created_at)}
 			</p>
 		{:else}

@@ -43,11 +43,13 @@
 
 	async function loadPreview() {
 		formatStringArrays();
+		resultMessage = "Processing..."
 		if (browser) {
-			resultMessage = ' ';
 			const md = createMarkdown(chefsnotes, preptime, cooktime, servings, ingredients, directions, additionalMarkdown);
 			const va = validateMarkdownTemplate(md);
-			if (va != null) {
+			if (typeof va == 'string') {
+				resultMessage = `Error: ${va}`;
+			} else if (va) {
 				previewEvent = new NDKEvent($ndk);
 				previewEvent.kind = 30023;
 				previewEvent.content = md;
@@ -68,20 +70,20 @@
 						]);
 					}
 				});
-			} else {
-				resultMessage = 'Error: Not valid';
 			}
 		}
 	}
 
 	async function publishRecipe() {
+		resultMessage = "Processing..."
 		formatStringArrays();
 		disablePublishButton = true;
 		try {
-			resultMessage = ' ';
 			const md = createMarkdown(chefsnotes, preptime, cooktime, servings, ingredients, directions, additionalMarkdown);
 			const va = validateMarkdownTemplate(md);
-			if (va != null) {
+			if (typeof va == 'string') {
+				resultMessage = `Error: ${va}`;
+			} if (va) {
 				const event = new NDKEvent($ndk);
 				event.kind = 30023;
 				event.content = md;
@@ -111,14 +113,15 @@
 					});
 				});
 				resultMessage = 'Succes!';
-			} else {
-				resultMessage = 'Error: Not valid';
 			}
 		} catch (err) {
 			console.error('error while publishing', err);
 			resultMessage = 'Error: Something went wrong, Error: ' + String(err);
 		} finally {
 			disablePublishButton = false;
+			if (resultMessage == "Processing...") {
+				resultMessage = " "
+			}
 		}
 	}
 </script>
@@ -332,6 +335,7 @@
 	<div class="text-lg font-medium">Card Preview</div>
 	<div class="flex justify-end">
 		<button
+			type="button"
 			on:click={loadPreview}
 			class="disabled inline-flex disabled:border-gray-300 items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 disabled:bg-gray-50 disabled:hover:bg-gray-100 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:ring-gray-300 focus:ring-blue-300"
 		>

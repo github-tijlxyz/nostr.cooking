@@ -1,14 +1,15 @@
-<script>
+<script lang="ts">
 	import { browser } from "$app/environment";
 	import { ndk, userPublickey } from "$lib/nostr";
-	import { NDKNip07Signer, NDKPrivateKeySigner } from "@nostr-dev-kit/ndk";
+	import { NDKNip07Signer, NDKPrivateKeySigner, type NDKUserProfile } from "@nostr-dev-kit/ndk";
 	import { nip19 } from "nostr-tools";
+	import { onMount } from "svelte";
     
     let showLoginWithPk = false;
     let nsecInput = "";
+	let user: NDKUserProfile
 
     async function login() {
-		// localStorage.setItem('nostrcooking_loginType', 'nip07')
 		if (browser) {
 			if (!$ndk.signer) {
 				const signer = new NDKNip07Signer();
@@ -26,7 +27,6 @@
 
     async function loginWithSk() {
 		if (browser && nsecInput) {
-			// localStorage.setItem('nostrcooking_loginType', 'manual')
 			let pk = nsecInput;
 			if (!$ndk.signer) {
                 if (pk.startsWith("nsec1")) {
@@ -54,6 +54,18 @@
 		userPublickey.set('');
         setTimeout(() => window.location.href = "", 1)
 	}
+
+	onMount(async () => {
+		if ($userPublickey !== "") {
+			let b = await $ndk.getUser({ hexpubkey: $userPublickey }).fetchProfile();
+			if (b) user = b;
+		} else {
+			userPublickey.subscribe(async e => {
+				let b = await $ndk.getUser({ hexpubkey: e }).fetchProfile();
+				if (b) user = b;
+			})
+		}
+	})
 </script>
 
 {#if $userPublickey == ""}
@@ -87,7 +99,7 @@ class="mb-2 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:
 {:else}
 
 <div class="prose mb-2">
-    <h1>Welcome back</h1>
+    <h1>Welcome back <a href={`nostr://${nip19.npubEncode($userPublickey)}`}>{user?.name}</a></h1>
     <p>You are logged in as <code>{nip19.npubEncode($userPublickey)}</code></p>
 </div>
 
