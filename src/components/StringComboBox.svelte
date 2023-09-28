@@ -98,6 +98,7 @@
   </div>
   <button
     type="button"
+	on:click={addTag}
     class="-ml-px inline-flex items-center space-x-2 px-3 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-300 focus:border-blue-300"
   >
     Add
