@@ -4,6 +4,7 @@
   import { formatDate } from '$lib/utils';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import TotalZaps from './TotalZaps.svelte';
+  import TagLinks from './TagLinks.svelte';
 
   export let event: NDKEvent;
 
@@ -40,28 +41,7 @@
       {/if}
     </h5>
     <p class="text-base mt-0">
-      {#each event.tags.filter((e) => e[0] == 't' && e[1].startsWith('nostrcooking-') && e[1].slice(13) !== event.tags.find((a) => a[0] == 'd')?.[1]) as tag, i}{#if i !== 0}
-          &nbsp;•&nbsp;
-        {/if}{#if recipeTags.find((e) => e.title
-              .toLowerCase()
-              .replaceAll(' ', '-') == tag[1].slice(13))}{`${
-            recipeTags.find((e) => e.title.toLowerCase().replaceAll(' ', '-') == tag[1].slice(13))
-              ?.emoji
-              ? `${
-                  recipeTags.find(
-                    (e) => e.title.toLowerCase().replaceAll(' ', '-') == tag[1].slice(13)
-                  )?.emoji
-                } ${
-                  recipeTags.find(
-                    (e) => e.title.toLowerCase().replaceAll(' ', '-') == tag[1].slice(13)
-                  )?.title
-                }`
-              : `${
-                  recipeTags.find(
-                    (e) => e.title.toLowerCase().replaceAll(' ', '-') == tag[1].slice(13)
-                  )?.title
-                }`
-          }`}{:else}{tag[1].slice(13)}{/if}{/each}
+		<TagLinks {event} link={false} />
     </p>
     {#if event.sig}
       <p class="text-base mb-2 mt-0">
