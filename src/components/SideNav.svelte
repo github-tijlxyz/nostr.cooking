@@ -4,27 +4,6 @@
 	import { ndk, userPublickey } from '$lib/nostr';
 	import { NDKNip07Signer } from '@nostr-dev-kit/ndk';
 	import { nip19 } from 'nostr-tools';
-
-	async function login() {
-		if (browser) {
-			if (!$ndk.signer) {
-				const signer = new NDKNip07Signer();
-				$ndk.signer = signer;
-				ndk.set($ndk);
-			}
-			if ($ndk.signer && $userPublickey == '') {
-				const newUserPublicKey = (await $ndk.signer.user()).hexpubkey;
-				localStorage.setItem('nostrcooking_loggedInPublicKey', newUserPublicKey);
-				$userPublickey = newUserPublicKey;
-				userPublickey.set($userPublickey);
-			}
-		}
-	}
-
-	async function logout() {
-		localStorage.removeItem('nostrcooking_loggedInPublicKey');
-		userPublickey.set('');
-	}
 </script>
 
 <div class="hidden md:block w-3/12 border border-slate-500 rounded-lg m-4 bg-gray-50 px-4 py-2">
@@ -121,16 +100,16 @@
 		</button>
 		{#if $userPublickey == ''}
 			<button
-				on:click={login}
+				on:click={() => goto("/login")}
 				class="px-3 py-3 bg-blue-50 border border-blue-300 hover:bg-blue-100 rounded-lg mt-2 w-full"
 			>
 				<div class="text-center font-medium">
-					<span>Login with NIP07</span>
+					<span>Login</span>
 				</div>
 			</button>
 		{:else}
 			<button
-				on:click={logout}
+				on:click={() => goto("/login")}
 				class="px-3 py-3 bg-blue-50 border border-blue-300 hover:bg-blue-100 rounded-lg mt-2 w-full"
 			>
 				<div class="text-center font-medium">

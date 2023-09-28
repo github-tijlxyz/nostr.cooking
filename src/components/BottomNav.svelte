@@ -108,7 +108,7 @@
 			>
 		</button>
 		{#if $userPublickey == ''}
-			<button on:click={login} class="px-4 py-2 text-blue-500 hover:bg-blue-100 rounded-lg">
+			<button on:click={() => goto("/login")} class="px-4 py-2 text-blue-500 hover:bg-blue-100 rounded-lg">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -125,7 +125,7 @@
 				</svg>
 			</button>
 		{:else}
-			<button on:click={logout} class="px-4 py-2 text-red-500 hover:bg-red-100 rounded-lg">
+			<button on:click={() => goto("/login")} class="px-4 py-2 text-red-500 hover:bg-red-100 rounded-lg">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
