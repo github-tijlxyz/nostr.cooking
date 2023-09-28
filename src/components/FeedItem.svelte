@@ -3,7 +3,7 @@
   import { recipeTags } from '$lib/consts';
   import { formatDate } from '$lib/utils';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
-    import TotalZaps from './TotalZaps.svelte';
+  import TotalZaps from './TotalZaps.svelte';
 
   export let event: NDKEvent;
 
@@ -67,7 +67,7 @@
       <p class="text-base mb-2 mt-0">
         by {#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}
         &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
-		&nbsp;•&nbsp; <TotalZaps {event} /> zapped
+        &nbsp;•&nbsp; <TotalZaps {event} /> zapped
       </p>
     {:else}
       <div class="mb-2" />

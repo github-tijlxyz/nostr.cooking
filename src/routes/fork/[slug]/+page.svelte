@@ -10,8 +10,8 @@
   import { page } from '$app/stores';
   import StringComboBox from '../../../components/StringComboBox.svelte';
   import { writable, type Writable } from 'svelte/store';
-    import { nip19 } from 'nostr-tools';
-    import { goto } from '$app/navigation';
+  import { nip19 } from 'nostr-tools';
+  import { goto } from '$app/navigation';
 
   let previewEvent: NDKEvent | undefined = undefined;
 

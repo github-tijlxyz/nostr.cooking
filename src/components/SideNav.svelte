@@ -121,11 +121,18 @@
   <hr class="my-4" />
   <div class="text-center w-full text-sm">
     <p>
-      <a class="hover:underline" href="https://nostr.cooking">NOSTR.COOKING</a>
+      <a
+        class="hover:underline"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://nostr.cooking">NOSTR.COOKING</a
+      >
     </p>
     <p>
       open source on <a
         class="hover:underline"
+        target="_blank"
+        rel="noopener noreferrer"
         href="https://github.com/github-tijlxyz/nostr.cooking">github</a
       >
     </p>
