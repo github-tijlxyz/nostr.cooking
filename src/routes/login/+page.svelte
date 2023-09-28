@@ -8,6 +8,7 @@
     let nsecInput = "";
 
     async function login() {
+		// localStorage.setItem('nostrcooking_loginType', 'nip07')
 		if (browser) {
 			if (!$ndk.signer) {
 				const signer = new NDKNip07Signer();
@@ -25,15 +26,18 @@
 
     async function loginWithSk() {
 		if (browser && nsecInput) {
+			// localStorage.setItem('nostrcooking_loginType', 'manual')
+			let pk = nsecInput;
 			if (!$ndk.signer) {
-                let pk = nsecInput;
                 if (pk.startsWith("nsec1")) {
                     pk = nip19.decode(pk).data.toString()
                 }
-                console.log(pk)
 				const signer = new NDKPrivateKeySigner(pk);
 				$ndk.signer = signer;
 				ndk.set($ndk);
+			}
+			if ($ndk.signer) {
+				localStorage.setItem('nostrcooking_privateKey', pk);
 			}
 			if ($ndk.signer && $userPublickey == '') {
 				const newUserPublicKey = (await $ndk.signer.user()).hexpubkey;
@@ -46,6 +50,7 @@
 
 	async function logout() {
 		localStorage.removeItem('nostrcooking_loggedInPublicKey');
+		localStorage.removeItem('nostrcooking_privateKey')
 		userPublickey.set('');
         setTimeout(() => window.location.href = "", 1)
 	}

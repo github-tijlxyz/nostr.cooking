@@ -231,7 +231,7 @@
 				</div>
 
 				<div class="sm:col-span-6">
-					<TagsComboBox selectedTags={$selectedTags} />
+					<TagsComboBox selectedTags={selectedTags} />
 				</div>
 			</div>
 
@@ -322,7 +322,7 @@
 				</div>
 				<div class="sm:col-span-6">
 					<div class="mt-1">
-						<StringComboBox placeholder={'2 eggs'} selected={$ingredientsArray} showIndex={false} />
+						<StringComboBox placeholder={'2 eggs'} selected={ingredientsArray} showIndex={false} />
 					</div>
 				</div>
 			</div>
@@ -335,7 +335,7 @@
 					<div class="mt-1">
 						<StringComboBox
 							placeholder={'bake it for 30 min'}
-							selected={$directionsArray}
+							selected={directionsArray}
 							showIndex={true}
 						/>
 					</div>
