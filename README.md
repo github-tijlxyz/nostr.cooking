@@ -3,6 +3,12 @@
 *A recipe-sharing client for nostr.*
 Check it out at [nostr.cooking](https://nostr.cooking)!
 
+## Contributing
+
+Everyone is welcome to contribute.
+
+Note: The tag list is [here](https://github.com/github-tijlxyz/nostr.cooking/blob/main/src/lib/consts.ts#L23), please add useful tags to this list so they work with autocompletion.
+
 ## Self-hosting
 
 Deploy to production using docker:
