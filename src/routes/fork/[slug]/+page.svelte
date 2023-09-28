@@ -130,7 +130,6 @@
 
   async function loadPreview() {
     formatStringArrays();
-    resultMessage = 'Processing...';
     if (browser) {
       const md = createMarkdown(
         chefsnotes,
