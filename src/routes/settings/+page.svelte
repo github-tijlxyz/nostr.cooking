@@ -1,9 +1,12 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import { standardRelays } from '$lib/consts';
+  import { translateOption } from '$lib/state';
 
   let relays: string[] = [];
   let newRelay = '';
+  let translation = '';
+  let translationLanguage = '';
 
   function removeRelay(index: number) {
     relays.splice(index, 1);
@@ -20,6 +23,14 @@
 
   function saveData() {
     addRelay();
+    if (translation !== '' && translationLanguage !== '') {
+      localStorage.setItem(
+        'nostrcooking_translationOptions',
+        JSON.stringify({option: translation, lang: translationLanguage})
+      );
+    } else {
+      localStorage.removeItem('nostrcooking_translationOptions');
+    }
     localStorage.setItem('nostrcooking_relays', JSON.stringify(relays));
     setTimeout(() => {
       window.location.href = '';
@@ -30,6 +41,8 @@
     relays = JSON.parse(
       localStorage.getItem('nostrcooking_relays') || JSON.stringify(standardRelays)
     );
+    translation = $translateOption.option;
+    translationLanguage = $translateOption.lang;
   }
 </script>
 
@@ -66,6 +79,30 @@
         >Add</button
       >
     </div>
+  </div>
+
+  <!-- Translation -->
+  <div class="my-6">
+    <p class="text-sm">Translation (exprimental)</p>
+    <div>
+      <select
+        bind:value={translation}
+        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-300 focus:border-blue-300 sm:text-sm rounded-md"
+      >
+        <option value="">Disabled</option>
+        <option value="google">Google Translate (with proxy)</option>
+      </select>
+      {#if translation !== ''}
+        <input
+          bind:value={translationLanguage}
+          placeholder="2 letter language code, like: 'en', 'es', 'fr' ect"
+          class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+      {/if}
+    </div>
+    {#if translation !== ''}
+      <p class="mt-2">Warning: You may leak data to thierd parties while using this.</p>
+    {/if}
   </div>
 
   <!-- Save button -->

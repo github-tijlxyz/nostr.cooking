@@ -9,7 +9,8 @@
   import { requestProvider } from 'webln';
   import ZapModal from '../../../components/ZapModal.svelte';
   import { nip19 } from 'nostr-tools';
-  import { goto } from '$app/navigation';
+  import { translate } from '$lib/translation';
+  import { translateOption } from '$lib/state';
 
   let event: NDKEvent;
   let zapModal = false;
@@ -112,7 +113,26 @@
         {event.tags.find((e) => e[0] == 'summary')?.[1]}
       </p>
     {/if}
-    {@html parseMarkdown(event.content)}
+    {#if $translateOption.lang}
+      {#await translate($translateOption.lang, parseMarkdown(event.content))}
+        ...
+      {:then result}
+	  	{#if result.from.language.iso == $translateOption.lang}
+		  {@html parseMarkdown(event.content)}
+		{:else}
+		<hr />
+        <p class="font-medium">
+          Warning: The contents below are translated from <code>{result.from.language.iso}</code> to
+          <code>{$translateOption.lang}</code>
+          <a class="block" href="/settings">open translation setttings</a>
+        </p>
+        <hr />
+        {@html result.text}
+		{/if}
+      {/await}
+    {:else}
+      {@html parseMarkdown(event.content)}
+    {/if}
   {:else}
     <p>Loading...</p>
   {/if}

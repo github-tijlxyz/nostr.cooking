@@ -26,6 +26,7 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte": "^2.30.0",
+    "google-translate-api-browser": "^3.0.1",
     "markdown-it": "^13.0.1",
     "node-gyp": "^9.4.0",
     "nostr-tools": "^1.15.0",
