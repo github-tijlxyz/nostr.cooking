@@ -18,7 +18,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   on:click={open}
-  class="rounded-lg h-[256px] cursor-pointer mb-2 border border-slate-500 transition relative overflow-hidden hover:bg-slate-100 {event.tags.find(
+  class="rounded-lg h-[320px] cursor-pointer mb-2 border border-slate-500 transition relative overflow-hidden hover:bg-slate-100 {event.tags.find(
     (e) => e[0] == 'image'
   )?.[0]
     ? 'bg-cover text-white'
