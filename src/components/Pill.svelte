@@ -1,13 +1,13 @@
 <script lang="ts">
-	export let text: string;
-	export let onClick: () => void;
-	export let selected: boolean;
+  export let text: string;
+  export let onClick: () => void;
+  export let selected: boolean;
 </script>
 
 <button
-	on:click={onClick}
-	type="button"
-	class={`
+  on:click={onClick}
+  type="button"
+  class={`
     ml-1
     mb-1
     inline-flex
