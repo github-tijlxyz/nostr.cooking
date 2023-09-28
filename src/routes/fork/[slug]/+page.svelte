@@ -10,8 +10,9 @@
   import { page } from '$app/stores';
   import StringComboBox from '../../../components/StringComboBox.svelte';
   import { writable, type Writable } from 'svelte/store';
+    import { nip19 } from 'nostr-tools';
+    import { goto } from '$app/navigation';
 
-  let forkEvent = $page.params.slug;
   let previewEvent: NDKEvent | undefined = undefined;
 
   function addTag(query: string) {
@@ -26,7 +27,34 @@
   }
 
   onMount(async () => {
-    const event = await $ndk.fetchEvent(forkEvent);
+    let event: NDKEvent;
+    if ($page.params.slug.startsWith('naddr1')) {
+      const b = nip19.decode($page.params.slug).data;
+      let e = await $ndk.fetchEvent({
+        // @ts-ignore
+        '#d': [b.identifier],
+        // @ts-ignore
+        authors: [b.pubkey],
+        kinds: [30023]
+      });
+      if (e) {
+        event = e;
+      }
+    } else {
+      let e = await $ndk.fetchEvent($page.params.slug);
+      if (e) {
+        event = e;
+        const c = nip19.naddrEncode({
+          // @ts-ignore
+          identifier: e.tags.find((z) => z[0] == 'd')?.[1],
+          // @ts-ignore
+          kind: e.kind,
+          pubkey: e.author.hexpubkey
+        });
+        goto(`/fork/${c}`);
+      }
+    }
+    // @ts-ignore
     if (event) {
       const va = validateMarkdownTemplate(event.content);
       if (typeof va == 'string') {
