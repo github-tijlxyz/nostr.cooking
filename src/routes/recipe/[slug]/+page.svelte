@@ -12,6 +12,7 @@
   import { translate } from '$lib/translation';
   import { translateOption } from '$lib/state';
   import TotalZaps from '../../../components/TotalZaps.svelte';
+  import { goto } from '$app/navigation';
 
   let event: NDKEvent;
   let zapModal = false;
@@ -32,13 +33,31 @@
   }
 
   onMount(async () => {
-    let a = $page.params.slug;
     if ($page.params.slug.startsWith('naddr1')) {
-      a = nip19.decode($page.params.slug).data.toString();
-    }
-    let e = await $ndk.fetchEvent(a);
-    if (e) {
-      event = e;
+      const b = nip19.decode($page.params.slug).data;
+      let e = await $ndk.fetchEvent({
+        // @ts-ignore
+        '#d': [b.identifier],
+        // @ts-ignore
+        authors: [b.pubkey],
+        kinds: [30023]
+      });
+      if (e) {
+        event = e;
+      }
+    } else {
+      let e = await $ndk.fetchEvent($page.params.slug);
+      if (e) {
+        event = e;
+        const c = nip19.naddrEncode({
+          // @ts-ignore
+          identifier: e.tags.find((z) => z[0] == 'd')?.[1],
+          // @ts-ignore
+          kind: e.kind,
+          pubkey: e.author.hexpubkey
+        });
+        goto(`/recipe/${c}`);
+      }
     }
   });
 </script>
