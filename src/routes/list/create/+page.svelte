@@ -40,8 +40,8 @@
         pubkey: event.pubkey
       });
       setTimeout(() => {
-        goto(`/list/${naddr}/fork`);
-      }, 50);
+        window.location.href = `/list/${naddr}/fork`;
+      }, 2500);
     } catch (err) {
       resultMessage = `Error: ${err}`;
     } finally {

@@ -127,6 +127,9 @@
           });
         });
         resultMessage = 'Succes!';
+        setTimeout(() => {
+          window.location.href = `/recipe/${event.id}`;
+        }, 2500);
       }
     } catch (err) {
       console.error('error while publishing', err);
