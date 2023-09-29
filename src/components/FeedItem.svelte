@@ -1,16 +1,24 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { recipeTags } from '$lib/consts';
   import { formatDate } from '$lib/utils';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import TotalZaps from './TotalZaps.svelte';
   import TagLinks from './TagLinks.svelte';
+  import { nip19 } from 'nostr-tools';
 
   export let event: NDKEvent;
 
   async function open() {
-    if (event.id && event.sig) {
-      goto(`/recipe/${event.id}`);
+    if (event.id && event.sig && event.kind) {
+      const d = event.tags.find(t => t[0] == 'd')?.[1];
+      if (d) {
+        const naddr = nip19.naddrEncode({
+          identifier: d,
+          kind: event.kind,
+          pubkey: event.author.hexpubkey,
+        })
+        goto(`/recipe/${naddr}`);
+      }
     }
   }
 </script>
