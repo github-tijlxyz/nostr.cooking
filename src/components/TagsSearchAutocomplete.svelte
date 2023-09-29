@@ -18,17 +18,17 @@
     tagquery = input.value.toLowerCase();
 
     filteredTags = recipeTags
-      .filter((tag) => tag.title.toLowerCase().includes(tagquery))
+      .map((tag) => ({
+        tag,
+        relevancy: tag.title.toLowerCase().split(tagquery).length - 1
+      }))
       .sort((a, b) => {
         // Sort by relevancy (more exact matches come first)
-        const aIncludes = a.title.toLowerCase().includes(tagquery);
-        const bIncludes = b.title.toLowerCase().includes(tagquery);
-
-        if (aIncludes && !bIncludes) return -1;
-        if (!aIncludes && bIncludes) return 1;
+        if (a.relevancy > b.relevancy) return -1;
+        if (a.relevancy < b.relevancy) return 1;
         return 0;
       })
-      .slice(0, maxAutocompleteOptions);
+      .map((item) => item.tag).slice(0, 512);
 
     showAutocomplete = tagquery.length > 0 && inputFocused;
 
@@ -91,7 +91,7 @@
   </form>
   {#if showAutocomplete && filteredTags.length > 0}
     <ul
-      class="absolute top-full left-0 w-full bg-white border border-gray-300 shadow-lg rounded-lg mt-1 z-[60]"
+      class="max-h-[256px] overflow-y-scroll absolute top-full left-0 w-full bg-white border border-gray-300 shadow-lg rounded-lg mt-1 z-[60]"
     >
       {#each filteredTags as tag (tag.title)}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
