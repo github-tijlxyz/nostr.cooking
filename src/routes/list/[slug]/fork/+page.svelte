@@ -146,8 +146,8 @@
         pubkey: nevent.pubkey
       });
       setTimeout(() => {
-        if (nevent.tags.find(a => a[0] == 'd')?.[1] == 'nostrcooking-bookmarks') {
-          goto(`/bookmarks`)
+        if (nevent.tags.find((a) => a[0] == 'd')?.[1] == 'nostrcooking-bookmarks') {
+          goto(`/bookmarks`);
         } else {
           goto(`/list/${naddr}`);
         }
@@ -268,9 +268,7 @@
           </div>
         </div>
 
-        <div class="pt-5">
-          Warning: Anyone can view this list!
-        </div>
+        <div class="pt-5">Warning: Anyone can view this list!</div>
 
         <div class="pt-2">
           <div class="columns-2">

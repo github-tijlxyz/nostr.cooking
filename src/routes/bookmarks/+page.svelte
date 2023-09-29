@@ -13,7 +13,7 @@
   let events: NDKEvent[] = [];
   let user: NDKUserProfile;
   let tried = 0;
-  let naddr = "..."
+  let naddr = '...';
 
   async function loadData() {
     loaded = false;
@@ -22,11 +22,11 @@
       goto('/login');
       return;
     } else {
-        naddr = nip19.naddrEncode({
-            identifier: 'nostrcooking-bookmarks',
-            pubkey: $userPublickey,
-            kind: 30001
-        });
+      naddr = nip19.naddrEncode({
+        identifier: 'nostrcooking-bookmarks',
+        pubkey: $userPublickey,
+        kind: 30001
+      });
     }
 
     // load user

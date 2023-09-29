@@ -10,13 +10,13 @@
 
   async function open() {
     if (event.id && event.sig && event.kind) {
-      const d = event.tags.find(t => t[0] == 'd')?.[1];
+      const d = event.tags.find((t) => t[0] == 'd')?.[1];
       if (d) {
         const naddr = nip19.naddrEncode({
           identifier: d,
           kind: event.kind,
-          pubkey: event.author.hexpubkey,
-        })
+          pubkey: event.author.hexpubkey
+        });
         goto(`/recipe/${naddr}`);
       }
     }

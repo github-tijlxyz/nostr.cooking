@@ -8,7 +8,7 @@
   import type { recipeTagSimple } from '$lib/consts';
   import FeedItem from '../../components/FeedItem.svelte';
   import { browser } from '$app/environment';
-    import { goto } from '$app/navigation';
+  import { goto } from '$app/navigation';
 
   let previewEvent: NDKEvent | undefined = undefined;
 

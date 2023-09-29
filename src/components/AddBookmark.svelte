@@ -20,7 +20,14 @@
     });
     if (e) {
       bookmarkEvent = e;
-      if (!bookmarkEvent.tags.find(t => t[0] == 'a' && t[1] == `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`)) {
+      if (
+        !bookmarkEvent.tags.find(
+          (t) =>
+            t[0] == 'a' &&
+            t[1] ==
+              `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+        )
+      ) {
         show = true;
       }
     }
@@ -28,6 +35,7 @@
 
   async function addBookMark() {
     if (event && bookmarkEvent && event.author.hexpubkey && bookmarkEvent.sig) {
+      show = false;
       const nevent = new NDKEvent($ndk);
       nevent.kind = 30001;
       nevent.tags = bookmarkEvent.tags;
@@ -44,11 +52,10 @@
           console.log('publish failed to', relay, err);
         });
       });
-      show = false;
     }
   }
 </script>
 
 {#if show}
-&nbsp;•&nbsp; <a class="underline cursor-pointer" on:click={addBookMark}>add bookmark</a>
+  &nbsp;•&nbsp; <a class="underline cursor-pointer" on:click={addBookMark}>add bookmark</a>
 {/if}
