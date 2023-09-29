@@ -34,6 +34,18 @@
   });
 
   async function addBookMark() {
+    // load event
+    let e = await $ndk.fetchEvent({
+      // @ts-ignore
+      '#d': ['nostrcooking-bookmarks'],
+      // @ts-ignore
+      authors: [$userPublickey],
+      kinds: [30001]
+    });
+    if (e) {
+      bookmarkEvent = e;
+    }
+
     if (event && bookmarkEvent && event.author.hexpubkey && bookmarkEvent.sig) {
       show = false;
       const nevent = new NDKEvent($ndk);
