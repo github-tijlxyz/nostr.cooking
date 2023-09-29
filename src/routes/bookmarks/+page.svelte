@@ -113,11 +113,8 @@
         {user.name}'s bookmarks
       </h1>
       <p>
-        <a class="underline" href="/user/{event.author.npub}"
-          >{#if user.name}{user.name}{:else}...{/if}</a
-        >'s bookmarks
         {#if $userPublickey == event.author.hexpubkey}
-          &nbsp;•&nbsp; <a class="underline" href={`/list/${naddr}/fork`}>Edit</a>
+        <a class="underline" href={`/list/${naddr}/fork`}>Edit</a>
         {/if}
         &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
       </p>
