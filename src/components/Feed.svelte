@@ -4,12 +4,15 @@
   import { validateMarkdownTemplate } from '$lib/pharser';
 
   export let events: NDKEvent[];
+  export let hideHide = false;
 
   events = events.filter((e) => typeof validateMarkdownTemplate(e.content) !== 'string');
 </script>
 
 <div class="">
   {#each events as event}
-    <FeedItem {event} />
+    {#if !(hideHide == true && event.tags.find((t) => t[0] == 't' && t[1] == 'nostrcooking-hide'))}
+      <FeedItem {event} />
+    {/if}
   {/each}
 </div>

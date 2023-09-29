@@ -206,6 +206,7 @@
         });
         console.log('event to publish:', event);
         let relays = await event.publish();
+        resultMessage = 'Succes!';
         relays.forEach((relay) => {
           relay.once('published', () => {
             console.log('published to', relay);
@@ -214,7 +215,6 @@
             console.log('publish failed to', relay, err);
           });
         });
-        resultMessage = 'Succes!';
       }
     } catch (err) {
       console.error('error while publishing', err);

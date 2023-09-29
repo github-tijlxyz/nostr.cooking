@@ -41,7 +41,7 @@
       {/if}
     </h5>
     <p class="text-base mt-0">
-		<TagLinks {event} link={false} />
+      <TagLinks {event} link={false} />
     </p>
     {#if event.sig}
       <p class="text-base mb-2 mt-0">

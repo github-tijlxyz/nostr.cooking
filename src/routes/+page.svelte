@@ -38,7 +38,7 @@
 
 <div>
   {#if events.length > 0}
-    <Feed {events} />
+    <Feed {events} hideHide={true} />
   {:else}
     <p>loading</p>
   {/if}

@@ -29,20 +29,20 @@
     }
   });
 
-  function formatTag (tag: recipeTagSimple) {
-    return `${tag.emoji ? `${tag.emoji} ` : ''}${tag.title}`
+  function formatTag(tag: recipeTagSimple) {
+    return `${tag.emoji ? `${tag.emoji} ` : ''}${tag.title}`;
   }
 </script>
 
 {#each tags as tag, i}
   {#if i !== 0}&nbsp;•&nbsp;{/if}
   {#if link}
-  <a href="/tag/{tag.title}" class="underline cursor-pointer">
-    {formatTag(tag)}
-  </a>
+    <a href="/tag/{tag.title}" class="underline cursor-pointer">
+      {formatTag(tag)}
+    </a>
   {:else}
-  <span>
-    {formatTag(tag)}
-  </span>
+    <span>
+      {formatTag(tag)}
+    </span>
   {/if}
 {/each}

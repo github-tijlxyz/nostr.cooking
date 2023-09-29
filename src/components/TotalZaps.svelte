@@ -6,6 +6,7 @@
   import { formatAmount } from '$lib/utils';
 
   export let event: NDKEvent;
+  let loading = true;
   let totalZapAmount: number = 0;
   let didSigs = new Map();
 
@@ -41,6 +42,9 @@
       }
     });
   });
+  loading = false;
 </script>
 
-<span>{formatAmount(totalZapAmount / 1000)} sats</span>
+<span
+  >{#if loading}...{:else}{formatAmount(totalZapAmount / 1000)} sats{/if}</span
+>
