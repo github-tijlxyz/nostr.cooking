@@ -40,7 +40,7 @@
         pubkey: event.pubkey
       });
       setTimeout(() => {
-        goto(`/list/${naddr}`);
+        goto(`/list/${naddr}/fork`);
       }, 50);
     } catch (err) {
       resultMessage = `Error: ${err}`;
