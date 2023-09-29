@@ -8,6 +8,7 @@
   import type { recipeTagSimple } from '$lib/consts';
   import FeedItem from '../../components/FeedItem.svelte';
   import { browser } from '$app/environment';
+    import { goto } from '$app/navigation';
 
   let previewEvent: NDKEvent | undefined = undefined;
 
@@ -128,7 +129,7 @@
         });
         resultMessage = 'Succes!';
         setTimeout(() => {
-          window.location.href = `/recipe/${event.id}`;
+          goto(`/recipe/${event.id}`);
         }, 2500);
       }
     } catch (err) {

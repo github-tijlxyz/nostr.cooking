@@ -221,7 +221,7 @@
           });
         });
         setTimeout(() => {
-          window.location.href = `/recipe/${event.id}`;
+          goto(`/recipe/${event.id}`);
         }, 2500);
       }
     } catch (err) {

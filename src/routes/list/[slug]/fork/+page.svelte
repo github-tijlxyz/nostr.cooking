@@ -146,7 +146,7 @@
         pubkey: nevent.pubkey
       });
       setTimeout(() => {
-        window.location.href = `/list/${naddr}`;
+        goto(`/list/${naddr}`);
       }, 2500);
     } catch (err) {
       resultMessage = `Error: ${err}`;
