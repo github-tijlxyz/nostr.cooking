@@ -155,6 +155,33 @@
       }
     }
   }
+
+  items.subscribe((i) => {
+    i.forEach(async (t) => {
+      if (!t.title) {
+        const data = nip19.decode(t.naddr).data;
+        const newEv = await $ndk.fetchEvent({
+          // @ts-ignore
+          kinds: [Number(data.kind)],
+          // @ts-ignore
+          '#d': [data.identifier],
+          // @ts-ignore
+          authors: [data.pubkey]
+        });
+
+        if (newEv) {
+          const updatedItems = i.map((item) => {
+            if (item === t) {
+              return { ...item, title: newEv.tags.find((z) => z[0] === 'title')?.[1] };
+            }
+            return item;
+          });
+
+          items.set(updatedItems);
+        }
+      }
+    });
+  });
 </script>
 
 {#if loaded == false}
