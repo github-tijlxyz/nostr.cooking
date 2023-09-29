@@ -146,7 +146,11 @@
         pubkey: nevent.pubkey
       });
       setTimeout(() => {
-        goto(`/list/${naddr}`);
+        if (nevent.tags.find(a => a[0] == 'd')?.[1] == 'nostrcooking-bookmarks') {
+          goto(`/bookmarks`)
+        } else {
+          goto(`/list/${naddr}`);
+        }
       }, 2500);
     } catch (err) {
       resultMessage = `Error: ${err}`;
@@ -199,6 +203,7 @@
         <div class="sm:col-span-6">
           <div class="mt-1">
             <input
+              disabled={true}
               bind:value={title}
               placeholder="My List, e.g. 'good recipies for weekdays'"
               class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -264,6 +269,10 @@
         </div>
 
         <div class="pt-5">
+          Warning: Anyone can view this list!
+        </div>
+
+        <div class="pt-2">
           <div class="columns-2">
             <div>
               {resultMessage}

@@ -14,6 +14,7 @@
   import TotalZaps from '../../../components/TotalZaps.svelte';
   import { goto } from '$app/navigation';
   import TagLinks from '../../../components/TagLinks.svelte';
+    import AddBookmark from '../../../components/AddBookmark.svelte';
 
   let event: NDKEvent;
   let zapModal = false;
@@ -131,8 +132,9 @@
             &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Fork</a>{/if}
           &nbsp;•&nbsp; {#if $userPublickey}
             <a on:click={() => (zapModal = true)} class="underline cursor-pointer"> ⚡ Zap</a>{/if}
-          {#if $userPublickey}({/if}<TotalZaps {event} /> zapped{#if $userPublickey}){/if} &nbsp;•&nbsp;
-          updated on {event.created_at && formatDate(event.created_at)}
+          {#if $userPublickey}({/if}<TotalZaps {event} /> zapped{#if $userPublickey}){/if}
+          {#if $userPublickey} <AddBookmark {event} /> {/if} 
+           &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
         </p>
         <p class="mb-6 mt-1">
           {#if event}
