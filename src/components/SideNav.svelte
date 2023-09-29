@@ -9,7 +9,7 @@
 <div class="hidden md:block w-3/12 border border-slate-500 rounded-lg m-4 bg-gray-50 px-4 py-2">
   <div class="w-full">
     <button
-      on:click={() => goto('/')}
+      on:click={() => goto('/recent')}
       class="px-3 py-3 bg-white border border-gray-300 hover:bg-slate-50 rounded-lg mt-2 w-full"
     >
       <div class="text-left font-medium">

@@ -30,7 +30,7 @@
 <div class="md:hidden z-[99] fixed inset-x-0 bottom-0 py-[6px] bg-white border-t border-gray-300">
   <div class="flex justify-around">
     <button
-      on:click={() => goto('/')}
+      on:click={() => goto('/recent')}
       class="px-6 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
     >
       <svg
