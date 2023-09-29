@@ -9,6 +9,12 @@
   import { writable, type Writable } from 'svelte/store';
   import ListComboBox from '../../../../components/ListComboBox.svelte';
 
+  $: {
+    if ($page.params.slug) {
+      loadData();
+    }
+  }
+
   let title = '';
   let image = '';
   let summary = '';
@@ -24,7 +30,7 @@
   let events: NDKEvent[] = [];
   let items: Writable<Atype[]> = writable([]);
 
-  async function load() {
+  async function loadData() {
     if ($page.params.slug.startsWith('naddr1')) {
       const b = nip19.decode($page.params.slug).data;
       let e = await $ndk.fetchEvent({
@@ -102,10 +108,6 @@
   }
 
   let disablePublishButton = false;
-
-  onMount(async () => {
-    load();
-  });
 
   async function createList() {
     disablePublishButton = true;

@@ -8,12 +8,19 @@
   import Feed from '../../../components/Feed.svelte';
   import { formatDate } from '$lib/utils';
 
+  $: {
+    if ($page.params.slug) {
+      loadData();
+    }
+  }
+
   let loaded = false;
   let event: NDKEvent;
   let events: NDKEvent[] = [];
   let user: NDKUserProfile;
 
-  onMount(async () => {
+  async function loadData() {
+    loaded = false;
     // load event
     if ($page.params.slug.startsWith('naddr1')) {
       const b = nip19.decode($page.params.slug).data;
@@ -76,7 +83,7 @@
     });
 
     loaded = true;
-  });
+  }
 </script>
 
 {#if event}

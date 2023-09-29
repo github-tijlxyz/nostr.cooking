@@ -13,13 +13,19 @@
   let user: NDKUserProfile;
   let loaded = false;
 
+  $: {
+    if ($page.params.slug) {
+      loadData();
+    }
+  }
+
   if ($page.params.slug.startsWith(`npub1`)) {
     hexpubkey = nip19.decode($page.params.slug).data.toString();
   } else {
-    goto(`/r/user/${nip19.npubEncode($page.params.slug)}`);
+    goto(`/user/${nip19.npubEncode($page.params.slug)}`);
   }
 
-  onMount(async () => {
+  async function loadData() {
     if (hexpubkey) {
       // load user
       const u = await $ndk.getUser({ hexpubkey: hexpubkey }).fetchProfile();
@@ -40,7 +46,7 @@
 
       loaded = true;
     }
-  });
+  }
 </script>
 
 <div class="prose mb-6">

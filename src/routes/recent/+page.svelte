@@ -10,7 +10,7 @@
   let events: NDKEvent[] = [];
 
   function openTag(query: string) {
-    goto(`/r/tag/${query}`);
+    goto(`/tag/${query}`);
   }
 
   onMount(async () => {

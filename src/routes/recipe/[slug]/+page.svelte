@@ -17,19 +17,25 @@
 
   let event: NDKEvent;
   let zapModal = false;
-  let naddr: string = "";
+  let naddr: string = '';
   let didCopy = false;
 
+  $: {
+    if ($page.params.slug) {
+      loadData();
+    }
+  }
+
   async function copyNaddr() {
-    const type = "text/plain";
+    const type = 'text/plain';
     const blob = new Blob([naddr], { type });
     const data = [new ClipboardItem({ [type]: blob })];
     navigator.clipboard.write(data).then(() => {
-      didCopy = true
+      didCopy = true;
       setTimeout(() => {
-        didCopy = false
-      }, 2500)
-    })
+        didCopy = false;
+      }, 2500);
+    });
   }
 
   async function zapEvt(amount: number, message: string) {
@@ -47,7 +53,7 @@
     }
   }
 
-  onMount(async () => {
+  async function loadData() {
     if ($page.params.slug.startsWith('naddr1')) {
       const b = nip19.decode($page.params.slug).data;
       naddr = nip19.naddrEncode({
@@ -55,8 +61,8 @@
         identifier: b.identifier,
         // @ts-ignore
         pubkey: b.pubkey,
-        kind: 30023,
-      })
+        kind: 30023
+      });
       let e = await $ndk.fetchEvent({
         // @ts-ignore
         '#d': [b.identifier],
@@ -88,7 +94,7 @@
         goto(`/recipe/${c}`);
       }
     }
-  });
+  }
 </script>
 
 {#if zapModal}
@@ -115,7 +121,10 @@
           <a class="underline" href="/user/{event.author.npub}"
             >{#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}</a
           >
-           &nbsp;•&nbsp; <a class="underline cursor-pointer" on:click={copyNaddr}>{#if didCopy}copied!{:else}copy naddr{/if}</a>
+          &nbsp;•&nbsp;
+          <a class="underline cursor-pointer" on:click={copyNaddr}
+            >{#if didCopy}copied!{:else}copy naddr{/if}</a
+          >
           {#if event.author.hexpubkey == $userPublickey}
             &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Edit</a>
           {:else if $userPublickey}

@@ -13,6 +13,12 @@
   import { nip19 } from 'nostr-tools';
   import { goto } from '$app/navigation';
 
+  $: {
+    if ($page.params.slug) {
+      loadData();
+    }
+  }
+
   let previewEvent: NDKEvent | undefined = undefined;
 
   function addTag(query: string) {
@@ -26,7 +32,7 @@
     selectedTags = selectedTags;
   }
 
-  onMount(async () => {
+  async function loadData() {
     let event: NDKEvent;
     if ($page.params.slug.startsWith('naddr1')) {
       const b = nip19.decode($page.params.slug).data;
@@ -96,7 +102,7 @@
         if (va.additionalMarkdown) additionalMarkdown = va.additionalMarkdown;
       }
     }
-  });
+  }
 
   function formatStringArrays() {
     ingredients = '';

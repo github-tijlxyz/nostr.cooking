@@ -13,13 +13,19 @@
   let events: NDKEvent[] = [];
   let loaded = false;
 
+  $: {
+    if ($page.params.slug) {
+      loadData();
+    }
+  }
+
   tag = $page.params.slug;
 
   function openTag(query: string) {
-    goto(`/r/tag/${query}`);
+    goto(`/tag/${query}`);
   }
 
-  onMount(async () => {
+  async function loadData() {
     if (tag) {
       let filter: NDKFilter = {
         limit: 256,
@@ -36,7 +42,7 @@
       events = evtsArr;
       loaded = true;
     }
-  });
+  }
 </script>
 
 <TagsSearchAutocomplete
