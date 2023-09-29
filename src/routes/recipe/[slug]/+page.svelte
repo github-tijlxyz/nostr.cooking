@@ -130,11 +130,11 @@
             &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Edit</a>
           {:else if $userPublickey}
             &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Fork</a>{/if}
-          &nbsp;•&nbsp; {#if $userPublickey}
-            <a on:click={() => (zapModal = true)} class="underline cursor-pointer"> ⚡ Zap</a>{/if}
-          {#if $userPublickey}({/if}<TotalZaps {event} /> zapped{#if $userPublickey}){/if}
+          {#if $userPublickey}
+          &nbsp;•&nbsp;   <a on:click={() => (zapModal = true)} class="underline cursor-pointer"> ⚡ Zap</a>{/if}
           {#if $userPublickey} <AddBookmark {event} /> {/if} 
            &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
+           &nbsp;•&nbsp; <TotalZaps {event} /> zapped
         </p>
         <p class="mb-6 mt-1">
           {#if event}
