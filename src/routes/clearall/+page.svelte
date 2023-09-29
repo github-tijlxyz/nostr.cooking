@@ -8,5 +8,6 @@
         window.indexedDB.deleteDatabase(r[i].name);
       }
     });
+    window.location.href = '/';
   });
 </script>

@@ -31,7 +31,7 @@
   <div class="flex justify-around">
     <button
       on:click={() => goto('/')}
-      class="px-4 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
+      class="px-6 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
     >
       <svg
         class="inline w-6 h-6 mr-1"
@@ -48,7 +48,7 @@
       >
     </button>
     {#if $userPublickey !== ''}
-      <button
+      <!-- <button
         on:click={() => goto('/create')}
         class="px-4 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
       >
@@ -65,10 +65,10 @@
             d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
           /></svg
         >
-      </button>
+      </button> -->
       <button
         on:click={() => goto(`/r/user/${nip19.npubEncode($userPublickey)}`)}
-        class="px-4 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
+        class="px-6 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
       >
         <svg
           class="inline w-6 h-6 mr-1"
@@ -87,7 +87,7 @@
     {/if}
     <button
       on:click={() => goto('/settings')}
-      class="px-4 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
+      class="px-6 py-2 text-gray-600 hover:bg-slate-100 rounded-lg"
     >
       <svg
         class="inline w-6 h-6 mr-1"
@@ -110,7 +110,7 @@
     {#if $userPublickey == ''}
       <button
         on:click={() => goto('/login')}
-        class="px-4 py-2 text-blue-500 hover:bg-blue-100 rounded-lg"
+        class="px-6 py-2 text-blue-500 hover:bg-blue-100 rounded-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@
     {:else}
       <button
         on:click={() => goto('/login')}
-        class="px-4 py-2 text-red-500 hover:bg-red-100 rounded-lg"
+        class="px-6 py-2 text-red-500 hover:bg-red-100 rounded-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

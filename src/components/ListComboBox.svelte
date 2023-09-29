@@ -1,8 +1,13 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
 
+  type Atype = {
+    title?: string;
+    naddr: string;
+  };
+
   let inputNewThing: string = '';
-  export let selected: Writable<string[]>;
+  export let selected: Writable<Atype[]>;
   export let placeholder: string;
   export let showIndex: boolean = false;
 
@@ -21,7 +26,7 @@
     if (inputNewThing) {
       let tag = inputNewThing;
       inputNewThing = '';
-      nSelected.push(tag);
+      nSelected.push({ naddr: tag });
       selected.set(nSelected);
     }
   }
@@ -53,7 +58,9 @@
       {#each $selected as tag, index}
         <li class="flex items-center justify-between p-2 hover:bg-gray-100">
           <div class="flex items-center pl-1">
-            {#if showIndex}{index + 1}. {/if}{tag}
+            <a class="underline" target="_blank" href={`/recipe/${tag.naddr}`}
+              >{#if showIndex}{index + 1}. {/if}{#if tag.title}{tag.title}{:else}{tag.naddr}{/if}</a
+            >
           </div>
           <div class="flex">
             {#if showIndex && index > 0}

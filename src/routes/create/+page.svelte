@@ -82,7 +82,6 @@
   }
 
   async function publishRecipe() {
-    resultMessage = 'Processing...';
     formatStringArrays();
     disablePublishButton = true;
     try {
@@ -154,7 +153,7 @@
           <input
             placeholder="My Recipe"
             bind:value={title}
-            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -179,7 +178,7 @@
           <input
             placeholder="https://example.com/image.png"
             bind:value={image}
-            class="shadow-sm mt-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            class="shadow-sm mt-3 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -200,9 +199,6 @@
       <div class="pt-8">
         <div>
           <h3 class="text-lg leading-6 font-medium text-gray-900">Summary</h3>
-          <p class="mt-1 text-sm text-gray-500">
-            Show's up in lists, at recent recipies or profile page
-          </p>
         </div>
 
         <div class="sm:col-span-6">
@@ -211,7 +207,7 @@
               placeholder="Some breef discription of the dish (can also be the same as chef's notes)"
               bind:value={summary}
               rows="3"
-              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -231,7 +227,7 @@
               placeholder="Here are some Chef's notes. Like where the recipe came from, and more additional information."
               bind:value={chefsnotes}
               rows="6"
-              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -248,7 +244,7 @@
             <input
               placeholder="20 min"
               bind:value={preptime}
-              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -259,7 +255,7 @@
             <input
               placeholder="1 hour and 5 min"
               bind:value={cooktime}
-              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -272,7 +268,7 @@
             <input
               placeholder="4"
               bind:value={servings}
-              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -316,7 +312,7 @@
 							bind:value={additionalMarkdown}
 							placeholder="Use **markdown**, you can add a image or video like this ![alt text](https://example.com/test.mp4) or a [link](https://example.com)"
 							rows="6"
-							class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+							class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
 							/>
 						</div>
 					</div>
