@@ -13,7 +13,7 @@
     goto(`/tag/${query}`);
   }
 
-  (async () => {
+  onMount(async () => {
     let filter: NDKFilter = { limit: 256, kinds: [30023], '#t': ['nostrcooking'] };
     const evts = await $ndk.fetchEvents(filter);
     let evtsArr = Array.from(evts);
