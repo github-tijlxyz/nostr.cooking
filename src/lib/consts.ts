@@ -94,7 +94,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Japanese', emoji: '🇯🇵' },
   { title: 'Keto' },
   { title: 'Lamb', emoji: '🐑' },
-  { title: 'Layered', emoji: '💈' },
+  { title: 'Layered' },
   { title: 'Lebanese', emoji: '🇱🇧' },
   { title: 'Lemons', emoji: '🍋' },
   { title: 'Lentil' },
