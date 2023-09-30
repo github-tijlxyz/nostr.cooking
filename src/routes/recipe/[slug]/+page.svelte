@@ -1,11 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { recipeTags } from '$lib/consts';
   import { ndk, userPublickey, relays } from '$lib/nostr';
   import { parseMarkdown } from '$lib/pharser';
   import { formatDate } from '$lib/utils';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
-  import { onMount } from 'svelte';
   import { requestProvider } from 'webln';
   import ZapModal from '../../../components/ZapModal.svelte';
   import { nip19 } from 'nostr-tools';
@@ -127,9 +125,9 @@
             >{#if didCopy}copied!{:else}copy naddr{/if}</a
           >
           {#if event.author.hexpubkey == $userPublickey}
-            &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Edit</a>
+            &nbsp;•&nbsp; <a href={`/fork/${naddr}`}>Edit</a>
           {:else if $userPublickey}
-            &nbsp;•&nbsp; <a href={`/fork/${event.id}`}>Fork</a>{/if}
+            &nbsp;•&nbsp; <a href={`/fork/${naddr}`}>Fork</a>{/if}
           {#if $userPublickey}
             &nbsp;•&nbsp; <a on:click={() => (zapModal = true)} class="underline cursor-pointer">
               ⚡ Zap</a
