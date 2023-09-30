@@ -72,6 +72,7 @@
         if (summaryTagValue) summary = summaryTagValue;
         let imageTagValue = event.tags.find((e) => e[0] == 'image')?.[1];
         if (imageTagValue) image = imageTagValue;
+        selectedTags.set([]);
         let tagTags = event.tags.filter(
           (e) =>
             e[0] == 't' &&
