@@ -114,11 +114,11 @@
     try {
       const nevent = new NDKEvent($ndk);
       nevent.kind = 30001;
-      if (!event.tags.find(t => t[0] == 'd' && t[1] == 'nostrcooking-bookmarks')) {
+      if (!event.tags.find((t) => t[0] == 'd' && t[1] == 'nostrcooking-bookmarks')) {
         nevent.tags.push(['t', 'nostrcooking']);
         nevent.tags.push(['d', title.toLowerCase().replaceAll(' ', '-')]);
       } else {
-        nevent.tags.push(['d', 'nostrcooking-bookmarks'])
+        nevent.tags.push(['d', 'nostrcooking-bookmarks']);
       }
       nevent.tags.push(['title', title]);
       if (summary !== '') {

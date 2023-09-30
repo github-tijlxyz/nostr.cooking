@@ -24,8 +24,8 @@
 
   async function loadData() {
     if (!$userPublickey) {
-        goto("/login");
-        return;
+      goto('/login');
+      return;
     }
     let e = await $ndk.fetchEvent({
       // @ts-ignore
@@ -87,8 +87,8 @@
   }
 
   onMount(() => {
-    loadData()
-  })
+    loadData();
+  });
 
   let disablePublishButton = false;
 

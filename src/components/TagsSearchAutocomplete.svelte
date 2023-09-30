@@ -28,7 +28,8 @@
         if (a.relevancy < b.relevancy) return 1;
         return 0;
       })
-      .map((item) => item.tag).slice(0, 512);
+      .map((item) => item.tag)
+      .slice(0, 512);
 
     showAutocomplete = tagquery.length > 0 && inputFocused;
 

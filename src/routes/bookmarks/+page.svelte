@@ -114,7 +114,7 @@
       </h1>
       <p>
         {#if $userPublickey == event.author.hexpubkey}
-        <a class="underline" href={`/bookmarks/edit`}>Edit</a>
+          <a class="underline" href={`/bookmarks/edit`}>Edit</a>
         {/if}
         &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
       </p>

@@ -21,7 +21,6 @@
     rounded-full
     shadow-sm
     text-white
-    transition-all
     ${selected ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-gray-400 hover:bg-gray-500'}
     focus:outline-none
     focus:ring-2
