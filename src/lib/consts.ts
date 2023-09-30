@@ -42,7 +42,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Bread', emoji: '🍞' },
   { title: 'Breakfast', emoji: '🍳' },
   { title: 'Broccoli' },
-  { title: 'Built', emoji: '🧱' },
+  { title: 'Built' },
   { title: 'Cabbage' },
   { title: 'Cajun' },
   { title: 'Cake', emoji: '🍰' },
