@@ -221,8 +221,13 @@
             console.log('publish failed to', relay, err);
           });
         });
+        const naddr = nip19.naddrEncode({
+          identifier: title.toLowerCase().replaceAll(' ', '-'),
+          pubkey: event.author.hexpubkey,
+          kind: 30023
+        });
         setTimeout(() => {
-          goto(`/recipe/${event.id}`);
+          goto(`/recipe/${naddr}`);
         }, 2500);
       }
     } catch (err) {

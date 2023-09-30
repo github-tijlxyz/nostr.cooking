@@ -9,6 +9,7 @@
   import FeedItem from '../../components/FeedItem.svelte';
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
+  import { nip19 } from 'nostr-tools';
 
   let previewEvent: NDKEvent | undefined = undefined;
 
@@ -128,8 +129,13 @@
           });
         });
         resultMessage = 'Succes!';
+        const naddr = nip19.naddrEncode({
+          identifier: title.toLowerCase().replaceAll(' ', '-'),
+          pubkey: event.author.hexpubkey,
+          kind: 30023
+        });
         setTimeout(() => {
-          goto(`/recipe/${event.id}`);
+          goto(`/recipe/${naddr}`);
         }, 2500);
       }
     } catch (err) {
