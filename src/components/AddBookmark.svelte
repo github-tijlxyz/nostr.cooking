@@ -44,6 +44,16 @@
     });
     if (e) {
       bookmarkEvent = e;
+      if (
+        bookmarkEvent.tags.find(
+          (t) =>
+            t[0] == 'a' &&
+            t[1] ==
+              `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+        )
+      ) {
+        return;
+      }
     }
 
     if (event && bookmarkEvent && event.author.hexpubkey && bookmarkEvent.sig) {
