@@ -176,7 +176,7 @@
     {:else}
       {@html parseMarkdown(event.content)}
     {/if}
-    <zap-threads anchor={$page.params.slug} relays={relays.join(',')} />
+    <zap-threads anchor={$page.params.slug} relays={relays.join(',')} npub={nip19.npubEncode($userPublickey)} />
   {:else}
     <p>Loading...</p>
   {/if}
