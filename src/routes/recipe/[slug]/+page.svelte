@@ -15,6 +15,7 @@
   import { goto } from '$app/navigation';
   import TagLinks from '../../../components/TagLinks.svelte';
   import AddBookmark from '../../../components/AddBookmark.svelte';
+  import "zapthreads";
 
   let event: NDKEvent;
   let zapModal = false;
@@ -177,6 +178,7 @@
     {:else}
       {@html parseMarkdown(event.content)}
     {/if}
+    <zap-threads anchor={$page.params.slug} relays={relays.join(',')} />
   {:else}
     <p>Loading...</p>
   {/if}
