@@ -13,12 +13,21 @@
   import { goto } from '$app/navigation';
   import TagLinks from '../../../components/TagLinks.svelte';
   import AddBookmark from '../../../components/AddBookmark.svelte';
-  import "zapthreads";
+  import 'zapthreads';
 
   let event: NDKEvent;
   let zapModal = false;
   let naddr: string = '';
   let didCopy = false;
+
+  // for zapthreads
+  let key = '';
+  let sk = localStorage.getItem('nostrcooking_privateKey');
+  if (sk) {
+    key = nip19.nsecEncode(sk);
+  } else if ($userPublickey) {
+    key = nip19.npubEncode($userPublickey);
+  }
 
   $: {
     if ($page.params.slug) {
@@ -176,12 +185,12 @@
     {:else}
       {@html parseMarkdown(event.content)}
     {/if}
-    <zap-threads
-      anchor={$page.params.slug}
-      relays={relays.join(',')}
-      npub={nip19.npubEncode($userPublickey)} 
-      url-prefixes={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
-      disable={'likes,zaps,replyAnonymously'}
+      <zap-threads
+        anchor={$page.params.slug}
+        relays={relays.join(',')}
+        npub={key}
+        url-prefixes={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
+        disable={'likes,zaps,replyAnonymously'}
       />
   {:else}
     <p>Loading...</p>
