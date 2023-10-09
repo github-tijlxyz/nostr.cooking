@@ -12,13 +12,13 @@
   import TotalZaps from '../../../components/TotalZaps.svelte';
   import { goto } from '$app/navigation';
   import TagLinks from '../../../components/TagLinks.svelte';
-  import AddBookmark from '../../../components/AddBookmark.svelte';
   import 'zapthreads';
+  import ExtraMenu from '../../../components/ExtraMenu.svelte';
 
   let event: NDKEvent;
   let zapModal = false;
   let naddr: string = '';
-  let didCopy = false;
+  let menu = false;
 
   // for zapthreads
   let key = '';
@@ -40,11 +40,21 @@
     const blob = new Blob([naddr], { type });
     const data = [new ClipboardItem({ [type]: blob })];
     navigator.clipboard.write(data).then(() => {
-      didCopy = true;
       setTimeout(() => {
-        didCopy = false;
       }, 2500);
     });
+  }
+
+  async function closeMenu() {
+    setTimeout(() => {
+      menu = false;
+    }, 1)
+    // setTimeout(() => {
+    //   menu = true;
+    // }, 7)
+    // setTimeout(() => {
+    //   menu = false;
+    // }, 8)
   }
 
   async function zapEvt(amount: number, message: string) {
@@ -124,28 +134,46 @@
         {/if}
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <!-- svelte-ignore a11y-missing-attribute -->
-        <p class="mt-2 mb-0">
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
-          by
-          <a class="underline" href="/user/{event.author.npub}"
-            >{#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}</a
-          >
-          &nbsp;•&nbsp;
-          <a class="underline cursor-pointer" on:click={copyNaddr}
-            >{#if didCopy}copied!{:else}copy naddr{/if}</a
-          >
-          {#if event.author.hexpubkey == $userPublickey}
-            &nbsp;•&nbsp; <a href={`/fork/${naddr}`}>Edit</a>
-          {:else if $userPublickey}
-            &nbsp;•&nbsp; <a href={`/fork/${naddr}`}>Fork</a>{/if}
-          {#if $userPublickey}
-            &nbsp;•&nbsp; <a on:click={() => (zapModal = true)} class="underline cursor-pointer">
-              ⚡ Zap</a
-            >{/if}
-          {#if $userPublickey} <AddBookmark {event} /> {/if}
-          &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
-          &nbsp;•&nbsp; <TotalZaps {event} /> zapped
-        </p>
+        <div class="mt-2 mb-0 flex col-span-2">
+          <span class="text-left">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            by
+            <a class="underline" href="/user/{event.author.npub}"
+              >{#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}</a
+            >
+            &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
+            &nbsp;•&nbsp; <TotalZaps {event} /> zapped
+          </span>
+          <span class="ml-auto mt-auto mb-auto p-1 pt-2">
+            <span class="content-center">
+              <div class="relative inline-block text-left">
+                <div>              
+              <button
+                on:click={() => menu = !menu}
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-7 h-7"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                  />
+                </svg>
+              </button>
+              <!-- menu -->
+              {#if menu}
+              <ExtraMenu {event} {copyNaddr} closeSelf={closeMenu} openZapModal={() => zapModal = true} />
+              {/if}
+              </div>
+              </div> 
+            </span>
+          </span>
+        </div>
         <p class="mb-6 mt-1">
           {#if event}
             <TagLinks {event} />
@@ -185,13 +213,13 @@
     {:else}
       {@html parseMarkdown(event.content)}
     {/if}
-      <zap-threads
-        anchor={$page.params.slug}
-        relays={relays.join(',')}
-        npub={key}
-        url-prefixes={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
-        disable={'likes,zaps,replyAnonymously'}
-      />
+    <zap-threads
+      anchor={$page.params.slug}
+      relays={relays.join(',')}
+      npub={key}
+      url-prefixes={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
+      disable={'likes,zaps,replyAnonymously'}
+    />
   {:else}
     <p>Loading...</p>
   {/if}
