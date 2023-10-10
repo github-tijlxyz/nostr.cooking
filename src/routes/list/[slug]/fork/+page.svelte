@@ -267,7 +267,7 @@
 
           <div class="sm:col-span-6">
             <div class="mt-1">
-              <ListComboBox placeholder="naddr1..." selected={items} />
+              <ListComboBox showIndex={true} placeholder="naddr1..." selected={items} />
             </div>
           </div>
         </div>

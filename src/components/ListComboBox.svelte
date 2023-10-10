@@ -59,7 +59,7 @@
         <li class="flex items-center justify-between p-2 hover:bg-gray-100">
           <div class="flex items-center pl-1">
             <a class="underline" target="_blank" href={`/recipe/${tag.naddr}`}
-              >{#if showIndex}{index + 1}. {/if}{#if tag.title}{tag.title}{:else}{tag.naddr}{/if}</a
+              ><!--{#if showIndex}{index + 1}. {/if}-->{#if tag.title}{tag.title}{:else}{tag.naddr}{/if}</a
             >
           </div>
           <div class="flex">
