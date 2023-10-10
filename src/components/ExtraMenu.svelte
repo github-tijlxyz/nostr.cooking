@@ -2,12 +2,14 @@
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import AddBookmark from './AddBookmark.svelte';
   import { userPublickey } from '$lib/nostr';
+    import { goto } from '$app/navigation';
 
   let show = true;
   export let event: NDKEvent;
   export let openZapModal: () => void;
   export let copyNaddr: () => void;
   export let closeSelf: () => void;
+  export let naddr: string;
 
   function saveAsMD() {
     const blob = new Blob([event.content], { type: 'text/markdown' });
@@ -46,7 +48,7 @@
       <!-- {#if event.pubkey == $userPublickey} -->
       <button
         on:click={() => {
-          copyNaddr();
+          goto(`/fork/${naddr}`);
           closeSelf();
         }}
         class="text-gray-700 w-full text-left hover:bg-gray-100 hover:text-gray-900 block px-4 py-2"
@@ -70,7 +72,7 @@
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              class="w-6 h-6 inline text-center mr-1"
             >
               <path
                 stroke-linecap="round"

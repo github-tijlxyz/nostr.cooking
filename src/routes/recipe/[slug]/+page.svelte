@@ -182,6 +182,7 @@
                   <!-- menu -->
                   {#if menu}
                     <ExtraMenu
+                      {naddr}
                       {event}
                       {copyNaddr}
                       closeSelf={closeMenu}
