@@ -3,6 +3,7 @@
   import { ndk } from '$lib/nostr';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
+  import ImageUploader from '../../../components/ImageUploader.svelte';
 
   let title = '';
   let image = '';
@@ -65,7 +66,7 @@
           <input
             bind:value={title}
             placeholder="My List, e.g. 'good recipies for weekdays'"
-            class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -73,22 +74,16 @@
       <div class="pt-8">
         <div>
           <h3 class="text-lg leading-6 font-medium text-gray-900">Image</h3>
-          <p class="mt-1 text-sm text-gray-500">
-            Optional. you can upload a file and get a link on <a
-              class="underline"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://nostr.build">nostr.build</a
-            >
-          </p>
+          <p class="mt-1 text-sm text-gray-500">Optional.</p>
         </div>
 
         <div class="sm:col-span-6">
           <div class="mt-1">
+            <ImageUploader setUrl={(u) => (image = u)} />
             <input
               placeholder="https://example.com/image.png"
               bind:value={image}
-              class="shadow-sm mt-3 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm mt-3 focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -107,7 +102,7 @@
                 placeholder="What is this list about?"
                 bind:value={summary}
                 rows="3"
-                class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+                class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
               />
             </div>
           </div>

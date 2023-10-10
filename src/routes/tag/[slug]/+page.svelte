@@ -53,9 +53,12 @@
   <h1>
     Recipes with the tag "{#if $page.params.slug}{#if recipeTags.find((e) => e.title
             .toLowerCase()
-            .replaceAll(' ', '-') == $page.params.slug?.toLowerCase().replaceAll(' ', '-'))}{recipeTags.find(
+            .replaceAll(' ', '-') == $page.params.slug
+            ?.toLowerCase()
+            .replaceAll(' ', '-'))}{recipeTags.find(
           (e) =>
-            e.title.toLowerCase().replaceAll(' ', '-') == $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+            e.title.toLowerCase().replaceAll(' ', '-') ==
+            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
         )?.emoji
           ? `${
               recipeTags.find(

@@ -210,7 +210,7 @@
               disabled={true}
               bind:value={title}
               placeholder="My List, e.g. 'good recipies for weekdays'"
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -233,7 +233,7 @@
               <input
                 placeholder="https://example.com/image.png"
                 bind:value={image}
-                class="shadow-sm mt-3 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="shadow-sm mt-3 focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
           </div>
@@ -252,7 +252,7 @@
                   placeholder="What is this list about?"
                   bind:value={summary}
                   rows="3"
-                  class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+                  class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
                 />
               </div>
             </div>

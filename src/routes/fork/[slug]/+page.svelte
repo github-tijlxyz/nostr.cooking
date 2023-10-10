@@ -254,9 +254,9 @@
         <div class="mt-1">
           <input
             placeholder="My Recipe"
-            disabled="true"
+            disabled={true}
             bind:value={title}
-            class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -267,12 +267,7 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">Image</h3>
         <p class="mt-1 text-sm text-gray-500">
           Recommended to add for more interest! Show's up in lists, at recent recipies or profile
-          page (you can upload a file and get a link on <a
-            class="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://nostr.build">nostr.build</a
-          >)
+          page
         </p>
       </div>
 
@@ -281,7 +276,7 @@
           <input
             placeholder="https://example.com/image.png"
             bind:value={image}
-            class="shadow-sm mt-3 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            class="shadow-sm mt-3 focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -313,7 +308,7 @@
               placeholder="Some breef discription of the dish"
               bind:value={summary}
               rows="3"
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -333,7 +328,7 @@
               placeholder="Here are some Chef's notes. Like where the recipe came from, and more additional information."
               bind:value={chefsnotes}
               rows="6"
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -350,7 +345,7 @@
             <input
               placeholder="20 min"
               bind:value={preptime}
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -361,7 +356,7 @@
             <input
               placeholder="1 hour and 5 min"
               bind:value={cooktime}
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -374,7 +369,7 @@
             <input
               placeholder="4"
               bind:value={servings}
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -418,7 +413,7 @@
 							bind:value={additionalMarkdown}
 							placeholder="Use **markdown**, you can add a image or video like this ![alt text](https://example.com/test.mp4) or a [link](https://example.com)"
 							rows="6"
-							class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+							class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
 							/>
 						</div>
 					</div>

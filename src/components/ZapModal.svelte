@@ -23,7 +23,7 @@
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div
-  class="fixed z-[89] inset-0 overflow-y-auto"
+  class="fixed z-[199] inset-0 overflow-y-auto"
   aria-labelledby="modal-title"
   role="dialog"
   aria-modal="true"
