@@ -2,7 +2,7 @@
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import AddBookmark from './AddBookmark.svelte';
   import { userPublickey } from '$lib/nostr';
-    import { goto } from '$app/navigation';
+  import { goto } from '$app/navigation';
 
   let show = true;
   export let event: NDKEvent;
