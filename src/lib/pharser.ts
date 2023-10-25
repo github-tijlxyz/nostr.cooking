@@ -43,7 +43,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
   for (const section of sections) {
     if (section.startsWith("## Chef's notes")) {
       const chefNotes = section.split("## Chef's notes")[1].trim();
-      if (chefNotes.length > 10000) {
+      if (chefNotes.length > 99999) {
         return "Chef's notes exceed character limit.";
       }
       template.chefNotes = chefNotes;
@@ -52,17 +52,17 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
       for (const line of detailsLines) {
         const [key, value] = line.split(': ');
         if (key === '- ⏲️ Prep time') {
-          if (value.length > 128) {
+          if (value.length > 999) {
             return 'Prep time exceeds character limit.';
           }
           template.information.prepTime = value;
         } else if (key === '- 🍳 Cook time') {
-          if (value.length > 128) {
+          if (value.length > 999) {
             return 'Cook time exceeds character limit.';
           }
           template.information.cookTime = value;
         } else if (key === '- 🍽️ Servings') {
-          if (value.length > 128) {
+          if (value.length > 999) {
             return 'Servings exceed character limit.';
           }
           template.information.servings = value;
@@ -73,7 +73,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
       for (const line of ingredientsLines) {
         if (line.startsWith('- ')) {
           const ingredient = line.substring(2).trim();
-          if (ingredient.length > 512) {
+          if (ingredient.length > 9999) {
             return 'An ingredient exceeds the character limit.';
           }
           template.ingredients.push(ingredient);
@@ -89,7 +89,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
             return 'Directions are not in the correct ordered list format.';
           }
           const stepDescription = line.split(/^\d+\./)[1].trim();
-          if (stepDescription.length > 256) {
+          if (stepDescription.length > 9999) {
             return 'A step in the directions exceeds the character limit.';
           }
           template.directions.push(stepDescription);
