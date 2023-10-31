@@ -49,8 +49,10 @@
   <div class="flex h-screen">
     <BottomNav />
     <SideNav />
-    <div class="flex-1 overflow-y-auto p-4 pb-16">
-      <slot />
+    <div class="flex-1 overflow-y-auto pt-3 px-3">
+      <div class="pb-24">
+        <slot />
+      </div>
     </div>
   </div>
 </div>
