@@ -60,11 +60,12 @@
   }
 </script>
 
+<div class="lg:max-w-4xl">
 <div class="mb-6">
   <Login />
 </div>
 
-<div class="font-sans mx-auto p-2 lg:max-w-4xl">
+<div class="font-sans mx-auto p-2">
   <div class="prose">
     <h1 class="mt-0">Settings</h1>
   </div>
@@ -154,4 +155,5 @@
       </button>
     </div>
   </div>
+</div>
 </div>
