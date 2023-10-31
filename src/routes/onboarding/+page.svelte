@@ -18,11 +18,6 @@
   let picture = '';
   let about = '';
 
-  $: seed,
-    (privateKey = nip06.privateKeyFromSeedWords(seed)),
-    //nsec = nip19.nsecEncode(privateKey),
-    (npub = nip19.npubEncode(getPublicKey(privateKey)));
-
   if ($userPublickey !== '') {
     goto('/settings');
   }
@@ -54,6 +49,10 @@
     disableStepButtons = true;
     if (step == 0) {
       await loginWithPrivateKey(privateKey);
+    }
+    if (step == 1) {
+      privateKey = nip06.privateKeyFromSeedWords(seed)
+      npub = nip19.npubEncode(getPublicKey(privateKey))
     }
     if (step == 2 && name !== '') {
       const metaEvent = new NDKEvent($ndk);
@@ -89,7 +88,6 @@
   onMount(async () => {
     seed = nip06.generateSeedWords()
   })
-
 </script>
 
 <div class="prose mb-4">
