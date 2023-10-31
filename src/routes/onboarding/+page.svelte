@@ -47,12 +47,10 @@
 
   async function continuestep() {
     disableStepButtons = true;
-    if (step == 0) {
-      await loginWithPrivateKey(privateKey);
-    }
     if (step == 1) {
       privateKey = nip06.privateKeyFromSeedWords(seed)
       npub = nip19.npubEncode(getPublicKey(privateKey))
+      await loginWithPrivateKey(privateKey);
     }
     if (step == 2 && name !== '') {
       const metaEvent = new NDKEvent($ndk);
