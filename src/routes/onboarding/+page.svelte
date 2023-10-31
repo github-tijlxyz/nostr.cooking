@@ -5,12 +5,13 @@
   import { NDKEvent, NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
   import { browser } from '$app/environment';
   import { ndk, userPublickey } from '$lib/nostr';
+  import { onMount } from 'svelte';
 
   let step = 0;
-  let seed = nip06.generateSeedWords();
-  let privateKey = nip06.privateKeyFromSeedWords(seed);
-  //let nsec = nip19.nsecEncode(privateKey);
-  let npub = nip19.npubEncode(getPublicKey(privateKey));
+  let seed = "";
+  let privateKey = "";
+  //let nsec = "";
+  let npub = "";
 
   let disableStepButtons = false;
   let name = '';
@@ -84,6 +85,11 @@
     step--;
     disableStepButtons = false;
   }
+
+  onMount(async () => {
+    seed = nip06.generateSeedWords()
+  })
+
 </script>
 
 <div class="prose mb-4">
