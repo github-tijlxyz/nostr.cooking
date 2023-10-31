@@ -108,6 +108,7 @@
         /></svg
       >
     </button>
+    <!--
     {#if $userPublickey == ''}
       <button
         on:click={() => goto('/login')}
@@ -149,5 +150,6 @@
         </svg>
       </button>
     {/if}
+    -->
   </div>
 </div>

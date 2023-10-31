@@ -1,9 +1,22 @@
-import { setCORS } from 'google-translate-api-browser';
+import { setCORS as googletranslate } from 'google-translate-api-browser';
+import { type TranslateOption } from './state';
+//import { translate as libretranslate } from 'libretranslate';
 
-const gTranslate = setCORS('https://corsproxy.io/?');
+export async function translate(translateOption: TranslateOption, string: string) {
+  if (translateOption.option == 'google') {
+    const gTranslate = googletranslate(translateOption.data);
+    // @ts-ignore
+    const e = await gTranslate(string, { to: translateOption.lang });
+    return e;
+  }
+  /*if (translateOption.option == 'libretranslate') {
+    const e = await libretranslate({
+        query: string,
+        target: translateOption.lang,
+        apiurl: translateOption.data,
+    });
+    return e;
+  }*/
 
-export async function translate(language: string, string: string) {
-  // @ts-ignore
-  const e = await gTranslate(string, { to: language });
-  return e;
+  return '';
 }

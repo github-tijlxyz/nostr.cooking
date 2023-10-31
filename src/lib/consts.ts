@@ -2,8 +2,7 @@ export const standardRelays = [
   'wss://nostr-pub.wellorder.net',
   'wss://nos.lol',
   'wss://relay.damus.io',
-  'wss://relay.snort.social',
-  'wss://relay.zbd.gg',
+  'wss://relay.nostr.bg',
   'wss://nostr.wine'
 ];
 

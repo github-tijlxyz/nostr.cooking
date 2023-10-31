@@ -4,6 +4,7 @@
   import { Fetch } from 'hurdak';
 
   export let setUrl: (url: string) => void;
+  export let name = 'file';
   let input: HTMLElement, listener;
   let url = '';
 
@@ -66,12 +67,12 @@
             clip-rule="evenodd"
           />
         </svg>
-        <div class="mt-4 flex text-sm leading-6 text-gray-600">
+        <div class="mt-4 flex text-sm leading-6 text-gray-600 items-center">
           <label
             for="file-upload"
             class="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
           >
-            <span>Upload a file</span>
+            <span>Upload a {name}</span>
             <input id="file-upload" bind:this={input} type="file" class="sr-only" />
           </label>
           <p class="pl-1">or drag and drop</p>

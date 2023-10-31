@@ -5,7 +5,7 @@
   export let submit: (amount: number, message: string) => void;
   export let cancel: () => void;
 
-  const defaultZapUSDAmounts = [0.05, 0.5, 2, 5, 10, 21, 50, 100, 200];
+  //const defaultZapUSDAmounts = [0.05, 0.5, 2, 5, 10, 21, 50, 100, 200];
   const defaultZapSatsAmounts = [
     21, 69, 121, 420, 1000, 2100, 4200, 10000, 21000, 42000, 69000, 100000, 210000, 500000, 1000000
   ];
@@ -21,10 +21,9 @@
   }
 </script>
 
-<!-- This example requires Tailwind CSS v2.0+ -->
 <div
-  class="fixed z-[199] inset-0 overflow-y-auto"
-  aria-labelledby="modal-title"
+  class="fixed z-[299] inset-0 overflow-y-hidden"
+  aria-labelledby="modal"
   role="dialog"
   aria-modal="true"
 >

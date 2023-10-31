@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { ndk, userPublickey } from '$lib/nostr';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
@@ -34,6 +35,8 @@
       } else {
         removeBookmarkShow = true;
       }
+    } else {
+      show = true;
     }
   });
 
@@ -131,6 +134,9 @@
         });
         close();
       });
+    } else if (event && event.author.hexpubkey) {
+      // needs to init bookmark event, for now, go to /bookmarks to do that
+      goto('/bookmarks');
     }
   }
 </script>

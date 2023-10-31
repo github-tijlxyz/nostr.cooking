@@ -3,7 +3,7 @@ import MarkdownIt from 'markdown-it';
 const md = new MarkdownIt();
 
 export function parseMarkdown(markdown: string) {
-  let parsedMarkdown = md.render(markdown);
+  const parsedMarkdown = md.render(markdown);
 
   return parsedMarkdown;
 }

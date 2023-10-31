@@ -207,7 +207,7 @@
       </p>
     {/if}
     {#if $translateOption.lang}
-      {#await translate($translateOption.lang, parseMarkdown(event.content))}
+      {#await translate($translateOption, parseMarkdown(event.content))}
         ...
       {:then result}
         {#if result.from.language.iso == $translateOption.lang}

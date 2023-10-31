@@ -2,11 +2,13 @@
   import { browser } from '$app/environment';
   import { standardRelays } from '$lib/consts';
   import { translateOption } from '$lib/state';
+  import Login from '../../components/Login.svelte';
 
   let relays: string[] = [];
   let newRelay = '';
   let translation = '';
   let translationLanguage = '';
+  let translationOption = '';
 
   function removeRelay(index: number) {
     relays.splice(index, 1);
@@ -24,27 +26,43 @@
   function saveData() {
     addRelay();
     if (translation !== '' && translationLanguage !== '') {
+      if (translation == 'google' && translationOption == '') {
+        translationOption = 'https://corsproxy.io/?';
+      }
+      if (translation == 'libretranslate' && translationOption == '') {
+        translationOption = 'https://libretranslate.de';
+      }
       localStorage.setItem(
         'nostrcooking_translationOptions',
-        JSON.stringify({ option: translation, lang: translationLanguage })
+        JSON.stringify({ option: translation, lang: translationLanguage, data: translationOption })
       );
     } else {
       localStorage.removeItem('nostrcooking_translationOptions');
     }
-    localStorage.setItem('nostrcooking_relays', JSON.stringify(relays));
+    if (relays !== standardRelays) {
+      localStorage.setItem('nostrcooking_relays', JSON.stringify(relays));
+    }
     setTimeout(() => {
       window.location.href = '';
     }, 1);
   }
 
   if (browser) {
-    relays = JSON.parse(
-      localStorage.getItem('nostrcooking_relays') || JSON.stringify(standardRelays)
-    );
+    const a = localStorage.getItem('nostrcooking_relays');
+    if (a) {
+      relays = JSON.parse(a);
+    } else {
+      relays = standardRelays;
+    }
     translation = $translateOption.option;
     translationLanguage = $translateOption.lang;
+    translationOption = $translateOption.data;
   }
 </script>
+
+<div class="mb-6">
+  <Login />
+</div>
 
 <div class="font-sans mx-auto p-2 lg:max-w-4xl">
   <div class="prose">
@@ -91,6 +109,7 @@
       >
         <option value="">Disabled</option>
         <option value="google">Google Translate (with proxy)</option>
+        <!--<option value="libretranslate">Libretranslate Instance</option>-->
       </select>
       {#if translation !== ''}
         <input
@@ -98,10 +117,19 @@
           placeholder="2 letter language code, like: 'en', 'es', 'fr' ect"
           class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
         />
+        <input
+          bind:value={translationOption}
+          placeholder={(translation == 'google'
+            ? 'set CORS proxy url,'
+            : translation == 'libretranslate'
+            ? 'libretranslate instance url,'
+            : '') + ' leave blank for default'}
+          class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
       {/if}
     </div>
     {#if translation !== ''}
-      <p class="mt-2">Warning: You may leak data to thierd parties while using this.</p>
+      <p class="mt-2">Warning: You may leak data to third parties while using this.</p>
     {/if}
   </div>
 
@@ -109,8 +137,21 @@
   <button
     on:click={saveData}
     type="button"
-    class="inline-flex items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
+    class="mb-6 inline-flex items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
   >
     Save & Reload
   </button>
+  <hr />
+  <div class="my-6">
+    <p class="text-sm">Danger</p>
+    <div>
+      <button
+        on:click={() => (window.location.href = '/clearall')}
+        type="button"
+        class="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-md shadow-sm text-black bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+      >
+        Clear all data & Reload
+      </button>
+    </div>
+  </div>
 </div>
