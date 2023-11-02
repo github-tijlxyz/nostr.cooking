@@ -99,7 +99,7 @@
   {#if step == 0}
     <p>
       Welcome to Nostr (Notes and Other Stuff Transmitted by Relays). Nostr is a decentralized,
-      'uncensorable' social protocol. Built on top of Nostr, there are various client applications,
+      'uncensorable' social protocol. Built on top of Nostr, there are various clients/apps,
       including Twitter-like clients, Blog clients, and more, all tied to the same identity, secured
       through cryptography.
     </p>
@@ -112,8 +112,9 @@
       Here, you can securely <button
         class="inline underline"
         on:click={() => (seed = nip06.generateSeedWords())}>generate</button
-      > 12 seed words ("seed pharse"). These seed words serve as your private key; it's crucial to store
-      them in a secure location and avoid sharing them with anyone.
+      > 12 seed words ("seed pharse"). These seed words serve as your private key; which will
+      serve as your permanent password for the nostr network; It's crucial to store them in a
+      secure location and avoid sharing them with anyone.
     </p>
     <div class="mt-1 bg-white rounded-md shadow-sm -space-y-px">
       <div>
