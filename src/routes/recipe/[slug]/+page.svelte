@@ -117,9 +117,9 @@
 
 <svelte:head>
   <title
-    >{event.tags.find((e) => e[0] == 'title')?.[1]
+    >{event ? (event.tags.find((e) => e[0] == 'title')?.[1]
       ? event.tags.find((e) => e[0] == 'title')?.[1]
-      : event.tags.find((e) => e[0] == 'd')?.[1]} on nostr.cooking</title
+      : event.tags.find((e) => e[0] == 'd')?.[1]) : '...'} on nostr.cooking</title
   >
 </svelte:head>
 

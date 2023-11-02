@@ -195,7 +195,7 @@
 </script>
 
 <svelte:head>
-  <title>fork list {title} on nostr.cooking</title>
+  <title>fork list {loaded == true ? title : '...'} on nostr.cooking</title>
 </svelte:head>
 
 {#if loaded == false}

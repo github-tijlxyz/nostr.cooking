@@ -87,7 +87,7 @@
 </script>
 
 <svelte:head>
-  <title>{event.tags.find((t) => t[0] == 'title')?.[1]} on nostr.cooking</title>
+  <title>{event ? (event.tags.find((t) => t[0] == 'title')?.[1]) : '...'} on nostr.cooking</title>
 </svelte:head>
 
 {#if event}

@@ -60,7 +60,7 @@
 </script>
 
 <svelte:head>
-  <title>{user.name} on nostr.cooking</title>
+  <title>{user && user.name ? user.name : '...'} on nostr.cooking</title>
 </svelte:head>
 
 <div class="prose mb-6">
