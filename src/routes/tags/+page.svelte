@@ -2,6 +2,10 @@
   import { recipeTags } from '$lib/consts';
 </script>
 
+<svelte:head>
+  <title>all tags on nostr.cooking</title>
+</svelte:head>
+
 <h1 class="text-3xl text-center mt-5 mb-0">All Tags</h1>
 
 <div class="text-xl text-center px-[10vw] pt-6 pb-2">

@@ -168,6 +168,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>edit bookmarks nostr.cooking</title>
+</svelte:head>
+
 {#if loaded == false}
   <div>Loading...</div>
 {:else}

@@ -106,6 +106,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>your bookmarks on nostr.cooking</title>
+</svelte:head>
+
 {#if event}
   <div class="mb-6 prose">
     {#if user}

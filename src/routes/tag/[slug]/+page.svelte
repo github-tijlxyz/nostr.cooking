@@ -43,6 +43,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>recipes with tag "{$page.params.slug}" on nostr.cooking</title>
+</svelte:head>
+
 <TagsSearchAutocomplete
   placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree'"}
   actionString={'Go'}
@@ -50,6 +54,7 @@
 />
 
 <div class="prose mb-6">
+  <!-- TODO: Clean up this mess -->
   <h1>
     Recipes with the tag "{#if $page.params.slug}{#if recipeTags.find((e) => e.title
             .toLowerCase()

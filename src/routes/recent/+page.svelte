@@ -26,6 +26,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>recent recipes on nostr.cooking</title>
+</svelte:head>
+
 <TagsSearchAutocomplete
   placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree'"}
   actionString={'Go'}

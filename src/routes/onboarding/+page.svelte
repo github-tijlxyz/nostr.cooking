@@ -8,10 +8,10 @@
   import { onMount } from 'svelte';
 
   let step = 0;
-  let seed = "";
-  let privateKey = "";
+  let seed = '';
+  let privateKey = '';
   //let nsec = "";
-  let npub = "";
+  let npub = '';
 
   let disableStepButtons = false;
   let name = '';
@@ -48,8 +48,8 @@
   async function continuestep() {
     disableStepButtons = true;
     if (step == 1) {
-      privateKey = nip06.privateKeyFromSeedWords(seed)
-      npub = nip19.npubEncode(getPublicKey(privateKey))
+      privateKey = nip06.privateKeyFromSeedWords(seed);
+      npub = nip19.npubEncode(getPublicKey(privateKey));
       await loginWithPrivateKey(privateKey);
     }
     if (step == 2 && name !== '') {
@@ -84,9 +84,15 @@
   }
 
   onMount(async () => {
-    seed = nip06.generateSeedWords()
-  })
+    seed = nip06.generateSeedWords();
+  });
 </script>
+
+<!-- TODO -->
+
+<svelte:head>
+  <title>welcome to nostr.cooking</title>
+</svelte:head>
 
 <div class="prose mb-4">
   <h1>Welcome</h1>

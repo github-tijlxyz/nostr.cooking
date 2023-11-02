@@ -194,6 +194,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>fork list {title} on nostr.cooking</title>
+</svelte:head>
+
 {#if loaded == false}
   <div>Loading...</div>
 {:else}

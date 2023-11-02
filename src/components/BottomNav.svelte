@@ -4,27 +4,6 @@
   import { ndk, userPublickey } from '$lib/nostr';
   import { NDKNip07Signer } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
-
-  async function login() {
-    if (browser) {
-      if (!$ndk.signer) {
-        const signer = new NDKNip07Signer();
-        $ndk.signer = signer;
-        ndk.set($ndk);
-      }
-      if ($ndk.signer && $userPublickey == '') {
-        const newUserPublicKey = (await $ndk.signer.user()).hexpubkey;
-        localStorage.setItem('nostrcooking_loggedInPublicKey', newUserPublicKey);
-        $userPublickey = newUserPublicKey;
-        userPublickey.set($userPublickey);
-      }
-    }
-  }
-
-  async function logout() {
-    localStorage.removeItem('nostrcooking_loggedInPublicKey');
-    userPublickey.set('');
-  }
 </script>
 
 <div class="md:hidden z-[101] fixed inset-x-0 bottom-0 py-[6px] bg-white border-t border-gray-300">

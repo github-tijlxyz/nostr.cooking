@@ -115,6 +115,14 @@
   }
 </script>
 
+<svelte:head>
+  <title
+    >{event.tags.find((e) => e[0] == 'title')?.[1]
+      ? event.tags.find((e) => e[0] == 'title')?.[1]
+      : event.tags.find((e) => e[0] == 'd')?.[1]} on nostr.cooking</title
+  >
+</svelte:head>
+
 {#if zapModal}
   <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
 {/if}
@@ -210,18 +218,22 @@
       {#await translate($translateOption, parseMarkdown(event.content))}
         ...
       {:then result}
-        {#if result.from.language.iso == $translateOption.lang}
-          {@html parseMarkdown(event.content)}
-        {:else}
-          <hr />
-          <p class="font-medium">
-            Warning: The contents below are translated from <code>{result.from.language.iso}</code>
-            to
-            <code>{$translateOption.lang}</code>
-            <a class="block" href="/settings">open translation setttings</a>
-          </p>
-          <hr />
-          {@html result.text}
+        <!-- TODO: clean this up -->
+        {#if result !== ''}
+          {#if result.from.language.iso == $translateOption.lang}
+            {@html parseMarkdown(event.content)}
+          {:else}
+            <hr />
+            <p class="font-medium">
+              Warning: The contents below are translated from <code>{result.from.language.iso}</code
+              >
+              to
+              <code>{$translateOption.lang}</code>
+              <a class="block" href="/settings">open translation setttings</a>
+            </p>
+            <hr />
+            {@html result.text}
+          {/if}
         {/if}
       {:catch err}
         <p class="font-medium">

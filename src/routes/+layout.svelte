@@ -45,6 +45,8 @@
   });
 </script>
 
+<svelte:head />
+
 <div class="h-[100%] scroll-smooth">
   <div class="flex h-screen">
     <BottomNav />

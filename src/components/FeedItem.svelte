@@ -70,7 +70,7 @@
           )}{#if String(event.tags.find((e) => e[0] == 'summary')?.[1])?.length > 192}...{/if}
       </p>
     {:else}
-      <p class="text-base">no summary ...</p>
+      <p class="text-base">no summary...</p>
     {/if}
   </div>
 </div>

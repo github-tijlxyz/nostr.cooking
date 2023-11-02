@@ -151,6 +151,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>create a recipe on nostr.cooking</title>
+</svelte:head>
+
 <form on:submit|preventDefault={publishRecipe} class="space-y-8 m-2 divide-y divide-gray-200">
   <div class="space-y-8 divide-y divide-gray-200">
     <div>

@@ -59,6 +59,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>{user.name} on nostr.cooking</title>
+</svelte:head>
+
 <div class="prose mb-6">
   <h1>
     <a class="underline" href="nostr:{$page.params.slug}"

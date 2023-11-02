@@ -54,6 +54,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>create a list on nostr.cooking</title>
+</svelte:head>
+
 <form on:submit|preventDefault={createList} class="space-y-8 m-2 divide-y divide-gray-200">
   <div class="space-y-8 divide-y divide-gray-200">
     <div>
