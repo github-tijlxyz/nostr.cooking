@@ -155,6 +155,7 @@
             <span class="content-center">
               <div class="relative inline-block text-left">
                 <div>
+                <TotalZaps {event} />
                   <button on:click={() => (zapModal = true)} class="hover:text-yellow-500 flex mb-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +171,6 @@
                         d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
                       />
                     </svg>
-                    <TotalZaps {event} />
                   </button>
                   <button on:click={() => (menu = !menu)}
                     ><svg
