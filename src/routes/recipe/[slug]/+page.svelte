@@ -149,13 +149,13 @@
               >{#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}</a
             >
             &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
-            &nbsp;•&nbsp; <TotalZaps {event} /> zapped
+            <!--&nbsp;•&nbsp; <TotalZaps {event} /> zapped-->
           </span>
           <span class="ml-auto mt-auto mb-auto p-1 pt-2">
             <span class="content-center">
               <div class="relative inline-block text-left">
                 <div>
-                  <button on:click={() => (zapModal = true)} class="hover:text-yellow-500">
+                  <button on:click={() => (zapModal = true)} class="hover:text-yellow-500 flex mb-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -170,6 +170,7 @@
                         d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
                       />
                     </svg>
+                    <TotalZaps {event} />
                   </button>
                   <button on:click={() => (menu = !menu)}
                     ><svg

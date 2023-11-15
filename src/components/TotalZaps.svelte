@@ -30,6 +30,4 @@
   loading = false;
 </script>
 
-<span
-  >{#if loading}0{:else}{formatAmount(totalZapAmount / 1000)} sats{/if}</span
->
+{#if loading}...{:else}{formatAmount(totalZapAmount / 1000)} sats{/if}
