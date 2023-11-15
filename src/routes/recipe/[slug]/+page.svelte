@@ -19,6 +19,7 @@
   import TotalZaps from '../../../components/TotalZaps.svelte';
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 
+  let isLoading = false;
   let event: NDKEvent;
   let zapModal = writable(false);
   let naddr: string = '';
@@ -61,17 +62,20 @@
   }
 
   async function zapEvt(amount: number, message: string) {
-    zapModal.set(false);
+      isLoading = true;
+      try {
     if (amount) {
       const a = await event.zap(amount * 1000, message);
       if (a) {
-        try {
           const webln = await requestProvider();
           const res = await webln.sendPayment(a);
-        } catch (err) {
-          console.log('error while handleing zap', err);
-        }
       }
+          zapModal.set(false);
+    }
+     } catch (err) {
+          console.log('error while handleing zap', err);
+    } finally {
+    isLoading = false;
     }
   }
 
@@ -127,7 +131,7 @@
   >
 </svelte:head>
 
-<ZapModal submit={zapEvt} open={zapModal} />
+<ZapModal {isLoading} submit={zapEvt} open={zapModal} />
 
 <article class="prose font-sans mx-auto px-6 py-6 pb-16">
   {#if event}

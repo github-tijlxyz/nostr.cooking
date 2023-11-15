@@ -4,6 +4,7 @@
   import * as Dialog from '$lib/components/ui/dialog';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
+    import { Loader2 } from 'lucide-svelte';
 
   export let submit: (amount: number, message: string) => void;
 
@@ -22,10 +23,11 @@
     submit(amount, message);
   }
 
+  export let isLoading;
   export let open;
 </script>
-
-<Dialog.Root bind:open={$open}> 
+ 
+<Dialog.Root closeOnEscape={!isLoading} closeOnOutsideClick={!isLoading} bind:open={$open}> 
     <Dialog.Content class="sm:max-w-[425px]">
         <Dialog.Header> 
             <Dialog.Title>Zap</Dialog.Title>
@@ -54,8 +56,14 @@
                 />
               </div>
 
-      <Dialog.Footer> 
-        <Button on:click={submitNow} type="button">Zap</Button>
+      <Dialog.Footer>
+        <Button disabled={isLoading} on:click={() => open.set(false)} variant="outline">Cancel</Button>
+        <Button disabled={isLoading} on:click={submitNow} type="button">
+        {#if isLoading}
+        <Loader2 class="mr-2 h-4 w-4 animate-spin" />
+        {/if}
+        Zap
+        </Button>
       </Dialog.Footer>
     </Dialog.Content>
 </Dialog.Root>

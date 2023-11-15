@@ -38,7 +38,7 @@
 </script>
 
 <AddBookmark {event} close={closeSelf} />
-<DropdownMenu.Item>
+<DropdownMenu.Item on:click={() => goto(`/fork/${naddr}`)}>
     {#if event.pubkey == $userPublickey}
     <Pencil class="mr-2 h-4 w-4" />
     {:else}
@@ -50,7 +50,7 @@
     <Copy class="mr-2 h-4 w-4" />
     <span>Copy naddr</span>
 </DropdownMenu.Item>
-<DropdownMenu.Item> 
+<DropdownMenu.Item on:click={saveAsMD}> 
     <Download class="mr-2 h-4 w-4" />
     <span>Save as Markdown</span>
 </DropdownMenu.Item>

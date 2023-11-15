@@ -6,7 +6,7 @@
   export let selected: boolean;
 </script>
 
-<span class="cursor-pointer" on:click={onClick}>
+<span class="cursor-pointer mr-1" on:click={onClick}>
     <Badge variant={`${selected ? '' : 'outline'}`}>{text}</Badge>
 </span>
 
