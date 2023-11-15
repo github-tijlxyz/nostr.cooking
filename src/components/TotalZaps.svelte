@@ -30,8 +30,4 @@
   loading = false;
 </script>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 64c57b6f0db09d7d2091bc20b25bfa3c361cb836
 {#if loading}...{:else}{formatAmount(totalZapAmount / 1000)} sats{/if}

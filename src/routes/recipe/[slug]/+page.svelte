@@ -157,7 +157,6 @@
             <span class="content-center">
               <div class="relative inline-block text-left">
                 <div>
-<<<<<<< HEAD
 
                   <Button variant="ghost" on:click={() => (zapModal.set(true))} class="hover:text-yellow-500">
                     <Zap />
@@ -172,43 +171,7 @@
                     </Button>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content class="w-56">
-=======
-                  <button on:click={() => (zapModal = true)} class="hover:text-yellow-500 flex mb-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-7 h-7"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
-                      />
-                    </svg>
-                    <TotalZaps {event} />
-                  </button>
-                  <button on:click={() => (menu = !menu)}
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-7 h-7"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                      />
-                    </svg>
-                  </button>
-                  <!-- menu -->
-                  {#if menu}
->>>>>>> 64c57b6f0db09d7d2091bc20b25bfa3c361cb836
+
                     <ExtraMenu
                       {naddr}
                       {event}
