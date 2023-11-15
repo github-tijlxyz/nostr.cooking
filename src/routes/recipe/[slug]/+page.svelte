@@ -9,14 +9,18 @@
   import { nip19 } from 'nostr-tools';
   import { translate } from '$lib/translation';
   import { translateOption } from '$lib/state';
-  import TotalZaps from '../../../components/TotalZaps.svelte';
   import { goto } from '$app/navigation';
   import TagLinks from '../../../components/TagLinks.svelte';
   import 'zapthreads';
   import ExtraMenu from '../../../components/ExtraMenu.svelte';
+  import { writable } from 'svelte/store';
+  import { MoreVertical, Zap } from 'lucide-svelte';
+  import { Button } from '$lib/components/ui/button';
+  import TotalZaps from '../../../components/TotalZaps.svelte';
+  import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 
   let event: NDKEvent;
-  let zapModal = false;
+  let zapModal = writable(false);
   let naddr: string = '';
   let menu = false;
 
@@ -57,7 +61,7 @@
   }
 
   async function zapEvt(amount: number, message: string) {
-    zapModal = false;
+    zapModal.set(false);
     if (amount) {
       const a = await event.zap(amount * 1000, message);
       if (a) {
@@ -123,9 +127,7 @@
   >
 </svelte:head>
 
-{#if zapModal}
-  <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
-{/if}
+<ZapModal submit={zapEvt} open={zapModal} />
 
 <article class="prose font-sans mx-auto px-6 py-6 pb-16">
   {#if event}
@@ -149,60 +151,41 @@
               >{#await event.author?.fetchProfile()}...{:then result}{#if result !== null && result.name}{result.name}{:else}...{/if}{/await}</a
             >
             &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
-            &nbsp;•&nbsp; <TotalZaps {event} /> zapped
+            <!--&nbsp;•&nbsp; <TotalZaps {event} /> zapped-->
           </span>
           <span class="ml-auto mt-auto mb-auto p-1 pt-2">
             <span class="content-center">
               <div class="relative inline-block text-left">
                 <div>
-                  <button on:click={() => (zapModal = true)} class="hover:text-yellow-500">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-7 h-7"
+
+                  <Button variant="ghost" on:click={() => (zapModal.set(true))} class="hover:text-yellow-500">
+                    <Zap />
+                    <span class="flex ml-2"><TotalZaps {event} /></span>
+                  </Button>
+
+                  <DropdownMenu.Root >
+                    <DropdownMenu.Trigger asChild let:builder> 
+                        <Button builders={[builder]} variant="ghost"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
-                      />
-                    </svg>
-                  </button>
-                  <button on:click={() => (menu = !menu)}
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-7 h-7"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                      />
-                    </svg>
-                  </button>
-                  <!-- menu -->
-                  {#if menu}
+                        <MoreVertical />
+                    </Button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content class="w-56">
                     <ExtraMenu
                       {naddr}
                       {event}
                       {copyNaddr}
                       closeSelf={closeMenu}
-                      openZapModal={() => (zapModal = true)}
+                      openZapModal={() => (zapModal.set(true))}
                     />
-                  {/if}
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
                 </div>
               </div>
             </span>
           </span>
         </div>
-        <p class="mb-6 mt-1">
+        <p class="m-0">
           {#if event}
             <TagLinks {event} />
           {/if}
@@ -210,9 +193,9 @@
       </div>
     </div>
     {#if event.tags.find((e) => e[0] == 'summary')}
-      <p class="text-gray-600">
+      <blockquote>
         {event.tags.find((e) => e[0] == 'summary')?.[1]}
-      </p>
+      </blockquote>
     {/if}
     {#if $translateOption.lang}
       {#await translate($translateOption, parseMarkdown(event.content))}

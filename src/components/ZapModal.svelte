@@ -1,9 +1,11 @@
 <script lang="ts">
   import { formatAmount } from '$lib/utils';
   import Pill from './Pill.svelte';
+  import * as Dialog from '$lib/components/ui/dialog';
+  import { Button } from '$lib/components/ui/button';
+  import { Input } from '$lib/components/ui/input';
 
   export let submit: (amount: number, message: string) => void;
-  export let cancel: () => void;
 
   //const defaultZapUSDAmounts = [0.05, 0.5, 2, 5, 10, 21, 50, 100, 200];
   const defaultZapSatsAmounts = [
@@ -19,8 +21,46 @@
   function submitNow() {
     submit(amount, message);
   }
+
+  export let open;
 </script>
 
+<Dialog.Root bind:open={$open}> 
+    <Dialog.Content class="sm:max-w-[425px]">
+        <Dialog.Header> 
+            <Dialog.Title>Zap</Dialog.Title>
+        </Dialog.Header>
+
+
+          <div> 
+              <label class="text-sm text-gray-800">Amount (SATS)</label>
+              <div class="gap-2 grid-cols-4">
+                {#if selectedCurrency == 'SATS'}
+                  {#each defaultZapSatsAmounts as zapPamount, i}
+                    <Pill
+                      selected={amount == zapPamount}
+                      text={formatAmount(zapPamount)}
+                      onClick={() => (amount = zapPamount)}
+                    />
+                  {/each}
+                {/if}
+                <!-- add usd? -->
+              </div>
+
+              <div class="my-4">
+                <Input
+                  bind:value={amount}
+                  type="number"
+                />
+              </div>
+
+      <Dialog.Footer> 
+        <Button type="submit">Zap</Button>
+      </Dialog.Footer>
+    </Dialog.Content>
+</Dialog.Root>
+
+<!--
 <div
   class="fixed z-[299] inset-0 overflow-y-hidden"
   aria-labelledby="modal"
@@ -58,7 +98,7 @@
         </div>
         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
           <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Zap</h3>
-          <div class="mt-2">
+          <div class="mt-2">-->
             <!--Choose amount-->
 
             <!-- choose curreny -->
@@ -70,7 +110,7 @@
                     </div>
                 </div> -->
 
-            <div class="mt-2 mb-1">
+            <!--<div class="mt-2 mb-1">
               <label class="text-sm text-gray-800">Amount (SATS)</label>
               <div class="gap-2 grid-cols-4">
                 {#if selectedCurrency == 'SATS'}
@@ -81,9 +121,9 @@
                       onClick={() => (amount = zapPamount)}
                     />
                   {/each}
-                {/if}
+                {/if}-->
                 <!-- add usd? -->
-              </div>
+              <!--</div>
               {#if openCustom}
                 <input
                   bind:value={amount}
@@ -91,10 +131,10 @@
                   class="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               {/if}
-            </div>
+            </div>-->
 
             <!--Add mesage?-->
-            <div class="mt-2 mb-1">
+            <!--<div class="mt-2 mb-1">
               <label class="text-sm text-gray-800">Add a message (optional)</label>
               <input
                 bind:value={message}
@@ -121,4 +161,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->

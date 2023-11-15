@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { Badge } from '$lib/components/ui/badge';
+    import Button from '$lib/components/ui/button/button.svelte';
   import { recipeTags, type recipeTagSimple } from '$lib/consts';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
+    import BottomNav from './BottomNav.svelte';
 
   export let event: NDKEvent;
   export let link = true;
@@ -34,15 +37,10 @@
   }
 </script>
 
-{#each tags as tag, i}
-  {#if i !== 0}&nbsp;•&nbsp;{/if}
-  {#if link}
-    <a href="/tag/{tag.title}" class="underline cursor-pointer">
+<div>
+{#each tags as tag}
+  <Badge href="/tag/{tag.title}" class="ml-2">
       {formatTag(tag)}
-    </a>
-  {:else}
-    <span>
-      {formatTag(tag)}
-    </span>
-  {/if}
+  </Badge>
 {/each}
+</div>

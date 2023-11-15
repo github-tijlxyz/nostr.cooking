@@ -1,9 +1,16 @@
 <script lang="ts">
+  import { Badge } from '$lib/components/ui/badge';
+
   export let text: string;
   export let onClick: () => void;
   export let selected: boolean;
 </script>
 
+<span class="cursor-pointer" on:click={onClick}>
+    <Badge variant={`${selected ? '' : 'outline'}`}>{text}</Badge>
+</span>
+
+<!--
 <button
   on:click={onClick}
   type="button"
@@ -28,3 +35,4 @@
     focus:ring-yellow-500
     `}>{text}</button
 >
+-->

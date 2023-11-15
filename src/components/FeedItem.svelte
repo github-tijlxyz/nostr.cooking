@@ -5,6 +5,7 @@
   import TotalZaps from './TotalZaps.svelte';
   import TagLinks from './TagLinks.svelte';
   import { nip19 } from 'nostr-tools';
+  import * as Card from "$lib/components/ui/card";
 
   export let event: NDKEvent;
 
