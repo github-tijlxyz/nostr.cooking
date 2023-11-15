@@ -55,7 +55,7 @@
               </div>
 
       <Dialog.Footer> 
-        <Button type="submit">Zap</Button>
+        <Button on:click={submitNow} type="submit">Zap</Button>
       </Dialog.Footer>
     </Dialog.Content>
 </Dialog.Root>
