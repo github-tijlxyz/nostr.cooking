@@ -190,8 +190,8 @@
       <zap-threads
         anchor={$page.params.slug}
         relays={relays.join(',')}
-        npub={key}
-        url-prefixes={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
+        user={key}
+        urls={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
         disable={'likes,zaps,replyAnonymously'}
       />
   {:else}
