@@ -40,15 +40,6 @@
     key = nip19.npubEncode($userPublickey);
   }
 
-  // for zapthreads
-  let key = '';
-  let sk = localStorage.getItem('nostrcooking_privateKey');
-  if (sk) {
-    key = nip19.nsecEncode(sk);
-  } else if ($userPublickey) {
-    key = nip19.npubEncode($userPublickey);
-  }
-
   $: {
     if ($page.params.slug) {
       loadData();
