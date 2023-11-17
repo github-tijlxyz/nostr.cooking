@@ -1,6 +1,7 @@
 {
-  "name": "robosats-new-ui",
-  "version": "0.0.1",
+  "name": "nostr.cooking",
+  "license": "MIT",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -17,7 +18,6 @@
     "@nostr-dev-kit/ndk": "^1.2.1",
     "@nostr-dev-kit/ndk-cache-dexie": "^1.2.0",
     "@sveltejs/adapter-auto": "^2.0.0",
-    "@sveltejs/adapter-cloudflare": "^2.3.3",
     "@sveltejs/kit": "^1.20.4",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.10",
@@ -28,6 +28,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte": "^2.30.0",
     "google-translate-api-browser": "^3.0.1",
+    "hurdak": "^0.2.5",
+    "libretranslate": "^1.0.1",
     "light-bolt11-decoder": "^3.0.0",
     "markdown-it": "^13.0.1",
     "node-gyp": "^9.4.0",

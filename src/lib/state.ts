@@ -1,9 +1,10 @@
 import { browser } from '$app/environment';
 import { writable, type Writable } from 'svelte/store';
 
-type TranslateOption = {
+export type TranslateOption = {
   option: string;
   lang: string;
+  data: string;
 };
 
 let l;

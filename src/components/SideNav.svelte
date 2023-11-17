@@ -1,13 +1,17 @@
 <script>
-  import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
-  import { ndk, userPublickey } from '$lib/nostr';
-  import { NDKNip07Signer } from '@nostr-dev-kit/ndk';
+  import { userPublickey } from '$lib/nostr';
   import { nip19 } from 'nostr-tools';
+  import SVGNostrCookingWithText from '../assets/nostr.cooking-withtext.svg';
 </script>
 
-<div class="hidden md:block w-3/12 border border-slate-500 rounded-lg m-4 bg-gray-50 px-4 py-2">
+<div class="m-4 hidden md:block w-3/12 rounded-xl min-w-[256px] bg-gray-50 px-4 py-2">
   <div class="w-full">
+    <img
+      src={SVGNostrCookingWithText}
+      class="h-full w-full mb-[-1.25rem] mt-[-0.25rem]"
+      alt="Nostr.Cooking Logo With Text"
+    />
     <button
       on:click={() => goto('/recent')}
       class="px-3 py-3 bg-white border border-gray-300 hover:bg-slate-50 rounded-lg mt-2 w-full"
@@ -120,6 +124,7 @@
         <span>Settings</span>
       </div>
     </button>
+    <!--
     {#if $userPublickey == ''}
       <button
         on:click={() => goto('/login')}
@@ -139,9 +144,15 @@
         </div>
       </button>
     {/if}
+    -->
   </div>
   <hr class="my-4" />
   <div class="text-center w-full text-sm">
+    <!-- <img
+    src={SVGNostrCookingWithText}
+    class="h-full w-full mb-[-1.25rem] mt-[-0.25rem]"
+    alt="Nostr.Cooking Logo With Text"
+  /> -->
     <p>
       <a
         class="hover:underline"

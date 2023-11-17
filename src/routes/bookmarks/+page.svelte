@@ -106,6 +106,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>your bookmarks on nostr.cooking</title>
+</svelte:head>
+
 {#if event}
   <div class="mb-6 prose">
     {#if user}
@@ -114,7 +118,7 @@
       </h1>
       <p>
         {#if $userPublickey == event.author.hexpubkey}
-        <a class="underline" href={`/list/${naddr}/fork`}>Edit</a>
+          <a class="underline" href={`/bookmarks/edit`}>Edit</a>
         {/if}
         &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
       </p>

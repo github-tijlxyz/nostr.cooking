@@ -49,6 +49,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>{user && user.name ? user.name : '...'} on nostr.cooking</title>
+</svelte:head>
+
 <div class="prose mb-6">
   <h1>
     <a class="underline" href="nostr:{$page.params.slug}"
@@ -75,7 +79,7 @@
           class="text-gray-500 rounded-r-lg hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
         >
           <span>Lists</span>
-          <span aria-hidden="true" class="bg-blue-500 absolute inset-x-0 bottom-0 h-0.5" />
+          <span aria-hidden="true" class="bg-blue-300 absolute inset-x-0 bottom-0 h-0.5" />
         </a>
       </nav>
     </div>
@@ -88,7 +92,7 @@
   <div class="mb-4">
     <a
       href="/list/create"
-      class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full"
+      class="inline-flex items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 w-full"
     >
       <div class="w-full text-center">Create New List</div>
     </a>

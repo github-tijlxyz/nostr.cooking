@@ -5,14 +5,14 @@
   export let submit: (amount: number, message: string) => void;
   export let cancel: () => void;
 
-  const defaultZapUSDAmounts = [0.05, 0.5, 2, 5, 10, 21, 50, 100, 200];
+  //const defaultZapUSDAmounts = [0.05, 0.5, 2, 5, 10, 21, 50, 100, 200];
   const defaultZapSatsAmounts = [
     21, 69, 121, 420, 1000, 2100, 4200, 10000, 21000, 42000, 69000, 100000, 210000, 500000, 1000000
   ];
 
   let selectedCurrency: 'SATS' | 'USD' = 'SATS';
 
-  let openCustom: boolean = false;
+  let openCustom: boolean = true;
   let amount: number = 21;
   let message: string = '';
 
@@ -21,10 +21,9 @@
   }
 </script>
 
-<!-- This example requires Tailwind CSS v2.0+ -->
 <div
-  class="fixed z-[89] inset-0 overflow-y-auto"
-  aria-labelledby="modal-title"
+  class="fixed z-[299] inset-0 overflow-y-hidden"
+  aria-labelledby="modal"
   role="dialog"
   aria-modal="true"
 >
@@ -77,17 +76,12 @@
                 {#if selectedCurrency == 'SATS'}
                   {#each defaultZapSatsAmounts as zapPamount, i}
                     <Pill
-                      selected={amount == zapPamount && openCustom == false}
+                      selected={amount == zapPamount}
                       text={formatAmount(zapPamount)}
                       onClick={() => (amount = zapPamount)}
                     />
                   {/each}
                 {/if}
-                <Pill
-                  selected={openCustom == true}
-                  text={'Custom'}
-                  onClick={() => (openCustom = !openCustom)}
-                />
                 <!-- add usd? -->
               </div>
               {#if openCustom}

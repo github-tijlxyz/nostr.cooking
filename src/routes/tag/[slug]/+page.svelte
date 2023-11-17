@@ -19,31 +19,33 @@
     }
   }
 
-  tag = $page.params.slug;
-
   function openTag(query: string) {
     goto(`/tag/${query}`);
   }
 
   async function loadData() {
-    if (tag) {
-      let filter: NDKFilter = {
-        limit: 256,
-        kinds: [30023],
-        '#t': [`nostrcooking-${tag.toLowerCase().replaceAll(' ', '-')}`]
-      };
-      const evts = await $ndk.fetchEvents(filter);
-      let evtsArr = Array.from(evts);
-      evtsArr.forEach((ev, i) => {
-        if (validateMarkdownTemplate(ev.content) == null) {
-          evtsArr.splice(i, 1);
-        }
-      });
-      events = evtsArr;
-      loaded = true;
-    }
+    loaded = false;
+    events = [];
+    let filter: NDKFilter = {
+      limit: 256,
+      kinds: [30023],
+      '#t': [`nostrcooking-${$page.params.slug.toLowerCase().replaceAll(' ', '-')}`]
+    };
+    const evts = await $ndk.fetchEvents(filter);
+    let evtsArr = Array.from(evts);
+    evtsArr.forEach((ev, i) => {
+      if (validateMarkdownTemplate(ev.content) == null) {
+        evtsArr.splice(i, 1);
+      }
+    });
+    events = evtsArr;
+    loaded = true;
   }
 </script>
+
+<svelte:head>
+  <title>recipes with tag "{$page.params.slug}" on nostr.cooking</title>
+</svelte:head>
 
 <TagsSearchAutocomplete
   placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree'"}
@@ -52,33 +54,37 @@
 />
 
 <div class="prose mb-6">
+  <!-- TODO: Clean up this mess -->
   <h1>
-    Recipes with the tag "{#if tag}{#if recipeTags.find((e) => e.title
+    Recipes with the tag "{#if $page.params.slug}{#if recipeTags.find((e) => e.title
             .toLowerCase()
-            .replaceAll(' ', '-') == tag?.toLowerCase().replaceAll(' ', '-'))}{recipeTags.find(
+            .replaceAll(' ', '-') == $page.params.slug
+            ?.toLowerCase()
+            .replaceAll(' ', '-'))}{recipeTags.find(
           (e) =>
-            e.title.toLowerCase().replaceAll(' ', '-') == tag?.toLowerCase().replaceAll(' ', '-')
+            e.title.toLowerCase().replaceAll(' ', '-') ==
+            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
         )?.emoji
           ? `${
               recipeTags.find(
                 (e) =>
                   e.title.toLowerCase().replaceAll(' ', '-') ==
-                  tag?.toLowerCase().replaceAll(' ', '-')
+                  $page.params.slug?.toLowerCase().replaceAll(' ', '-')
               )?.emoji
             } ${
               recipeTags.find(
                 (e) =>
                   e.title.toLowerCase().replaceAll(' ', '-') ==
-                  tag?.toLowerCase().replaceAll(' ', '-')
+                  $page.params.slug?.toLowerCase().replaceAll(' ', '-')
               )?.title
             }`
           : `${
               recipeTags.find(
                 (e) =>
                   e.title.toLowerCase().replaceAll(' ', '-') ==
-                  tag?.toLowerCase().replaceAll(' ', '-')
+                  $page.params.slug?.toLowerCase().replaceAll(' ', '-')
               )?.title
-            }`}{:else}{tag}{/if}{:else}...{/if}"
+            }`}{:else}{$page.params.slug}{/if}{:else}...{/if}"
   </h1>
 </div>
 
