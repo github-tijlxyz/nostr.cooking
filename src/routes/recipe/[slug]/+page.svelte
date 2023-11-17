@@ -270,13 +270,13 @@
     {:else}
       {@html parseMarkdown(event.content)}
     {/if}
-    <zap-threads
-      anchor={$page.params.slug}
-      relays={relays.join(',')}
-      npub={key}
-      url-prefixes={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
-      disable={'likes,zaps,replyAnonymously'}
-    />
+      <zap-threads
+        anchor={$page.params.slug}
+        relays={relays.join(',')}
+        user={key}
+        urls={'naddr:nostr.cooking/recipe/,npub:nostr.cooking/user/'}
+        disable={'likes,zaps,replyAnonymously'}
+      />
   {:else}
     <p>Loading...</p>
   {/if}
