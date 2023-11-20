@@ -10,7 +10,11 @@
   let events: NDKEvent[] = [];
 
   function openTag(query: string) {
-    goto(`/tag/${query}`);
+    if(query.startsWith('npub')) {
+      goto(`/user/${query}`);
+    } else {
+      goto(`/tag/${query}`);
+    }
   }
 
   onMount(async () => {
@@ -31,7 +35,7 @@
 </svelte:head>
 
 <TagsSearchAutocomplete
-  placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree'"}
+  placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree', or search by npub."}
   actionString={'Go'}
   action={openTag}
 />
