@@ -129,7 +129,7 @@
             console.log('publish failed to', relay, err);
           });
         });
-        resultMessage = 'Succes!';
+        resultMessage = 'Success!';
         const naddr = nip19.naddrEncode({
           identifier: title.toLowerCase().replaceAll(' ', '-'),
           pubkey: event.author.hexpubkey,
@@ -215,7 +215,7 @@
         <div class="sm:col-span-6">
           <div class="mt-1">
             <textarea
-              placeholder="Some breef discription of the dish (can also be the same as chef's notes)"
+              placeholder="Some brief description of the dish (can also be the same as chef's notes)"
               bind:value={summary}
               rows="3"
               class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
