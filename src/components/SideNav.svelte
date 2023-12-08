@@ -9,7 +9,7 @@
   <div class="w-full">
     <img
       src={SVGNostrCookingWithText}
-      class="h-full w-full mb-[-1.25rem] mt-[-0.25rem]"
+      class="h-full w-full my-3"
       alt="Nostr.Cooking Logo With Text"
     />
     <button
