@@ -54,6 +54,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Cocktail', emoji: '🍹' },
   { title: 'Coconut', emoji: '🥥' },
   { title: 'Cookies', emoji: '🍪' },
+  { title: 'Coffee', emoji: '☕' },
   { title: 'Corn', emoji: '🌽' },
   { title: 'Cream', emoji: '🥛' },
   { title: 'Curry' },
