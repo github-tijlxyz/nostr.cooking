@@ -3122,8 +3122,4 @@ zapthreads@^0.5.0:
     nano-markdown "^1.2.2"
     nostr-tools "^1.17.0"
     solid-element "^1.7.1"
-<<<<<<< HEAD
     solid-js "^1.8.5"
-=======
-    solid-js "^1.7.6"
->>>>>>> ec7fc38a78109e882cfbdf8d17673b02bebfa5d8
