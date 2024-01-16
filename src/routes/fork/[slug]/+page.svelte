@@ -12,6 +12,7 @@
   import { writable, type Writable } from 'svelte/store';
   import { nip19 } from 'nostr-tools';
   import { goto } from '$app/navigation';
+  import ImagesComboBox from '../../../components/ImagesComboBox.svelte';
 
   $: {
     if ($page.params.slug) {
@@ -70,8 +71,13 @@
         if (titleTagValue) title = titleTagValue;
         let summaryTagValue = event.tags.find((e) => e[0] == 'summary')?.[1];
         if (summaryTagValue) summary = summaryTagValue;
-        let imageTagValue = event.tags.find((e) => e[0] == 'image')?.[1];
-        if (imageTagValue) image = imageTagValue;
+        let imageTagsValue = event.tags.filter((e) => e[0] == 'image');
+        if (imageTagsValue) {
+          for (let i = 0; i < imageTagsValue.length; i++) {
+            $images.push(imageTagsValue[i][1]);
+          }
+          images.set($images); // svelte reactivity
+        }
         selectedTags.set([]);
         let tagTags = event.tags.filter(
           (e) =>
@@ -119,7 +125,7 @@
   }
 
   let title = '';
-  let image = '';
+  let images: Writable<string[]> = writable([]);
   let selectedTags: Writable<recipeTagSimple[]> = writable([]);
   let summary = '';
   let chefsnotes = '';
@@ -160,8 +166,10 @@
         if (summary !== '') {
           previewEvent.tags.push(['summary', summary]);
         }
-        if (image !== '') {
-          previewEvent.tags.push(['image', image]);
+        if ($images.length > 0) {
+          for (let i = 0; i < $images.length; i++) {
+            previewEvent.tags.push(['image', $images[i]]);
+          }
         }
         $selectedTags.forEach((t) => {
           if (t.title) {
@@ -202,8 +210,10 @@
         if (summary !== '') {
           event.tags.push(['summary', summary]);
         }
-        if (image !== '') {
-          event.tags.push(['image', image]);
+        if ($images.length > 0) {
+          for (let i = 0; i < $images.length; i++) {
+            event.tags.push(['image', $images[i]]);
+          }
         }
         $selectedTags.forEach((t) => {
           if (t.title) {
@@ -268,22 +278,14 @@
 
     <div class="pt-8">
       <div>
-        <h3 class="text-lg leading-6 font-medium text-gray-900">Image</h3>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Images</h3>
         <p class="mt-1 text-sm text-gray-500">
           Recommended to add for more interest! Show's up in lists, at recent recipies or profile
           page
         </p>
       </div>
 
-      <div class="sm:col-span-6">
-        <div class="mt-1">
-          <input
-            placeholder="https://example.com/image.png"
-            bind:value={image}
-            class="shadow-sm mt-3 focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-          />
-        </div>
-      </div>
+      <ImagesComboBox uploadedImages={images} />
 
       <div class="pt-8">
         <div>
