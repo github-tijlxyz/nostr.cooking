@@ -4,7 +4,7 @@
   import { createMarkdown, validateMarkdownTemplate } from '$lib/pharser';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { recipeTags, type recipeTagSimple } from '$lib/consts';
-  import FeedItem from '../../../components/FeedItem.svelte';
+  import FeedItem from '../../../components/RecipeCard.svelte';
   import { browser } from '$app/environment';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
