@@ -97,3 +97,4 @@ export const flyAndScale = (
         easing: cubicOut
     };
 };
+
