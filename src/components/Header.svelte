@@ -11,7 +11,7 @@
   let dropdownActive = false;
 </script>
 
-<div class="flex gap-9 w-full">
+<div class="flex gap-9">
   <img
     src={SVGNostrCookingWithText}
     class="w-40 my-3"
