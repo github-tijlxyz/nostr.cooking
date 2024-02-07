@@ -1,11 +1,10 @@
 <script>
   import { onMount } from 'svelte';
-  import '../app.postcss';
-  import SideNav from '../components/SideNav.svelte';
+  import '../app.css';
+  import Header from '../components/Header.svelte';
   import { browser } from '$app/environment';
   import { NDKNip07Signer, NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
   import { ndk, userPublickey } from '$lib/nostr';
-  import BottomNav from '../components/BottomNav.svelte';
 
   async function login() {
     if (browser) {
@@ -49,9 +48,8 @@
 
 <div class="h-[100%] scroll-smooth">
   <div class="flex h-screen">
-    <BottomNav />
-    <SideNav />
     <div class="flex-1 overflow-y-auto pt-3 px-3">
+      <Header />
       <div class="pb-24">
         <slot />
       </div>
