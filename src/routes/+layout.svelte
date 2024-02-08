@@ -5,6 +5,9 @@
   import { browser } from '$app/environment';
   import { NDKNip07Signer, NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
   import { ndk, userPublickey } from '$lib/nostr';
+  import Fa from "svelte-fa";
+  import { faMagnifyingGlass, faList, faBookmark } from '@fortawesome/free-solid-svg-icons';
+  import BottomNav from '../components/BottomNav.svelte';
 
   async function login() {
     if (browser) {
@@ -53,6 +56,7 @@
       <div class="pb-24">
         <slot />
       </div>
+      <BottomNav />
     </div>
   </div>
 </div>

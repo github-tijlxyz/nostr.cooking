@@ -12,13 +12,15 @@
 </script>
 
 <div class="flex gap-9">
-  <img
-    src={SVGNostrCookingWithText}
-    class="w-40 my-3"
-    alt="Nostr.Cooking Logo With Text"
-  />
+  <div class="grow md:grow-0">
+    <img
+      src={SVGNostrCookingWithText}
+      class="w-40 my-3"
+      alt="Nostr.Cooking Logo With Text"
+    />
+  </div>
 
-  <div class="flex grow gap-10 self-center font-semibold">
+  <div class="hidden md:flex grow gap-10 self-center font-semibold">
     <span class="cursor-pointer" on:click={() => goto("/recent")}>Discover</span>
     <span>Categories</span>
     <span>Lists</span>
