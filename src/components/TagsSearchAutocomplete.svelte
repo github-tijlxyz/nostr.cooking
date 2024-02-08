@@ -65,7 +65,7 @@
 
 <div class="mb-4 relative">
   <form
-    class="mt- flex rounded-md shadow-sm"
+    class="flex rounded-xl shadow-sm"
     on:submit|preventDefault={() => {
       if (tagquery) {
         action(tagquery);
@@ -73,26 +73,24 @@
       }
     }}
   >
-    <div class="flex items-stretch flex-grow focus-within:z-10">
+    <div class="flex mx-0.5 items-stretch flex-grow focus-within:z-10">
       <input
         bind:value={tagquery}
         on:input={handleInputChange}
         on:focus={handleInputFocus}
         on:blur={handleInputBlur}
-        class="focus:ring-blue-300 focus:border-blue-300 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
+        class="block w-full rounded-xl sm:text-sm border-0 bg-[#F6F6F6]"
         placeholder={placeholderString}
       />
     </div>
-    <button
+    <input
       type="submit"
-      class="-ml-px inline-flex items-center space-x-2 px-3 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-300 focus:border-blue-300"
-    >
-      {actionString}
-    </button>
+      class="hidden"
+    />
   </form>
   {#if showAutocomplete && filteredTags.length > 0}
     <ul
-      class="max-h-[256px] overflow-y-scroll absolute top-full left-0 w-full bg-white border border-gray-300 shadow-lg rounded-lg mt-1 z-[60]"
+      class="max-h-[256px] overflow-y-scroll absolute top-full left-0 w-full bg-white border border-gray-300 shadow-lg rounded-xl mt-1 z-[60]"
     >
       {#each filteredTags as tag (tag.title)}
         <!-- svelte-ignore a11y-click-events-have-key-events -->

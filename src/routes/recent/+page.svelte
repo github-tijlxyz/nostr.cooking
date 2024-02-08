@@ -1,11 +1,41 @@
 <script lang="ts">
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import type { NDKEvent, NDKFilter } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
   import Feed from '../../components/Feed.svelte';
   import { validateMarkdownTemplate } from '$lib/pharser';
   import TagsSearchAutocomplete from '../../components/TagsSearchAutocomplete.svelte';
   import { goto } from '$app/navigation';
+  import { Name } from '@nostr-dev-kit/ndk-svelte-components';
+  import { recipeTags } from "$lib/consts"
+
+  function isPopTag(tag: string): boolean {
+    switch (tag.toLowerCase()) {
+      case 'asian':
+      case 'american':
+      case 'quick':
+      case 'easy':
+      case 'beef':
+      case 'chicken':
+      case 'vegetables':
+      case 'seafood':
+      case 'soup':
+      case 'italian':
+      case 'thai':
+      case 'mexican':
+      case 'indian':
+      case 'korean':
+      case 'dessert':
+      case 'slowcooked':
+      case 'breakfast':
+      case 'alcohol':
+        return true
+      default:
+        return false
+    }
+  }
+
+  const popTags = recipeTags.filter((v) => isPopTag(v.title))
 
   let events: NDKEvent[] = [];
 
@@ -36,8 +66,17 @@
   <title>recent recipes on nostr.cooking</title>
 </svelte:head>
 
+<div class="prose">
+  <h2>
+    {#if $userPublickey}
+      What are you in the mood for <Name ndk={$ndk} pubkey={$userPublickey} />?
+    {:else}
+      What are you in the mood for?
+    {/if}
+  </h2>
+</div>
 <TagsSearchAutocomplete
-  placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree', or search by npub."}
+  placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree', or search by npub."}
   actionString={'Go'}
   action={openTag}
 />
@@ -52,28 +91,47 @@
 </div>
 
 
-<div class="flex flex-col gap-2">
-  <div class="prose">
-    <h2>Recent Recipes</h2>
-  </div>
-  <div>
-    {#if events.length > 0}
-      <Feed {events} hideHide={true} />
-    {:else}
-      <div class="grid gap-x-4 gap-y-10 grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
-        {#each new Array(24) as i}
-          <div class="flex flex-col gap-4">
-            <div
-              class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-slate-200 animate-pulse"
-            >
-            </div>
+<div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-2">
+    <div class="prose">
+      <h2>Popular Categories</h2>
+    </div>
 
-            <h5 class="text-md leading-tight text-wrap text-slate-200 bg-slate-200 animate-pulse">
-              PLACEHOLDER RECIPE {i}
-            </h5>
+    <div class="flex gap-4 overflow-y-hidden overflow-x-auto">
+      {#each popTags as tag}
+        <div class="flex flex-col gap-2">
+          <div class="table w-16 h-16 bg-[#F4F4F4] rounded-full place-self-center">
+            <div class="table-cell align-middle place-self-center text-center text-4xl">{tag.emoji}</div>
           </div>
-        {/each}
-      </div>
-    {/if}
+          <div class="place-self-center">{tag.title}</div>
+        </div>
+      {/each}
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <div class="prose">
+      <h2>Recent Recipes</h2>
+    </div>
+    <div>
+      {#if events.length > 0}
+        <Feed {events} hideHide={true} />
+      {:else}
+        <div class="grid gap-x-4 gap-y-10 grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
+          {#each new Array(24) as i}
+            <div class="flex flex-col gap-4">
+              <div
+                class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-slate-200 animate-pulse"
+              >
+              </div>
+
+              <h5 class="text-md leading-tight text-wrap text-slate-200 bg-slate-200 animate-pulse">
+                PLACEHOLDER RECIPE {i}
+              </h5>
+            </div>
+          {/each}
+        </div>
+      {/if}
+    </div>
   </div>
 </div>
