@@ -66,32 +66,24 @@
   <title>recent recipes on nostr.cooking</title>
 </svelte:head>
 
-<div class="prose">
-  <h2>
-    {#if $userPublickey}
-      What are you in the mood for <Name ndk={$ndk} pubkey={$userPublickey} />?
-    {:else}
-      What are you in the mood for?
-    {/if}
-  </h2>
-</div>
-<TagsSearchAutocomplete
-  placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree', or search by npub."}
-  actionString={'Go'}
-  action={openTag}
-/>
-
-<div class="mb-4 mt-0">
-  <a
-    href="/tags"
-    class="inline-flex items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 w-full"
-  >
-    <div class="w-full text-center">Explore all tags</div>
-  </a>
-</div>
-
-
 <div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-2">
+    <div class="prose">
+      <h2>
+        {#if $userPublickey}
+          What are you in the mood for <Name ndk={$ndk} pubkey={$userPublickey} />?
+        {:else}
+          What are you in the mood for?
+        {/if}
+      </h2>
+    </div>
+    <TagsSearchAutocomplete
+      placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree', or search by npub."}
+      actionString={'Go'}
+      action={openTag}
+    />
+  </div>
+
   <div class="flex flex-col gap-2">
     <div class="prose">
       <h2>Popular Categories</h2>

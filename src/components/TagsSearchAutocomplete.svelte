@@ -63,7 +63,7 @@
   });
 </script>
 
-<div class="mb-4 relative">
+<div class="relative">
   <form
     class="flex rounded-xl shadow-sm"
     on:submit|preventDefault={() => {
