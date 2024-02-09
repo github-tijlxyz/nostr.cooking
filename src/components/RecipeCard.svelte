@@ -22,7 +22,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start">
   <div
     on:click={open}
     class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden {event.tags.find(

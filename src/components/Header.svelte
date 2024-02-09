@@ -30,7 +30,9 @@
     <Button class="self-center" on:click={() => goto("/user")}>
       <div class="flex gap-2 font-semibold">
         <Fa class="self-center" icon={faAdd} />
-        Add Recipe
+        <div class="hidden md:flex">
+          Add Recipe
+        </div>
       </div>
     </Button>
     <div class="self-center">

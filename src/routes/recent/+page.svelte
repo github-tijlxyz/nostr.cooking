@@ -71,7 +71,7 @@
     <div class="prose">
       <h2>
         {#if $userPublickey}
-          What are you in the mood for <Name ndk={$ndk} pubkey={$userPublickey} />?
+          What are you in the mood for <Name ndk={$ndk} pubkey={$userPublickey} npubMaxLength={10} />?
         {:else}
           What are you in the mood for?
         {/if}
