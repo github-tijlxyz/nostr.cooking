@@ -105,25 +105,6 @@
     <div class="prose">
       <h2>Recent Recipes</h2>
     </div>
-    <div>
-      {#if events.length > 0}
-        <Feed {events} hideHide={true} />
-      {:else}
-        <div class="grid gap-x-4 gap-y-10 grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
-          {#each new Array(24) as i}
-            <div class="flex flex-col gap-4">
-              <div
-                class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-slate-200 animate-pulse"
-              >
-              </div>
-
-              <h5 class="text-md leading-tight text-wrap text-slate-200 bg-slate-200 animate-pulse">
-                PLACEHOLDER RECIPE {i}
-              </h5>
-            </div>
-          {/each}
-        </div>
-      {/if}
-    </div>
+    <Feed {events} hideHide={true} />
   </div>
 </div>
