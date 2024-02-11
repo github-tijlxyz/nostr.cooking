@@ -5,11 +5,21 @@
   import { browser } from '$app/environment';
   import { NDKNip07Signer, NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
   import { ndk, userPublickey } from '$lib/nostr';
-  import Fa from 'svelte-fa';
-  import { faMagnifyingGlass, faList, faBookmark } from '@fortawesome/free-solid-svg-icons';
   import BottomNav from '../components/BottomNav.svelte';
 
-  async function login() {
+  async function loadUserData() {
+    if ($ndk.signer && $userPublickey == '') {
+      const newUserPublicKey = (await $ndk.signer.user()).hexpubkey;
+      localStorage.setItem('nostrcooking_loggedInPublicKey', newUserPublicKey);
+      $userPublickey = newUserPublicKey;
+      userPublickey.set($userPublickey);
+    }
+    if ($ndk.signer) {
+      console.log('signer activated');
+    }
+  }
+
+  async function loginWithNIP07() {
     if (browser) {
       if (!$ndk.signer) {
         try {
@@ -18,34 +28,32 @@
           ndk.set($ndk);
         } catch (err) {}
       }
-      if (!$ndk.signer) {
-        try {
-          const pk = localStorage.getItem('nostrcooking_privateKey');
-          if (pk) {
-            const signer = new NDKPrivateKeySigner(pk);
-            $ndk.signer = signer;
-            ndk.set($ndk);
-          }
-        } catch (err) {}
-      }
-      if ($ndk.signer && $userPublickey == '') {
-        const newUserPublicKey = (await $ndk.signer.user()).hexpubkey;
-        localStorage.setItem('nostrcooking_loggedInPublicKey', newUserPublicKey);
-        $userPublickey = newUserPublicKey;
-        userPublickey.set($userPublickey);
-      }
-      if ($ndk.signer) {
-        console.log('signer activated');
-      }
     }
+    loadUserData();
+  }
+
+  async function tryAuthenticateLocalPrivatekey() {
+    if (!$ndk.signer) {
+      try {
+        const pk = localStorage.getItem('nostrcooking_privateKey');
+        if (pk) {
+          const signer = new NDKPrivateKeySigner(pk);
+          $ndk.signer = signer;
+          ndk.set($ndk);
+        }
+      } catch (err) {}
+    }
+    loadUserData();
   }
 
   onMount(() => {
     setTimeout(async () => {
+      tryAuthenticateLocalPrivatekey();
+
       const triedAutoNIP07Login = localStorage.getItem('triedAutoNIP07Login');
       if (triedAutoNIP07Login == null) {
         localStorage.setItem('triedAutoNIP07Login', '1');
-        await login();
+        await loginWithNIP07();
       }
     }, 5);
   });

@@ -4,8 +4,8 @@
 
 <button
   class="text-white rounded-full {primary
-    ? 'bg-[#EC4700]'
-    : 'bg-black'} px-4 py-2.5 font-semibold {$$props.class}"
+    ? 'bg-[#EC4700] hover:bg-[#d64000]'
+    : 'bg-black hover:bg-gray-800'} px-4 py-2.5 font-semibold {$$props.class}"
   on:click
 >
   <slot />
