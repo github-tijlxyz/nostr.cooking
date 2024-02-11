@@ -7,6 +7,7 @@
   import Fa from "svelte-fa";
   import { faAdd, faGear, faUser, faWallet, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
   import { nip19 } from 'nostr-tools';
+  import { clickOutside } from '$lib/clickOutside';
 
   let dropdownActive = false;
 </script>
@@ -41,7 +42,7 @@
           <Avatar class="cursor-pointer w-12 h-12 object-center rounded-full" ndk={$ndk} pubkey={$userPublickey} />
         </div>
         {#if dropdownActive}
-          <div class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6">
+          <div use:clickOutside on:click_outside={() => dropdownActive = false} class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6">
             <span class="flex gap-2 cursor-pointer" on:click={() => goto(`/user/${nip19.npubEncode($userPublickey)}`)}>
               <Fa class="self-center" icon={faUser} />
               Profile
