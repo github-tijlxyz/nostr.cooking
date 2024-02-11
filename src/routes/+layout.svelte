@@ -5,7 +5,7 @@
   import { browser } from '$app/environment';
   import { NDKNip07Signer, NDKPrivateKeySigner } from '@nostr-dev-kit/ndk';
   import { ndk, userPublickey } from '$lib/nostr';
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa';
   import { faMagnifyingGlass, faList, faBookmark } from '@fortawesome/free-solid-svg-icons';
   import BottomNav from '../components/BottomNav.svelte';
 
@@ -42,7 +42,11 @@
 
   onMount(() => {
     setTimeout(async () => {
-      await login();
+      const triedAutoNIP07Login = localStorage.getItem('triedAutoNIP07Login');
+      if (triedAutoNIP07Login == null) {
+        localStorage.setItem('triedAutoNIP07Login', '1');
+        await login();
+      }
     }, 5);
   });
 </script>

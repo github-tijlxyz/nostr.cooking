@@ -1,4 +1,4 @@
-const defaultTheme = require("tailwindcss/defaultTheme")
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config}*/
 const config = {
@@ -7,7 +7,7 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Geist", ...defaultTheme.fontFamily.sans]
+        sans: ['Geist', ...defaultTheme.fontFamily.sans]
       }
     }
   },

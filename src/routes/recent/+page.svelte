@@ -7,7 +7,7 @@
   import TagsSearchAutocomplete from '../../components/TagsSearchAutocomplete.svelte';
   import { goto } from '$app/navigation';
   import { Name } from '@nostr-dev-kit/ndk-svelte-components';
-  import { recipeTags } from "$lib/consts"
+  import { recipeTags } from '$lib/consts';
 
   function isPopTag(tag: string): boolean {
     switch (tag.toLowerCase()) {
@@ -29,23 +29,23 @@
       case 'slowcooked':
       case 'breakfast':
       case 'alcohol':
-        return true
+        return true;
       default:
-        return false
+        return false;
     }
   }
 
-  const popTags = recipeTags.filter((v) => isPopTag(v.title))
+  const popTags = recipeTags.filter((v) => isPopTag(v.title));
 
   let events: NDKEvent[] = [];
 
   function openTag(query: string) {
-    if(query.startsWith('npub')) {
+    if (query.startsWith('npub')) {
       goto(`/user/${query}`);
-    } else if(query.startsWith('naddr')) {
+    } else if (query.startsWith('naddr')) {
       goto(`/recipe/${query}`);
     } else {
-      goto(`/tag/${query}`)
+      goto(`/tag/${query}`);
     }
   }
 
@@ -71,7 +71,11 @@
     <div class="prose">
       <h2>
         {#if $userPublickey}
-          What are you in the mood for <Name ndk={$ndk} pubkey={$userPublickey} npubMaxLength={10} />?
+          What are you in the mood for <Name
+            ndk={$ndk}
+            pubkey={$userPublickey}
+            npubMaxLength={10}
+          />?
         {:else}
           What are you in the mood for?
         {/if}
@@ -93,7 +97,9 @@
       {#each popTags as tag}
         <a href="/tag/{tag.title}" class="flex flex-col gap-2">
           <div class="table w-16 h-16 bg-[#F4F4F4] rounded-full place-self-center">
-            <div class="table-cell align-middle place-self-center text-center text-4xl">{tag.emoji}</div>
+            <div class="table-cell align-middle place-self-center text-center text-4xl">
+              {tag.emoji}
+            </div>
           </div>
           <div class="place-self-center">{tag.title}</div>
         </a>

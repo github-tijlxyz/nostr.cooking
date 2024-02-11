@@ -17,7 +17,7 @@
   export let data;
   let hexpubkey: string | undefined = undefined;
   let events: NDKEvent[] = [];
-  let user: NDKUser
+  let user: NDKUser;
   let profile: NDKUserProfile;
   let loaded = false;
   let zapModal = false;
@@ -41,11 +41,11 @@
     }
     if (hexpubkey) {
       // load user
-      const u = $ndk.getUser({ pubkey: hexpubkey })
+      const u = $ndk.getUser({ pubkey: hexpubkey });
       const p = await u.fetchProfile();
-      user = u
+      user = u;
       if (p) {
-        profile = p
+        profile = p;
       }
 
       // load feed
@@ -95,12 +95,19 @@
 <div class="flex flex-col gap-6">
   <div class="flex">
     <div class="flex flex-col grow gap-4">
-      <Avatar class="cursor-pointer w-14 h-14 object-center rounded-full" ndk={$ndk} pubkey={hexpubkey} />
+      <Avatar
+        class="cursor-pointer w-14 h-14 object-center rounded-full"
+        ndk={$ndk}
+        pubkey={hexpubkey}
+      />
       <h1><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
     </div>
     <div class="flex gap-2 self-start">
       <Button class="flex self-center bg-[#DDDDDD] text-[#675F5F]"><Fa icon={faQrcode} /></Button>
-      <Button class="flex self-center bg-[#DDDDDD] text-[#675F5F]" on:click={() => zapModal = true}><Fa icon={faBoltLightning} /></Button>
+      <Button
+        class="flex self-center bg-[#DDDDDD] text-[#675F5F]"
+        on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
+      >
       <Button class="flex self-center">Follow</Button>
     </div>
   </div>

@@ -112,9 +112,9 @@
       Here, you can securely <button
         class="inline underline"
         on:click={() => (seed = nip06.generateSeedWords())}>generate</button
-      > 12 seed words ("seed pharse"). These seed words serve as your private key; which will
-      serve as your permanent password for the nostr network; It's crucial to store them in a
-      secure location and avoid sharing them with anyone.
+      > 12 seed words ("seed pharse"). These seed words serve as your private key; which will serve as
+      your permanent password for the nostr network; It's crucial to store them in a secure location
+      and avoid sharing them with anyone.
     </p>
     <div class="mt-1 bg-white rounded-md shadow-sm -space-y-px">
       <div>

@@ -94,10 +94,7 @@
   <div class="flex flex-col gap-4">
     <h2>Translation</h2>
     <div class="flex flex-col mx-0.5 gap-4">
-      <select
-        bind:value={translation}
-        class="flex p-3 bg-[#F6F6F6] rounded-xl border-none"
-      >
+      <select bind:value={translation} class="flex p-3 bg-[#F6F6F6] rounded-xl border-none">
         <option value="">Disabled</option>
         <option value="google">Google Translate (with proxy)</option>
         <!--<option value="libretranslate">Libretranslate Instance</option>-->
@@ -111,10 +108,10 @@
         <input
           bind:value={translationOption}
           placeholder={(translation == 'google'
-              ? 'set CORS proxy url,'
-              : translation == 'libretranslate'
-              ? 'libretranslate instance url,'
-              : '') + ' leave blank for default'}
+            ? 'set CORS proxy url,'
+            : translation == 'libretranslate'
+            ? 'libretranslate instance url,'
+            : '') + ' leave blank for default'}
           class="flex p-3 bg-[#F6F6F6] rounded-xl border-none"
         />
       {/if}
@@ -129,7 +126,11 @@
 
   <div class="flex flex-col gap-5">
     <h2>Danger</h2>
-    <Button class="flex bg-[#FF3535] self-start gap-2" primary={false} on:click={() => (window.location.href = '/clearall')}>
+    <Button
+      class="flex bg-[#FF3535] self-start gap-2"
+      primary={false}
+      on:click={() => (window.location.href = '/clearall')}
+    >
       <Fa class="self-center" icon={faTriangleExclamation} />
       Clear all data
     </Button>

@@ -26,16 +26,15 @@
   <div
     on:click={open}
     class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden {event.tags.find(
-    (e) => e[0] == 'image'
-  )?.[0]
-    ? 'bg-cover text-white'
-    : 'bg-slate-200 animate-pulse'}"
+      (e) => e[0] == 'image'
+    )?.[0]
+      ? 'bg-cover text-white'
+      : 'bg-slate-200 animate-pulse'}"
     style={`${
-    event.tags.find((e) => e[0] == 'image')?.[0] &&
-    `background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}');`
-  }`}
-  >
-  </div>
+      event.tags.find((e) => e[0] == 'image')?.[0] &&
+      `background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}');`
+    }`}
+  />
 
   <h5 class="text-md leading-tight text-wrap">
     {#if event?.tags.find((e) => e[0] == 'title')?.[0] && event?.tags.find((e) => e[0] == 'title')?.[1]}

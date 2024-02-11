@@ -83,10 +83,7 @@
         placeholder={placeholderString}
       />
     </div>
-    <input
-      type="submit"
-      class="hidden"
-    />
+    <input type="submit" class="hidden" />
   </form>
   {#if showAutocomplete && filteredTags.length > 0}
     <ul

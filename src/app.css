@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Geist";
-    src: url("/GeistVariableVF.ttf") format("truetype");
-    font-style: normal;
-    font-weight: 100 900;
-    font-stretch: 0% 200%;
-    font-display: auto;
+  font-family: 'Geist';
+  src: url('/GeistVariableVF.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 0% 200%;
+  font-display: auto;
 }
 
 @layer base {
-    h1 {
-        @apply text-2xl md:text-3xl font-semibold tracking-tight
-    }
-    h2 {
-        @apply text-xl md:text-2xl font-semibold tracking-tight
-    }
+  h1 {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+  }
+  h2 {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
 }
