@@ -1,18 +1,26 @@
 <script lang="ts">
   import { ndk, userPublickey } from '$lib/nostr';
-  import type { NDKEvent, NDKFilter, NDKUserProfile } from '@nostr-dev-kit/ndk';
+  import { type NDKEvent, type NDKFilter, NDKUser, type NDKUserProfile } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import { onMount } from 'svelte';
+  import ZapModal from '../../../components/ZapModal.svelte';
   import Feed from '../../../components/Feed.svelte';
   import { validateMarkdownTemplate } from '$lib/pharser';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import { Avatar, Name } from '@nostr-dev-kit/ndk-svelte-components';
+  import Button from '../../../components/Button.svelte';
+  import Fa from 'svelte-fa';
+  import { faQrcode, faBoltLightning } from '@fortawesome/free-solid-svg-icons';
+  import { requestProvider } from 'webln';
 
   export let data;
   let hexpubkey: string | undefined = undefined;
   let events: NDKEvent[] = [];
-  let user: NDKUserProfile;
+  let user: NDKUser
+  let profile: NDKUserProfile;
   let loaded = false;
+  let zapModal = false;
 
   $: {
     if ($page.params.slug) {
@@ -22,7 +30,7 @@
 
   async function loadData() {
     events = [];
-    user = {};
+    profile = {};
     hexpubkey = undefined;
     loaded = false;
     console.log('loadData');
@@ -33,9 +41,11 @@
     }
     if (hexpubkey) {
       // load user
-      const u = await $ndk.getUser({ hexpubkey: hexpubkey }).fetchProfile();
-      if (u) {
-        user = u;
+      const u = $ndk.getUser({ pubkey: hexpubkey })
+      const p = await u.fetchProfile();
+      user = u
+      if (p) {
+        profile = p
       }
 
       // load feed
@@ -57,62 +67,56 @@
       loaded = true;
     }
   }
+
+  async function zapEvt(amount: number, message: string) {
+    zapModal = false;
+    if (amount) {
+      const a = await user.zap(amount * 1000, message);
+      if (a) {
+        try {
+          const webln = await requestProvider();
+          const res = await webln.sendPayment(a);
+        } catch (err) {
+          console.log('error while handleing zap', err);
+        }
+      }
+    }
+  }
 </script>
 
 <svelte:head>
-  <title>{user && user.name ? user.name : '...'} on nostr.cooking</title>
+  <title>{profile && profile.name ? profile.name : '...'} on nostr.cooking</title>
 </svelte:head>
 
-<div class="prose mb-6">
-  <h1>
-    <a class="underline" href="nostr:{$page.params.slug}"
-      >{#if user && user.name}{user.name}{:else}...{/if}</a
-    >'s Recipes
-  </h1>
-</div>
+{#if zapModal}
+  <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
+{/if}
 
-{#if hexpubkey}
-  <div class="mb-6">
-    <div class="block">
-      <nav class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200" aria-label="Tabs">
-        <a
-          href={`/user/${nip19.npubEncode(hexpubkey)}`}
-          class="text-gray-900 rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
-          aria-current="page"
-        >
-          <span>Recipes</span>
-          <span aria-hidden="true" class="bg-blue-300 absolute inset-x-0 bottom-0 h-0.5" />
-        </a>
-
-        <a
-          href={`/user/${nip19.npubEncode(hexpubkey)}/lists`}
-          class="text-gray-500 rounded-r-lg hover:text-gray-700 group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
-        >
-          <span>Lists</span>
-          <span aria-hidden="true" class="bg-transparent absolute inset-x-0 bottom-0 h-0.5" />
-        </a>
-      </nav>
+<div class="flex flex-col gap-6">
+  <div class="flex">
+    <div class="flex flex-col grow gap-4">
+      <Avatar class="cursor-pointer w-14 h-14 object-center rounded-full" ndk={$ndk} pubkey={hexpubkey} />
+      <h1><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
+    </div>
+    <div class="flex gap-2 self-start">
+      <Button class="flex self-center bg-[#DDDDDD] text-[#675F5F]"><Fa icon={faQrcode} /></Button>
+      <Button class="flex self-center bg-[#DDDDDD] text-[#675F5F]" on:click={() => zapModal = true}><Fa icon={faBoltLightning} /></Button>
+      <Button class="flex self-center">Follow</Button>
     </div>
   </div>
-{:else}
-  <div>...</div>
-{/if}
 
-{#if $userPublickey == hexpubkey}
-  <div class="mb-4">
-    <a
-      href="/create"
-      class="inline-flex items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 w-full"
-    >
-      <div class="w-full text-center">Create New Recipe</div>
-    </a>
+  <hr />
+
+  <div class="flex flex-col gap-4">
+    <h2>
+      <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Recipes
+    </h2>
+    {#if events.length > 0}
+      <Feed {events} />
+    {:else if loaded == false}
+      <p>loading</p>
+    {:else}
+      <p>Nothing found here :(</p>
+    {/if}
   </div>
-{/if}
-
-{#if events.length > 0}
-  <Feed {events} />
-{:else if loaded == false}
-  <p>loading</p>
-{:else}
-  <p>Nothing found here :(</p>
-{/if}
+</div>
