@@ -49,7 +49,7 @@
           <Avatar class="cursor-pointer w-12 h-12 object-center rounded-full" ndk={$ndk} pubkey={$userPublickey} />
         </div>
         {#if dropdownActive}
-          <div use:clickOutside on:click_outside={() => dropdownActive = false} class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6">
+          <div on:click={() => dropdownActive = false} use:clickOutside on:click_outside={() => dropdownActive = false} class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6">
             <span class="flex gap-2 cursor-pointer" on:click={() => goto(`/user/${nip19.npubEncode($userPublickey)}`)}>
               <Fa class="self-center" icon={faUser} />
               Profile
