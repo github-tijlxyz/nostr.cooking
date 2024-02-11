@@ -35,7 +35,7 @@
   </div>
 
   <div class="flex gap-4 self-center">
-    <Button class="self-center" on:click={() => goto("/user")}>
+    <Button class="self-center" on:click={() => goto("/create")}>
       <div class="flex gap-2 font-semibold">
         <Fa class="self-center" icon={faAdd} />
         <div class="hidden md:flex">
