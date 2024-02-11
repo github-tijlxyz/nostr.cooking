@@ -127,7 +127,7 @@
   <div class="flex flex-col gap-5">
     <h2>Danger</h2>
     <Button
-      class="flex bg-[#FF3535] self-start gap-2"
+      class="flex !bg-[#FF3535] self-start gap-2"
       primary={false}
       on:click={() => (window.location.href = '/clearall')}
     >
