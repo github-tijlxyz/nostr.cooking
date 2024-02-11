@@ -61,7 +61,7 @@
           </div>
         {/if}
       {:else}
-        <Button on:click={() => goto("/settings")} class="font-semibold" primary={false}>Sign in</Button>
+        <Button on:click={() => goto("/login")} class="font-semibold" primary={false}>Sign in</Button>
       {/if}
     </div>
   </div>
