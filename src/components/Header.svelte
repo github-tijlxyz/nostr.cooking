@@ -10,6 +10,13 @@
   import { clickOutside } from '$lib/clickOutside';
 
   let dropdownActive = false;
+
+  function logout() {
+    localStorage.removeItem('nostrcooking_loggedInPublicKey');
+    localStorage.removeItem('nostrcooking_privateKey');
+    userPublickey.set('');
+    setTimeout(() => (window.location.href = ''), 1);
+  }
 </script>
 
 <div class="flex gap-9">
@@ -55,7 +62,7 @@
               <Fa class="self-center" icon={faWallet} />
               Wallet
             </span>
-            <span class="flex gap-2 cursor-pointer" on:click={() => goto("/settings")}>
+            <span class="flex gap-2 cursor-pointer" on:click={logout}>
               <Fa class="self-center" icon={faRightFromBracket} />
               Log out
             </span>
