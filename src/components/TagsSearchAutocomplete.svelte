@@ -79,7 +79,7 @@
         on:input={handleInputChange}
         on:focus={handleInputFocus}
         on:blur={handleInputBlur}
-        class="block w-full rounded-xl sm:text-sm border-0 bg-[#F6F6F6]"
+        class="block w-full rounded-xl sm:text-sm border-0 bg-input"
         placeholder={placeholderString}
       />
     </div>

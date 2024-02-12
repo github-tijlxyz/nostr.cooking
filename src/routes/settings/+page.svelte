@@ -73,9 +73,9 @@
     <h2>Relays</h2>
     <div class="flex flex-col gap-2">
       {#each relays as relay, index}
-        <div class="flex bg-[#F6F6F6] p-3 rounded-xl">
+        <div class="flex bg-input p-3 rounded-xl">
           <span class="grow">{relay}</span>
-          <button class="self-center text-[#FF3535]" on:click={() => removeRelay(index)}>
+          <button class="self-center text-danger" on:click={() => removeRelay(index)}>
             <Fa icon={faTrashCan} />
           </button>
         </div>
@@ -84,7 +84,7 @@
         <input
           bind:value={newRelay}
           placeholder="wss://relay.example.com"
-          class="flex p-3 bg-[#F6F6F6] rounded-xl border-none"
+          class="flex p-3 bg-input rounded-xl border-none"
         />
         <Button on:click={addRelay} primary={false}>Add</Button>
       </div>
@@ -94,7 +94,7 @@
   <div class="flex flex-col gap-4">
     <h2>Translation</h2>
     <div class="flex flex-col mx-0.5 gap-4">
-      <select bind:value={translation} class="flex p-3 bg-[#F6F6F6] rounded-xl border-none">
+      <select bind:value={translation} class="flex p-3 bg-input rounded-xl border-none">
         <option value="">Disabled</option>
         <option value="google">Google Translate (with proxy)</option>
         <!--<option value="libretranslate">Libretranslate Instance</option>-->
@@ -103,7 +103,7 @@
         <input
           bind:value={translationLanguage}
           placeholder="2 letter language code, like: 'en', 'es', 'fr' ect"
-          class="flex p-3 bg-[#F6F6F6] rounded-xl border-none"
+          class="flex p-3 bg-input rounded-xl border-none"
         />
         <input
           bind:value={translationOption}
@@ -112,7 +112,7 @@
             : translation == 'libretranslate'
             ? 'libretranslate instance url,'
             : '') + ' leave blank for default'}
-          class="flex p-3 bg-[#F6F6F6] rounded-xl border-none"
+          class="flex p-3 bg-input rounded-xl border-none"
         />
       {/if}
     </div>
@@ -127,7 +127,7 @@
   <div class="flex flex-col gap-5">
     <h2>Danger</h2>
     <Button
-      class="flex !bg-[#FF3535] self-start gap-2"
+      class="flex !bg-danger self-start gap-2"
       primary={false}
       on:click={() => (window.location.href = '/clearall')}
     >

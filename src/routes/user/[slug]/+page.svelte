@@ -103,9 +103,9 @@
       <h1><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
     </div>
     <div class="flex gap-2 self-start">
-      <Button class="flex self-center !bg-[#DDDDDD] !text-[#675F5F]"><Fa icon={faQrcode} /></Button>
+      <Button class="flex self-center !bg-accent-gray !text-[#675F5F]"><Fa icon={faQrcode} /></Button>
       <Button
-        class="flex self-center !bg-[#DDDDDD] !text-[#675F5F]"
+        class="flex self-center !bg-accent-gray !text-[#675F5F]"
         on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
       >
       <Button class="flex self-center">Follow</Button>

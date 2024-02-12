@@ -96,7 +96,7 @@
     <div class="flex gap-4 overflow-y-hidden overflow-x-auto">
       {#each popTags as tag}
         <a href="/tag/{tag.title}" class="flex flex-col gap-2">
-          <div class="table w-16 h-16 bg-[#F4F4F4] rounded-full place-self-center">
+          <div class="table w-16 h-16 bg-input rounded-full place-self-center">
             <div class="table-cell align-middle place-self-center text-center text-4xl">
               {tag.emoji}
             </div>
