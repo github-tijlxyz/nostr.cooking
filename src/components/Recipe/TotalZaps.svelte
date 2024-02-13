@@ -4,6 +4,8 @@
   import { onMount } from 'svelte';
   import { decode } from '@gandlaf21/bolt11-decode';
   import { formatAmount } from '$lib/utils';
+  import Fa from "svelte-fa";
+  import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
 
   export let event: NDKEvent;
   let loading = true;
@@ -30,4 +32,7 @@
   loading = false;
 </script>
 
-{#if loading}...{:else}{formatAmount(totalZapAmount / 1000)} sats{/if}
+<div class="flex gap-1.5">
+  <Fa class="self-center" icon={faBoltLightning} />
+  {#if loading}...{:else}{formatAmount(totalZapAmount / 1000)} sats{/if}
+</div>
