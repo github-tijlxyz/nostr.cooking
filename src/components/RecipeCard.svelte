@@ -2,10 +2,13 @@
   import { goto } from '$app/navigation';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
+  import { page } from '$app/stores';
 
   export let event: NDKEvent;
+  export let list = false;
 
-  async function open() {
+  let link = ""
+  $: {
     if (event.id && event.sig && event.kind) {
       const d = event.tags.find((t) => t[0] == 'd')?.[1];
       if (d) {
@@ -14,7 +17,7 @@
           kind: event.kind,
           pubkey: event.author.hexpubkey
         });
-        goto(`/recipe/${naddr}`);
+        link = `/${list ? "list": "recipe"}/${naddr}`
       }
     }
   }
@@ -22,7 +25,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start">
+<a href={link} class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary">
   <div
     on:click={open}
     class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden {event.tags.find(
@@ -43,4 +46,4 @@
       {event.tags.find((e) => e[0] == 'd')?.[1]}
     {/if}
   </h5>
-</div>
+</a>

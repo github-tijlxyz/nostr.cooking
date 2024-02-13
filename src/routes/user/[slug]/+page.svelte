@@ -13,6 +13,7 @@
   import Fa from 'svelte-fa';
   import { faQrcode, faBoltLightning } from '@fortawesome/free-solid-svg-icons';
   import { requestProvider } from 'webln';
+  import ProfileLists from '../../../components/ProfileLists.svelte';
 
   export let data;
   let hexpubkey: string | undefined = undefined;
@@ -21,6 +22,7 @@
   let profile: NDKUserProfile;
   let loaded = false;
   let zapModal = false;
+  let recipesTab = true;
 
   $: {
     if ($page.params.slug) {
@@ -93,19 +95,19 @@
 {/if}
 
 <div class="flex flex-col gap-6">
-  <div class="flex">
-    <div class="flex flex-col grow gap-4">
+  <div class="flex gap-20">
+    <div class="flex gap-4">
       <Avatar
-        class="cursor-pointer w-14 h-14 object-center rounded-full"
+        class="cursor-pointer w-[100px] h-[100px] object-center rounded-full self-center"
         ndk={$ndk}
         pubkey={hexpubkey}
       />
-      <h1><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
+      <h1 class="self-center"><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
     </div>
-    <div class="flex gap-2 self-start">
-      <Button class="flex self-center !bg-accent-gray !text-[#675F5F]"><Fa icon={faQrcode} /></Button>
+    <div class="flex gap-2 self-center">
+      <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"><Fa icon={faQrcode} /></Button>
       <Button
-        class="flex self-center !bg-accent-gray !text-[#675F5F]"
+        class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
         on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
       >
       <Button class="flex self-center">Follow</Button>
@@ -115,15 +117,31 @@
   <hr />
 
   <div class="flex flex-col gap-4">
-    <h2>
-      <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Recipes
-    </h2>
-    {#if events.length > 0}
-      <Feed {events} />
-    {:else if loaded == false}
-      <p>loading</p>
-    {:else}
-      <p>Nothing found here :(</p>
+    <div class="flex gap-2">
+      <div class="rounded-full px-4 py-2 font-semibold cursor-pointer bg-accent-gray {recipesTab ? '' : 'opacity-70'}" on:click={() => recipesTab = true}>
+        Recipes
+      </div>
+      <div class="rounded-full px-4 py-2 font-semibold bg-accent-gray cursor-pointer {recipesTab ? 'opacity-70' : ''}" on:click={() => recipesTab = false}>
+        Lists
+      </div>
+    </div>
+
+    {#if recipesTab}
+      <h2>
+        <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Recipes
+      </h2>
+      {#if events.length > 0}
+        <Feed {events} />
+      {:else if loaded == false}
+        <p>loading</p>
+      {:else}
+        <p>Nothing found here :(</p>
+      {/if}
+      {:else}
+      <h2>
+        <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Lists
+      </h2>
+      <ProfileLists hexpubkey={hexpubkey} />
     {/if}
   </div>
 </div>

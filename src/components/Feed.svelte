@@ -5,8 +5,9 @@
 
   export let events: NDKEvent[];
   export let hideHide = false;
-
-  events = events.filter((e) => typeof validateMarkdownTemplate(e.content) !== 'string');
+  export let lists = false;
+  if (!lists)
+    events = events.filter((e) => typeof validateMarkdownTemplate(e.content) !== 'string');
 </script>
 
 <div
@@ -15,7 +16,7 @@
   {#if events.length > 0}
     {#each events as event}
       {#if !(hideHide == true && event.tags.find((t) => t[0] == 't' && t[1] == 'nostrcooking-hide'))}
-        <RecipeCard {event} />
+        <RecipeCard list={lists} {event} />
       {/if}
     {/each}
   {:else}
