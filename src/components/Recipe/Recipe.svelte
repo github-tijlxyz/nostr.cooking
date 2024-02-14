@@ -50,29 +50,24 @@
             : event.tags.find((e) => e[0] === 'd')?.[1]}
         </h1>
         <TagLinks {event} />
-        <div class="flex gap-6">
-          <TotalLikes {event} />
-          <TotalComments {event} />
-          <TotalZaps {event} />
+        <div class="flex gap-4">
+          <a href="/user/{nip19.npubEncode(event.pubkey)}" class="flex gap-4 self-center">
+            <Avatar class="w-14 h-14 rounded-full self-center" ndk={$ndk} pubkey={event.pubkey} />
+            <Name class="self-center" ndk={$ndk} pubkey={event.pubkey} />
+          </a>
+          <Button class="flex self-center">Follow</Button>
         </div>
       </div>
       {#each event.tags.filter((e) => e[0] === 'image') as image, i}
         <img class="rounded-3xl aspect-video" src={image[1]} alt="Image {i + 1}" />
       {/each}
-      <div class="flex">
-        <a href="/user/{nip19.npubEncode(event.pubkey)}" class="flex gap-4 grow self-center">
-          <Avatar class="w-14 h-14 rounded-full self-center" ndk={$ndk} pubkey={event.pubkey} />
-          <Name class="self-center" ndk={$ndk} pubkey={event.pubkey} />
-        </a>
-        <div class="flex gap-2 self-start">
-          <Button
-            class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
-            on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
-          >
-          <Button class="flex self-center">Follow</Button>
+      <div class="flex gap-6">
+        <TotalLikes {event} />
+        <TotalComments {event} />
+        <div class="cursor-pointer" on:click={() => zapModal = true}>
+          <TotalZaps {event} />
         </div>
       </div>
-      <hr />
       <div class="prose">
         {#if $translateOption.lang}
           {#await translate($translateOption, parseMarkdown(event.content))}
