@@ -52,8 +52,17 @@
 
   onMount(() => {
     setTimeout(async () => {
-      tryAuthenticateLocalPrivatekey();
-      tryLoginWithNIP07();
+      const pk = localStorage.getItem('nostrcooking_loggedInPublicKey');
+      const sk = localStorage.getItem('nostrcooking_privateKey');
+
+      if (sk && pk) {
+        tryAuthenticateLocalPrivatekey();
+      } else if (pk) {
+        tryLoginWithNIP07();
+      } else {
+        localStorage.removeItem('nostrcooking_loggedInPublicKey');
+        localStorage.removeItem('nostrcooking_privateKey');
+      }
     }, 5);
   });
 </script>
