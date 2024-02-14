@@ -51,7 +51,9 @@
       tryAuthenticateLocalPrivatekey();
 
       const triedAutoNIP07Login = localStorage.getItem('triedAutoNIP07Login');
+      console.log(triedAutoNIP07Login)
       if (triedAutoNIP07Login == null) {
+        console.log("NO ATTEMPT!")
         localStorage.setItem('triedAutoNIP07Login', '1');
         await loginWithNIP07();
       }
