@@ -32,8 +32,11 @@
 
 <div class="flex gap-2 text-[14px]">
   {#each tags as tag}
-    <a href="/tag/{tag.title}" class="rounded-full px-2 py-1 bg-accent-gray opacity-15
-     cursor-pointer">
+    <a
+      href="/tag/{tag.title}"
+      class="rounded-full px-2 py-1 bg-accent-gray opacity-15
+     cursor-pointer"
+    >
       {tag.title}
     </a>
   {/each}

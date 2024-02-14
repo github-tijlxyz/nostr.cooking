@@ -19,7 +19,7 @@
     }
   }
 
-  async function loginWithNIP07() {
+  async function tryLoginWithNIP07() {
     if (browser) {
       if (!$ndk.signer) {
         try {
@@ -28,35 +28,32 @@
           ndk.set($ndk);
         } catch (err) {}
       }
+      if (!$userPublickey) {
+        loadUserData();
+      }
     }
-    loadUserData();
   }
 
   async function tryAuthenticateLocalPrivatekey() {
     if (!$ndk.signer) {
       try {
-        const pk = localStorage.getItem('nostrcooking_privateKey');
-        if (pk) {
-          const signer = new NDKPrivateKeySigner(pk);
+        const sk = localStorage.getItem('nostrcooking_privateKey');
+        if (sk) {
+          const signer = new NDKPrivateKeySigner(sk);
           $ndk.signer = signer;
           ndk.set($ndk);
         }
       } catch (err) {}
     }
-    loadUserData();
+    if (!$userPublickey) {
+      loadUserData();
+    }
   }
 
   onMount(() => {
     setTimeout(async () => {
       tryAuthenticateLocalPrivatekey();
-
-      const triedAutoNIP07Login = localStorage.getItem('triedAutoNIP07Login');
-      console.log(triedAutoNIP07Login)
-      if (triedAutoNIP07Login == null) {
-        console.log("NO ATTEMPT!")
-        localStorage.setItem('triedAutoNIP07Login', '1');
-        await loginWithNIP07();
-      }
+      tryLoginWithNIP07();
     }, 5);
   });
 </script>

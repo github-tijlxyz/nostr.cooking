@@ -5,7 +5,7 @@
   import { nip19 } from 'nostr-tools';
   import { goto } from '$app/navigation';
   import { formatDate } from '$lib/utils';
-  import Feed from "./Feed.svelte"
+  import Feed from './Feed.svelte';
 
   export let hexpubkey: string | undefined = undefined;
   let events: NDKEvent[] = [];
@@ -42,4 +42,4 @@
   }
 </script>
 
-<Feed lists={true} events={events} />
+<Feed lists={true} {events} />

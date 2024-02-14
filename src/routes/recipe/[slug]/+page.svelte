@@ -141,5 +141,5 @@
 </svelte:head>
 
 {#if event}
-  <Recipe event={event} />
+  <Recipe {event} />
 {/if}

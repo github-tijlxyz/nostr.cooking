@@ -105,7 +105,9 @@
       <h1 class="self-center"><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
     </div>
     <div class="flex gap-2 self-center">
-      <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"><Fa icon={faQrcode} /></Button>
+      <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
+        ><Fa icon={faQrcode} /></Button
+      >
       <Button
         class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
         on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
@@ -118,10 +120,20 @@
 
   <div class="flex flex-col gap-4">
     <div class="flex gap-2">
-      <div class="rounded-full px-4 py-2 font-semibold cursor-pointer bg-accent-gray {recipesTab ? '' : 'opacity-70'}" on:click={() => recipesTab = true}>
+      <div
+        class="rounded-full px-4 py-2 font-semibold cursor-pointer bg-accent-gray {recipesTab
+          ? ''
+          : 'opacity-70'}"
+        on:click={() => (recipesTab = true)}
+      >
         Recipes
       </div>
-      <div class="rounded-full px-4 py-2 font-semibold bg-accent-gray cursor-pointer {recipesTab ? 'opacity-70' : ''}" on:click={() => recipesTab = false}>
+      <div
+        class="rounded-full px-4 py-2 font-semibold bg-accent-gray cursor-pointer {recipesTab
+          ? 'opacity-70'
+          : ''}"
+        on:click={() => (recipesTab = false)}
+      >
         Lists
       </div>
     </div>
@@ -137,11 +149,11 @@
       {:else}
         <p>Nothing found here :(</p>
       {/if}
-      {:else}
+    {:else}
       <h2>
         <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Lists
       </h2>
-      <ProfileLists hexpubkey={hexpubkey} />
+      <ProfileLists {hexpubkey} />
     {/if}
   </div>
 </div>

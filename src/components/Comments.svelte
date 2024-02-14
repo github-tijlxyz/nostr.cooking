@@ -7,7 +7,7 @@
   import Button from './Button.svelte';
 
   export let event: NDKEvent;
-  let events: Set<NDKEvent> = new Set()
+  let events: Set<NDKEvent> = new Set();
 
   onMount(async () => {
     events = await $ndk.fetchEvents({
@@ -16,14 +16,16 @@
     });
   });
 
-  let commentText = "";
+  let commentText = '';
   async function postComment() {
-    const ev = new NDKEvent($ndk)
-    ev.kind = 1
-    ev.content = commentText
-    ev.tags = [['a', `${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]]
+    const ev = new NDKEvent($ndk);
+    ev.kind = 1;
+    ev.content = commentText;
+    ev.tags = [
+      ['a', `${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
+    ];
 
-    await ev.publish()
+    await ev.publish();
   }
 </script>
 
@@ -33,10 +35,14 @@
     {#if events}
       {#each events as ev, i}
         <div class="flex gap-4">
-          <a href="/user/{nip19.npubEncode(ev.pubkey)}"><Avatar class="self-center rounded-full w-12 h-12" ndk={$ndk} pubkey={ev.pubkey} /></a>
+          <a href="/user/{nip19.npubEncode(ev.pubkey)}"
+            ><Avatar class="self-center rounded-full w-12 h-12" ndk={$ndk} pubkey={ev.pubkey} /></a
+          >
           <div class="flex flex-col self-center">
             <div class="flex gap-2">
-              <a href="/user/{nip19.npubEncode(ev.pubkey)}"><Name ndk={$ndk} pubkey={ev.pubkey} /></a>
+              <a href="/user/{nip19.npubEncode(ev.pubkey)}"
+                ><Name ndk={$ndk} pubkey={ev.pubkey} /></a
+              >
               ·
               {new Date((ev.created_at || 0) * 1000).toLocaleDateString()}
             </div>
@@ -45,7 +51,7 @@
             </p>
           </div>
         </div>
-        {#if Array.from(events)[i+1]}
+        {#if Array.from(events)[i + 1]}
           <hr />
         {/if}
       {/each}
@@ -54,6 +60,11 @@
     {/if}
   </div>
   <h2>Reply</h2>
-  <textarea bind:value={commentText} class="rounded-3xl border-none bg-input" rows="6" placeholder="This tastes..."></textarea>
+  <textarea
+    bind:value={commentText}
+    class="rounded-3xl border-none bg-input"
+    rows="6"
+    placeholder="This tastes..."
+  />
   <Button on:click={postComment} class="self-end">Post Reply</Button>
 </div>

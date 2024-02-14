@@ -2,7 +2,7 @@
   import { ndk } from '$lib/nostr';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa';
   import { faComment } from '@fortawesome/free-solid-svg-icons';
 
   export let event: NDKEvent;
@@ -15,7 +15,7 @@
       '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
     });
     evs.forEach(() => {
-      totalLikeAmount = totalLikeAmount + 1
+      totalLikeAmount = totalLikeAmount + 1;
     });
   });
   loading = false;

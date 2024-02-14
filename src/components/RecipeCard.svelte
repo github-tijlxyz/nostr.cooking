@@ -7,7 +7,7 @@
   export let event: NDKEvent;
   export let list = false;
 
-  let link = ""
+  let link = '';
   $: {
     if (event.id && event.sig && event.kind) {
       const d = event.tags.find((t) => t[0] == 'd')?.[1];
@@ -17,7 +17,7 @@
           kind: event.kind,
           pubkey: event.author.hexpubkey
         });
-        link = `/${list ? "list": "recipe"}/${naddr}`
+        link = `/${list ? 'list' : 'recipe'}/${naddr}`;
       }
     }
   }
@@ -25,7 +25,10 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<a href={link} class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary">
+<a
+  href={link}
+  class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary"
+>
   <div
     on:click={open}
     class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden {event.tags.find(

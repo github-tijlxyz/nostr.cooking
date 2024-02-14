@@ -2,7 +2,7 @@
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import TagLinks from './TagLinks.svelte';
   import { Avatar, Name } from '@nostr-dev-kit/ndk-svelte-components';
-  import { ndk } from "$lib/nostr"
+  import { ndk } from '$lib/nostr';
   import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
   import Button from '../Button.svelte';
   import Fa from 'svelte-fa';
@@ -15,7 +15,7 @@
   import Comments from '../Comments.svelte';
   import ZapModal from '../ZapModal.svelte';
   import { requestProvider } from 'webln';
-  import { nip19 } from "nostr-tools"
+  import { nip19 } from 'nostr-tools';
 
   export let event: NDKEvent;
   let zapModal = false;
@@ -37,7 +37,7 @@
 </script>
 
 {#if zapModal}
-  <ZapModal submit={zapEvt} cancel={() => zapModal = false} />
+  <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
 {/if}
 
 <article class="max-w-[760px] mx-auto">
@@ -49,11 +49,11 @@
             ? event.tags.find((e) => e[0] === 'title')?.[1]
             : event.tags.find((e) => e[0] === 'd')?.[1]}
         </h1>
-        <TagLinks event={event} />
+        <TagLinks {event} />
         <div class="flex gap-6">
-          <TotalLikes event={event} />
-          <TotalComments event={event} />
-          <TotalZaps event={event} />
+          <TotalLikes {event} />
+          <TotalComments {event} />
+          <TotalZaps {event} />
         </div>
       </div>
       {#each event.tags.filter((e) => e[0] === 'image') as image, i}
@@ -67,8 +67,8 @@
         <div class="flex gap-2 self-start">
           <Button
             class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
-            on:click={() => zapModal = true}
-          ><Fa icon={faBoltLightning} /></Button>
+            on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
+          >
           <Button class="flex self-center">Follow</Button>
         </div>
       </div>
@@ -85,8 +85,9 @@
               {:else}
                 <hr />
                 <p class="font-medium">
-                  Warning: The contents below are translated from <code>{result.from.language.iso}</code
-                >
+                  Warning: The contents below are translated from <code
+                    >{result.from.language.iso}</code
+                  >
                   to
                   <code>{$translateOption.lang}</code>
                   <a class="block" href="/settings">open translation setttings</a>
@@ -107,9 +108,9 @@
           {@html parseMarkdown(event.content)}
         {/if}
       </div>
-      <Comments event={event} />
+      <Comments {event} />
     </div>
-    {:else}
+  {:else}
     Loading...
-    {/if}
+  {/if}
 </article>
