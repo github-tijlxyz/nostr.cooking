@@ -33,7 +33,7 @@
   <div class="hidden md:flex grow gap-10 self-center font-semibold">
     <a href="/recent">Discover</a>
     <a href="/tags">Categories</a>
-    <a href="/bookmarks">Lists</a>
+    <a href="/bookmarks">Bookmarks</a>
   </div>
 
   <div class="flex gap-4 self-center">

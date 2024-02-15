@@ -7,6 +7,8 @@
   import { onMount } from 'svelte';
   import Feed from '../../components/Feed.svelte';
   import { formatDate } from '$lib/utils';
+  import Fa from 'svelte-fa';
+  import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
   let loaded = false;
   let event: NDKEvent;
@@ -111,32 +113,29 @@
 </svelte:head>
 
 {#if event}
-  <div class="mb-6 prose">
-    {#if user}
-      <h1 class="mb-0">
-        {user.name}'s bookmarks
-      </h1>
-      <p>
-        {#if $userPublickey == event.author.hexpubkey}
-          <a class="underline" href={`/bookmarks/edit`}>Edit</a>
-        {/if}
-        &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
-      </p>
-    {/if}
-    {#if event.tags.find((t) => t[0] == 'summary')?.[1]}
-      <p>
-        {event.tags.find((t) => t[0] == 'summary')?.[1]}
-      </p>
+  <div class="flex flex-col gap-4">
+    <div>
+      <h1>Bookmarked Recipes</h1>
+      {#if $userPublickey == event.author.hexpubkey}
+        <a class="underline" href={`/bookmarks/edit`}>Edit</a>
+      {/if}
+    </div>
+
+    NONFUNCTIONAL:
+    <div class="flex bg-input mx-0.5 rounded-xl">
+      <input class="rounded-xl bg-input border-none grow" type="search" placeholder="Search">
+      <Fa class="self-center mr-3" icon={faMagnifyingGlass} />
+    </div>
+
+    {#if events.length > 0 && loaded == true}
+      <Feed {events} />
+    {:else if loaded == false}
+      <p>loading</p>
+    {:else}
+      <p>Nothing found here :(</p>
     {/if}
   </div>
+
 {:else}
   <div>...</div>
-{/if}
-
-{#if events.length > 0 && loaded == true}
-  <Feed {events} />
-{:else if loaded == false}
-  <p>loading</p>
-{:else}
-  <p>Nothing found here :(</p>
 {/if}

@@ -14,6 +14,6 @@
   </div>
   <div class="flex flex-col">
     <Fa size="1.5x" icon={faBookmark} />
-    Lists
+    Bookmarks
   </div>
 </div>
