@@ -13,7 +13,8 @@ const config = {
         primary: '#EC4700',
         danger: '#FF3535',
         input: '#F6F6F6',
-        'accent-gray': '#DDDDDD'
+        'accent-gray': '#DDDDDD',
+        'caption': '#716F6C'
       }
     }
   },

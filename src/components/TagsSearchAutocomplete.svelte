@@ -65,7 +65,7 @@
 
 <div class="relative">
   <form
-    class="flex rounded-xl shadow-sm"
+    class="flex rounded-xl shadow-sm bg-input"
     on:submit|preventDefault={() => {
       if (tagquery) {
         action(tagquery);
@@ -79,7 +79,7 @@
         on:input={handleInputChange}
         on:focus={handleInputFocus}
         on:blur={handleInputBlur}
-        class="block w-full rounded-xl sm:text-sm border-0 bg-input"
+        class="block w-full input"
         placeholder={placeholderString}
       />
     </div>
