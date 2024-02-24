@@ -64,7 +64,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Dominican', emoji: '🇩🇴' },
   { title: 'Dough' },
   { title: 'Dressing' },
-  { title: 'Drink', emoji: '🥤' },
+  { title: 'Drinks', emoji: '🥤' },
   { title: 'Duck', emoji: '🦆' },
   { title: 'Dumpling', emoji: '🥟' },
   { title: 'Dutch', emoji: '🇳🇱' },

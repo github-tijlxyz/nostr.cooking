@@ -6,6 +6,20 @@
   <title>all tags on nostr.cooking</title>
 </svelte:head>
 
+<div class="flex flex-col gap-4">
+  <h1>All Categories</h1>
+
+  <div class="grid grid-cols-5">
+    {#each recipeTags as tag}
+      <a href="/tag/{tag.title}" class="flex flex-col gap-2">
+        <!-- TODO: CHANGE TO WEBP -->
+        <img alt="Image of {tag.title}" src="/tags/{tag.title.toLowerCase()}.png" class="table w-20 h-20 bg-input rounded-full place-self-center" />
+        <div class="place-self-center">{tag.title}</div>
+      </a>
+    {/each}
+  </div>
+</div>
+
 <h1 class="text-3xl text-center mt-5 mb-0">All Tags</h1>
 
 <div class="text-xl text-center px-[10vw] pt-6 pb-2">
