@@ -150,7 +150,7 @@
     {/if}
   </div>
   <div class="flex">
-    <a href="/list/create" class="text-sm underline grow self-center">Create a New List</a>
+    <a href="/list/create" target="_blank" class="text-sm underline grow self-center">Create a New List</a>
     <Button class="flex" on:click={async () => {await modifyLists(); bookmarkModal = false}}>Save</Button>
   </div>
 </Modal>
