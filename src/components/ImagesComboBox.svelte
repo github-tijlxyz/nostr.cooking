@@ -3,6 +3,8 @@
   import ImageUploader from './ImageUploader.svelte';
 
   export let uploadedImages: Writable<string[]>;
+  // 0 is unlimited, and anything above that has a hard limit.
+  export let limit = 0;
 
   function removeImage(index: number) {
     let nSelected = $uploadedImages;
@@ -15,6 +17,7 @@
   }
 
   function addImage(url: string) {
+    if (limit > 0 && $uploadedImages.length > limit) return; // forbid if limit is hit.
     let nSelected = $uploadedImages;
     nSelected.push(url);
     uploadedImages.set(nSelected);
