@@ -258,6 +258,7 @@
 </svelte:head>
 
 <form on:submit|preventDefault={publishRecipe} class="flex flex-col gap-6 mx-0.5">
+  <h1>Edit Recipe</h1>
   <div class="flex flex-col gap-2">
     <h3>Title*</h3>
     <span class="text-caption">Remember to make your title unique!</span>
@@ -340,7 +341,7 @@
       {resultMessage}
       <button />
       <Button disabled={disablePublishButton} type="submit">
-        Publish
+        Publish Edits
       </Button>
     </div>
   </div>

@@ -61,6 +61,7 @@
 </svelte:head>
 
 <form on:submit|preventDefault={createList} class="flex flex-col gap-6 mx-0.5">
+  <h1>New List</h1>
   <div class="flex flex-col gap-2">
     <h3>Title*</h3>
     <span class="text-caption">Remember to make your title unique!</span>
