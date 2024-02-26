@@ -47,51 +47,53 @@
   <title>recipes with tag "{$page.params.slug}" on nostr.cooking</title>
 </svelte:head>
 
-<TagsSearchAutocomplete
-  placeholderString={"Look for a specific tag, like 'italian', 'steak' or 'glutenfree'"}
-  actionString={'Go'}
-  action={openTag}
-/>
+<div class="flex flex-col gap-8">
+  <TagsSearchAutocomplete
+    placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree'."}
+    actionString={'Go'}
+    action={openTag}
+  />
 
-<div class="prose mb-6">
-  <!-- TODO: Clean up this mess -->
-  <h1>
-    Recipes with the tag "{#if $page.params.slug}{#if recipeTags.find((e) => e.title
-            .toLowerCase()
-            .replaceAll(' ', '-') == $page.params.slug
-            ?.toLowerCase()
-            .replaceAll(' ', '-'))}{recipeTags.find(
+  <div class="prose">
+    <!-- TODO: Clean up this mess -->
+    <h1>
+      Recipes with the tag "{#if $page.params.slug}{#if recipeTags.find((e) => e.title
+      .toLowerCase()
+      .replaceAll(' ', '-') == $page.params.slug
+      ?.toLowerCase()
+      .replaceAll(' ', '-'))}{recipeTags.find(
+      (e) =>
+        e.title.toLowerCase().replaceAll(' ', '-') ==
+        $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+    )?.emoji
+      ? `${
+        recipeTags.find(
           (e) =>
             e.title.toLowerCase().replaceAll(' ', '-') ==
             $page.params.slug?.toLowerCase().replaceAll(' ', '-')
         )?.emoji
-          ? `${
-              recipeTags.find(
-                (e) =>
-                  e.title.toLowerCase().replaceAll(' ', '-') ==
-                  $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-              )?.emoji
-            } ${
-              recipeTags.find(
-                (e) =>
-                  e.title.toLowerCase().replaceAll(' ', '-') ==
-                  $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-              )?.title
-            }`
-          : `${
-              recipeTags.find(
-                (e) =>
-                  e.title.toLowerCase().replaceAll(' ', '-') ==
-                  $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-              )?.title
-            }`}{:else}{$page.params.slug}{/if}{:else}...{/if}"
-  </h1>
-</div>
+      } ${
+        recipeTags.find(
+          (e) =>
+            e.title.toLowerCase().replaceAll(' ', '-') ==
+            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+        )?.title
+      }`
+      : `${
+        recipeTags.find(
+          (e) =>
+            e.title.toLowerCase().replaceAll(' ', '-') ==
+            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+        )?.title
+      }`}{:else}{$page.params.slug}{/if}{:else}...{/if}"
+    </h1>
+  </div>
 
-{#if events.length > 0}
-  <Feed {events} />
-{:else if loaded == false}
-  <p>loading</p>
-{:else}
-  <p>Nothing found here :(</p>
-{/if}
+  {#if events.length > 0}
+    <Feed {events} />
+  {:else if loaded == false}
+    <p>loading</p>
+  {:else}
+    <p>Nothing found here :(</p>
+  {/if}
+</div>
