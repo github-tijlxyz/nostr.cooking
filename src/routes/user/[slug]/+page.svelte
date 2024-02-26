@@ -108,11 +108,13 @@
       <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
         ><Fa icon={faQrcode} /></Button
       >
+      {#if hexpubkey !== $userPublickey}
       <Button
         class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
         on:click={() => (zapModal = true)}><Fa icon={faBoltLightning} /></Button
       >
       <Button class="flex self-center">Follow</Button>
+      {/if}
     </div>
   </div>
 
