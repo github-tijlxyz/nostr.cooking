@@ -19,8 +19,7 @@
       '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
     });
     evs.forEach((a) => {
-      if (a.pubkey == $userPublickey)
-        zapped = true;
+      if (a.pubkey == $userPublickey) zapped = true;
       let bolt11 = a.tags.find((e) => e[0] == 'bolt11')?.[1];
       if (bolt11 && a.sig) {
         if (!didSigs.has(a.sig)) {

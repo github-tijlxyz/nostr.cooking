@@ -19,15 +19,15 @@
       if (a.content == '+') {
         totalLikeAmount = totalLikeAmount + 1;
         if (a.pubkey == $userPublickey) {
-          liked = true
+          liked = true;
         }
       }
     });
   });
   loading = false;
   async function likePost() {
-    if (liked) return
-    await event.react("+", true)
+    if (liked) return;
+    await event.react('+', true);
   }
 </script>
 

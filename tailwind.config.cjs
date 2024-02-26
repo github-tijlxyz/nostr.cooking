@@ -14,7 +14,7 @@ const config = {
         danger: '#FF3535',
         input: '#F6F6F6',
         'accent-gray': '#DDDDDD',
-        'caption': '#716F6C'
+        caption: '#716F6C'
       }
     }
   },

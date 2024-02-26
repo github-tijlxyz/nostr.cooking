@@ -65,11 +65,7 @@
   <div class="flex flex-col gap-2">
     <h3>Title*</h3>
     <span class="text-caption">Remember to make your title unique!</span>
-    <input
-      placeholder="Italian Favorites"
-      bind:value={title}
-      class="input"
-    />
+    <input placeholder="Italian Favorites" bind:value={title} class="input" />
   </div>
 
   <div class="flex flex-col gap-2">
@@ -92,9 +88,7 @@
     <div>
       {resultMessage}
       <button />
-      <Button disabled={disablePublishButton} type="submit">
-        Create List
-      </Button>
+      <Button disabled={disablePublishButton} type="submit">Create List</Button>
     </div>
   </div>
 </form>

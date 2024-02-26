@@ -100,7 +100,7 @@
       const nevent = new NDKEvent($ndk);
       nevent.kind = 30001;
       nevent.tags.push(['d', 'nostrcooking-bookmarks']);
-      nevent.tags.push(['title', "Zap Cooking Bookmarks"]);
+      nevent.tags.push(['title', 'Zap Cooking Bookmarks']);
       if (summary !== '') {
         nevent.tags.push(['summary', summary]);
       }
@@ -196,9 +196,7 @@
       <div>
         {resultMessage}
         <button />
-        <Button disabled={disablePublishButton} type="submit">
-          Update Bookmarks
-        </Button>
+        <Button disabled={disablePublishButton} type="submit">Update Bookmarks</Button>
       </div>
     </div>
   </form>

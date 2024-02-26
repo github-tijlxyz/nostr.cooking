@@ -60,25 +60,25 @@
               on:click_outside={() => (dropdownActive = false)}
               class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6"
             >
-            <span
-              class="flex gap-2 cursor-pointer"
-              on:click={() => goto(`/user/${nip19.npubEncode($userPublickey)}`)}
-            >
-              <Fa class="self-center" icon={faUser} />
-              Profile
-            </span>
+              <span
+                class="flex gap-2 cursor-pointer"
+                on:click={() => goto(`/user/${nip19.npubEncode($userPublickey)}`)}
+              >
+                <Fa class="self-center" icon={faUser} />
+                Profile
+              </span>
               <span class="flex gap-2 cursor-pointer" on:click={() => goto('/settings')}>
-              <Fa class="self-center" icon={faGear} />
-              Settings
-            </span>
+                <Fa class="self-center" icon={faGear} />
+                Settings
+              </span>
               <span class="flex gap-2 cursor-pointer" on:click={() => goto('/wallet')}>
-              <Fa class="self-center" icon={faWallet} />
-              Wallet
-            </span>
+                <Fa class="self-center" icon={faWallet} />
+                Wallet
+              </span>
               <span class="flex gap-2 cursor-pointer" on:click={logout}>
-              <Fa class="self-center" icon={faRightFromBracket} />
-              Log out
-            </span>
+                <Fa class="self-center" icon={faRightFromBracket} />
+                Log out
+              </span>
             </div>
           </div>
         {/if}

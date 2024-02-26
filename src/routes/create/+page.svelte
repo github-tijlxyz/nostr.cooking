@@ -165,11 +165,7 @@
   <div class="flex flex-col gap-2">
     <h3>Title*</h3>
     <span class="text-caption">Remember to make your title unique!</span>
-    <input
-      placeholder="Title"
-      bind:value={title}
-      class="input"
-    />
+    <input placeholder="Title" bind:value={title} class="input" />
   </div>
 
   <div class="flex flex-col gap-2">
@@ -203,27 +199,15 @@
     <h3>Details</h3>
     <div class="flex flex-col gap-2">
       <span class="font-bold">Prep Time</span>
-      <input
-        placeholder="20 min"
-        bind:value={preptime}
-        class="input"
-      />
+      <input placeholder="20 min" bind:value={preptime} class="input" />
     </div>
     <div class="flex flex-col gap-2">
       <span class="font-bold">Cooking Time</span>
-      <input
-        placeholder="1 hour and 5 min"
-        bind:value={cooktime}
-        class="input"
-      />
+      <input placeholder="1 hour and 5 min" bind:value={cooktime} class="input" />
     </div>
     <div class="flex flex-col gap-2">
       <span class="font-bold">Servings (persons)</span>
-      <input
-        placeholder="4"
-        bind:value={servings}
-        class="input"
-      />
+      <input placeholder="4" bind:value={servings} class="input" />
     </div>
   </div>
   <div class="flex flex-col gap-2">
@@ -243,9 +227,7 @@
     <div>
       {resultMessage}
       <button />
-      <Button disabled={disablePublishButton} type="submit">
-        Publish
-      </Button>
+      <Button disabled={disablePublishButton} type="submit">Publish</Button>
     </div>
   </div>
 </form>
@@ -253,11 +235,7 @@
 <div class="flex flex-col gap-2">
   <h2>Card Preview</h2>
   <div>
-    <Button
-      on:click={loadPreview}
-    >
-      Load Preview
-    </Button>
+    <Button on:click={loadPreview}>Load Preview</Button>
   </div>
   <div class="">
     {#if previewEvent}

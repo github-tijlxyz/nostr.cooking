@@ -58,34 +58,34 @@
     <!-- TODO: Clean up this mess -->
     <h1>
       Recipes with the tag "{#if $page.params.slug}{#if recipeTags.find((e) => e.title
-      .toLowerCase()
-      .replaceAll(' ', '-') == $page.params.slug
-      ?.toLowerCase()
-      .replaceAll(' ', '-'))}{recipeTags.find(
-      (e) =>
-        e.title.toLowerCase().replaceAll(' ', '-') ==
-        $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-    )?.emoji
-      ? `${
-        recipeTags.find(
-          (e) =>
-            e.title.toLowerCase().replaceAll(' ', '-') ==
-            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-        )?.emoji
-      } ${
-        recipeTags.find(
-          (e) =>
-            e.title.toLowerCase().replaceAll(' ', '-') ==
-            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-        )?.title
-      }`
-      : `${
-        recipeTags.find(
-          (e) =>
-            e.title.toLowerCase().replaceAll(' ', '-') ==
-            $page.params.slug?.toLowerCase().replaceAll(' ', '-')
-        )?.title
-      }`}{:else}{$page.params.slug}{/if}{:else}...{/if}"
+              .toLowerCase()
+              .replaceAll(' ', '-') == $page.params.slug
+              ?.toLowerCase()
+              .replaceAll(' ', '-'))}{recipeTags.find(
+            (e) =>
+              e.title.toLowerCase().replaceAll(' ', '-') ==
+              $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+          )?.emoji
+            ? `${
+                recipeTags.find(
+                  (e) =>
+                    e.title.toLowerCase().replaceAll(' ', '-') ==
+                    $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+                )?.emoji
+              } ${
+                recipeTags.find(
+                  (e) =>
+                    e.title.toLowerCase().replaceAll(' ', '-') ==
+                    $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+                )?.title
+              }`
+            : `${
+                recipeTags.find(
+                  (e) =>
+                    e.title.toLowerCase().replaceAll(' ', '-') ==
+                    $page.params.slug?.toLowerCase().replaceAll(' ', '-')
+                )?.title
+              }`}{:else}{$page.params.slug}{/if}{:else}...{/if}"
     </h1>
   </div>
 

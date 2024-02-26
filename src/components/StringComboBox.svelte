@@ -85,16 +85,7 @@
   {/if}
 
   <form on:submit|preventDefault={addTag} class="flex gap-2">
-    <input
-      bind:value={inputNewThing}
-      class="input grow"
-      {placeholder}
-    />
-    <Button
-      on:click={addTag}
-      primary={false}
-    >
-      Add
-    </Button>
+    <input bind:value={inputNewThing} class="input grow" {placeholder} />
+    <Button on:click={addTag} primary={false}>Add</Button>
   </form>
 </div>

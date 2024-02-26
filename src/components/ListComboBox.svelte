@@ -61,7 +61,8 @@
       {#each $selected as tag, index}
         <li class="flex input">
           <a class="grow underline" target="_blank" href={`/recipe/${tag.naddr}`}
-          >{#if tag.title}{tag.title}{:else}{tag.naddr}{/if}</a>
+            >{#if tag.title}{tag.title}{:else}{tag.naddr}{/if}</a
+          >
           <div class="flex gap-2">
             {#if showIndex && index > 0}
               <button
@@ -91,16 +92,7 @@
   {/if}
 
   <form on:submit|preventDefault={addTag} class="flex gap-2">
-    <input
-      bind:value={inputNewThing}
-      class="input grow"
-      {placeholder}
-    />
-    <Button
-      on:click={addTag}
-      primary={false}
-    >
-      Add
-    </Button>
+    <input bind:value={inputNewThing} class="input grow" {placeholder} />
+    <Button on:click={addTag} primary={false}>Add</Button>
   </form>
 </div>

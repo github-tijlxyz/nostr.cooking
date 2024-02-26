@@ -123,7 +123,7 @@
 
     NONFUNCTIONAL:
     <div class="flex bg-input mx-0.5 rounded-xl">
-      <input class="rounded-xl bg-input border-none grow" type="search" placeholder="Search">
+      <input class="rounded-xl bg-input border-none grow" type="search" placeholder="Search" />
       <Fa class="self-center mr-3" icon={faMagnifyingGlass} />
     </div>
 
@@ -135,7 +135,6 @@
       <p>Nothing found here :(</p>
     {/if}
   </div>
-
 {:else}
   <div>...</div>
 {/if}

@@ -13,7 +13,11 @@
     {#each recipeTags as tag}
       <a href="/tag/{tag.title}" class="flex flex-col gap-2">
         <!-- TODO: CHANGE TO WEBP -->
-        <img alt="Image of {tag.title}" src="/tags/{tag.title.toLowerCase()}.webp" class="table w-20 h-20 bg-input rounded-full place-self-center" />
+        <img
+          alt="Image of {tag.title}"
+          src="/tags/{tag.title.toLowerCase()}.webp"
+          class="table w-20 h-20 bg-input rounded-full place-self-center"
+        />
         <div class="place-self-center">{tag.title}</div>
       </a>
     {/each}
