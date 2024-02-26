@@ -7,6 +7,7 @@
   import { onMount } from 'svelte';
   import Feed from '../../../components/Feed.svelte';
   import { formatDate } from '$lib/utils';
+  import AuthorProfile from '../../../components/AuthorProfile.svelte';
 
   $: {
     if ($page.params.slug) {
@@ -49,12 +50,6 @@
       }
     }
 
-    // load user
-    const u = await $ndk.getUser({ hexpubkey: event.author.hexpubkey }).fetchProfile();
-    if (u) {
-      user = u;
-    }
-
     // load list
     event.tags.forEach(async (a) => {
       if (a[0] == 'a') {
@@ -95,17 +90,15 @@
     <h1 class="mb-0">
       {event.tags.find((t) => t[0] == 'title')?.[1]}
     </h1>
-    {#if user}
-      <p>
-        by <a class="underline" href="/user/{event.author.npub}"
-          >{#if user.name}{user.name}{:else}...{/if}</a
-        >
+    <div class="flex flex-col">
+      <AuthorProfile pubkey={event.author.pubkey} />
+      <div class="flex gap-2">
         {#if $userPublickey == event.author.hexpubkey}
-          &nbsp;•&nbsp; <a class="underline" href={`/list/${$page.params.slug}/fork`}>Edit</a>
+          <a class="underline" href={`/list/${$page.params.slug}/fork`}>Edit</a>
         {/if}
-        &nbsp;•&nbsp; updated on {event.created_at && formatDate(event.created_at)}
-      </p>
-    {/if}
+        Updated on {event.created_at && formatDate(event.created_at)}
+      </div>
+    </div>
     {#if event.tags.find((t) => t[0] == 'summary')?.[1]}
       <p>
         {event.tags.find((t) => t[0] == 'summary')?.[1]}
