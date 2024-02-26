@@ -19,6 +19,7 @@
   import Modal from '../Modal.svelte';
   import { goto } from '$app/navigation';
   import { clickOutside } from '$lib/clickOutside';
+  import AuthorProfile from '../AuthorProfile.svelte';
 
   export let event: NDKEvent;
   const naddr = nip19.naddrEncode({
@@ -165,13 +166,7 @@
             : event.tags.find((e) => e[0] === 'd')?.[1]}
         </h1>
         <TagLinks {event} />
-        <div class="flex gap-4">
-          <a href="/user/{nip19.npubEncode(event.pubkey)}" class="flex gap-4 self-center">
-            <Avatar class="w-14 h-14 rounded-full self-center" ndk={$ndk} pubkey={event.pubkey} />
-            <Name class="self-center" ndk={$ndk} pubkey={event.pubkey} />
-          </a>
-          <Button class="flex self-center">Follow</Button>
-        </div>
+        <AuthorProfile pubkey={event.author.pubkey} />
       </div>
       {#each event.tags.filter((e) => e[0] === 'image') as image, i}
         <img class="rounded-3xl aspect-video" src={image[1]} alt="Image {i + 1}" />
