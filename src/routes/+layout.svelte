@@ -71,7 +71,7 @@
 
 <div class="h-[100%] scroll-smooth">
   <div class="flex h-screen">
-    <div class="container mx-auto flex-1 overflow-y-auto pt-3">
+    <div class="container mx-auto flex-1 overflow-y-auto pt-3 px-3">
       <Header />
       <div class="mt-6 pb-24">
         <slot />
