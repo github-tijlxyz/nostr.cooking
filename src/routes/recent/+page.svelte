@@ -82,7 +82,7 @@
       </h2>
     </div>
     <TagsSearchAutocomplete
-      placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree', or search by npub."}
+      placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree'."}
       actionString={'Go'}
       action={openTag}
     />
