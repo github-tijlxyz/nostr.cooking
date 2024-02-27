@@ -201,7 +201,7 @@
         <AuthorProfile pubkey={event.author.pubkey} />
       </div>
       {#each event.tags.filter((e) => e[0] === 'image') as image, i}
-        <img class="rounded-3xl aspect-video" src={image[1]} alt="Image {i + 1}" />
+        <img class="rounded-3xl aspect-video object-cover" src={image[1]} alt="Image {i + 1}" />
       {/each}
       <div class="flex">
         <div class="flex gap-6 grow">
