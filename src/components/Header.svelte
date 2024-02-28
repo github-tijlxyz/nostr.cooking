@@ -25,7 +25,7 @@
   }
 </script>
 
-<div class="flex gap-9">
+<div class="flex gap-9 sm:px-6">
   <a href="/recent" class="grow md:grow-0">
     <img src={SVGNostrCookingWithText} class="w-40 my-3" alt="Nostr.Cooking Logo With Text" />
   </a>
