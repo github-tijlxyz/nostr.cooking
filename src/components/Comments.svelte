@@ -62,7 +62,7 @@
   <h2>Reply</h2>
   <textarea
     bind:value={commentText}
-    class="rounded-3xl border-none bg-input"
+    class="rounded-3xl border-none bg-input px-8 py-6"
     rows="6"
     placeholder="This tastes..."
   />
