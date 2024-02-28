@@ -177,7 +177,7 @@
 {#if loaded == false}
   <div>Loading...</div>
 {:else}
-  <form on:submit|preventDefault={createList} class="flex flex-col gap-6 mx-0.5">
+  <form on:submit|preventDefault={createList} class="flex flex-col gap-6 max-w-[760px] mx-auto">
     <h1>Edit Bookmarks</h1>
     <div>
       <div>

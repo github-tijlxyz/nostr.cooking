@@ -257,7 +257,7 @@
   <title>edit recipe {title} on nostr.cooking</title>
 </svelte:head>
 
-<form on:submit|preventDefault={publishRecipe} class="flex flex-col gap-6 mx-0.5">
+<form on:submit|preventDefault={publishRecipe} class="flex flex-col gap-6 max-w-[760px] mx-auto">
   <h1>Edit Recipe</h1>
   <div class="flex flex-col gap-2">
     <h3>Title*</h3>
