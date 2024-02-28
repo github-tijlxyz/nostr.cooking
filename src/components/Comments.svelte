@@ -34,9 +34,9 @@
   <div class="flex flex-col gap-4">
     {#if events}
       {#each events as ev, i}
-        <div class="flex gap-4">
-          <a href="/user/{nip19.npubEncode(ev.pubkey)}"
-            ><Avatar class="self-center rounded-full w-12 h-12" ndk={$ndk} pubkey={ev.pubkey} /></a
+        <div class="flex gap-4 break-all">
+          <a class="flex flex-shrink-0" href="/user/{nip19.npubEncode(ev.pubkey)}"
+            ><Avatar class="rounded-full w-12 h-12" ndk={$ndk} pubkey={ev.pubkey} /></a
           >
           <div class="flex flex-col self-center">
             <div class="flex gap-2">
