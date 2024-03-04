@@ -157,6 +157,8 @@
       const va = validateMarkdownTemplate(md);
       if (typeof va == 'string') {
         resultMessage = `Error: ${va}`;
+      } else if ($images.length == 0) {
+        resultMessage = `Error: No Image Uploaded`;
       } else if (va) {
         previewEvent = new NDKEvent($ndk);
         previewEvent.kind = 30023;
@@ -200,6 +202,8 @@
       const va = validateMarkdownTemplate(md);
       if (typeof va == 'string') {
         resultMessage = `Error: ${va}`;
+      } else if ($images.length == 0) {
+        resultMessage = `Error: No Image Uploaded`;
       } else if (va) {
         const event = new NDKEvent($ndk);
         event.kind = 30023;
@@ -316,7 +320,7 @@
     <StringComboBox placeholder={'Bake for 30 min'} selected={directionsArray} showIndex={false} />
   </div>
   <div>
-    <h3>Cover Image</h3>
+    <h3>Cover Image*</h3>
     <span class="text-caption">Appears on the recipe card</span>
     <ImagesComboBox uploadedImages={images} />
   </div>
