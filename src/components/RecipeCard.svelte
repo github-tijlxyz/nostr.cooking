@@ -29,17 +29,12 @@
   href={link}
   class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary"
 >
-  <div
-    on:click={open}
-    class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden {event.tags.find(
-      (e) => e[0] == 'image'
-    )?.[0]
-      ? 'bg-cover text-white'
-      : 'bg-slate-200 animate-pulse'}"
-    style={`${
-      event.tags.find((e) => e[0] == 'image')?.[0] &&
-      `background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}');`
-    }`}
+  <img
+    class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-cover bg-center before:animate-pulse"
+    style={
+      `background-image: url('/placeholder.png');`
+    } src={event.tags.find((e) => e[0] == 'image')?.[1]}
+    alt="Cover Image"
   />
 
   <h5 class="text-md leading-tight text-wrap">

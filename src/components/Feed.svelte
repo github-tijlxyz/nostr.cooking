@@ -23,7 +23,8 @@
     {#each new Array(24) as i}
       <div class="flex flex-col gap-4">
         <div
-          class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-input animate-pulse"
+          class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-cover bg-center animate-pulse"
+          style="background-image: url('/placeholder.png');"
         />
 
         <h5 class="text-md leading-tight text-wrap text-input bg-input animate-pulse">
