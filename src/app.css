@@ -12,7 +12,7 @@
 }
 
 .input {
-  @apply rounded-xl bg-input border-none p-3;
+  @apply rounded-xl bg-input border-input focus:ring-primary focus:border-primary p-3;
 }
 
 @layer base {
