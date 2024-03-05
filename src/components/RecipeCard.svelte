@@ -30,11 +30,10 @@
   class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary"
 >
   <img
-    class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden bg-cover bg-center before:animate-pulse"
+    class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse"
     style={
       `background-image: url('/placeholder.png');`
     } src={event.tags.find((e) => e[0] == 'image')?.[1]}
-    alt="Cover Image"
   />
 
   <h5 class="text-md leading-tight text-wrap">
