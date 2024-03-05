@@ -27,14 +27,13 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <a
   href={link}
-  class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary"
+  class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary transition-colors duration-300"
 >
-  <img
-    class="rounded-3xl w-[160px] h-[237px] cursor-pointer transition relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse"
-    style={
-      `background-image: url('/placeholder.png');`
-    } src={event.tags.find((e) => e[0] == 'image')?.[1]}
-  />
+  <div class="relative image"
+       style={
+      `background-image: url('/placeholder.png');`}>
+    <div class="absolute top-0 left-0 bottom-0 right-0 image hover:scale-105 transition-transform duration-700 ease-in-out" style={`background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}')`} />
+  </div>
 
   <h5 class="text-md leading-tight text-wrap">
     {#if event?.tags.find((e) => e[0] == 'title')?.[0] && event?.tags.find((e) => e[0] == 'title')?.[1]}
@@ -44,3 +43,9 @@
     {/if}
   </h5>
 </a>
+
+<style lang="postcss">
+  .image {
+    @apply rounded-3xl w-[160px] h-[237px] cursor-pointer relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse
+  }
+</style>
