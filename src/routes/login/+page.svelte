@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Fa from 'svelte-fa';
-  import { faKey } from '@fortawesome/free-solid-svg-icons';
+  import KeyIcon from "phosphor-svelte/lib/Key";
   import Button from '../../components/Button.svelte';
   import { ndk, userPublickey } from '$lib/nostr';
   import { browser } from '$app/environment';
@@ -49,7 +48,7 @@
         <span
           class="flex justify-center items-center rounded-full bg-[#FA9101] self-center w-10 h-10 text-white"
         >
-          <Fa class="text-xl" icon={faKey} />
+          <KeyIcon size={24} />
         </span>
         <span class="self-center">Sign in with extension</span>
       </button>

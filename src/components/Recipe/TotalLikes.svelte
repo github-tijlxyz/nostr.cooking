@@ -2,8 +2,7 @@
   import { ndk, userPublickey } from '$lib/nostr';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
-  import Fa from 'svelte-fa';
-  import { faHeart } from '@fortawesome/free-solid-svg-icons';
+  import HeartIcon from "phosphor-svelte/lib/Heart"
 
   export let event: NDKEvent;
   let loading = true;
@@ -32,6 +31,6 @@
 </script>
 
 <div on:click={likePost} class="flex gap-1.5">
-  <Fa class="self-center {liked ? 'text-danger' : 'cursor-pointer'}" icon={faHeart} />
+  <HeartIcon size={24} />
   {#if loading}...{:else}{totalLikeAmount}{/if}
 </div>

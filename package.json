@@ -50,5 +50,8 @@
     "vite": "^4.4.2",
     "webln": "^0.3.2",
     "zapthreads": "^0.5.0"
+  },
+  "devDependencies": {
+    "phosphor-svelte": "^1.4.2"
   }
 }

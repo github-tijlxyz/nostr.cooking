@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
   import Button from './Button.svelte';
-  import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-  import Fa from 'svelte-fa';
+  import TrashIcon from "phosphor-svelte/lib/Trash"
 
   let inputNewThing: string = '';
   export let selected: Writable<string[]>;
@@ -76,7 +75,7 @@
               </button>
             {/if}
             <button class="self-center text-danger" on:click={() => removeTag(index)}>
-              <Fa icon={faTrashCan} />
+              <TrashIcon />
             </button>
           </div>
         </li>

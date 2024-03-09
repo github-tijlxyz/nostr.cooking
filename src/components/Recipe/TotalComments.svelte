@@ -2,8 +2,7 @@
   import { ndk } from '$lib/nostr';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
-  import Fa from 'svelte-fa';
-  import { faComment } from '@fortawesome/free-solid-svg-icons';
+  import CommentIcon from "phosphor-svelte/lib/ChatTeardropText"
 
   export let event: NDKEvent;
   let loading = true;
@@ -22,6 +21,6 @@
 </script>
 
 <div class="flex gap-1.5">
-  <Fa class="self-center" icon={faComment} />
+  <CommentIcon size={24} />
   {#if loading}...{:else}{totalLikeAmount}{/if}
 </div>

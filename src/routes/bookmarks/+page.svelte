@@ -7,8 +7,7 @@
   import { onMount } from 'svelte';
   import Feed from '../../components/Feed.svelte';
   import { formatDate } from '$lib/utils';
-  import Fa from 'svelte-fa';
-  import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+  import MagnifyingGlassIcon from "phosphor-svelte/lib/MagnifyingGlass"
 
   let loaded = false;
   let event: NDKEvent;
@@ -124,7 +123,7 @@
     NONFUNCTIONAL:
     <div class="flex bg-input mx-0.5 rounded-xl">
       <input class="rounded-xl bg-input border-none grow" type="search" placeholder="Search" />
-      <Fa class="self-center mr-3" icon={faMagnifyingGlass} />
+      <MagnifyingGlassIcon class="self-center mr-3" />
     </div>
 
     {#if events.length > 0 && loaded == true}

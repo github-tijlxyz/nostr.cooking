@@ -4,14 +4,11 @@
   import { Avatar } from '@nostr-dev-kit/ndk-svelte-components';
   import { ndk, userPublickey } from '$lib/nostr';
   import SVGNostrCookingWithText from '../assets/nostr.cooking-withtext.svg';
-  import Fa from 'svelte-fa';
-  import {
-    faAdd,
-    faGear,
-    faUser,
-    faWallet,
-    faRightFromBracket
-  } from '@fortawesome/free-solid-svg-icons';
+  import UserIcon from "phosphor-svelte/lib/User"
+  import GearIcon from "phosphor-svelte/lib/Gear"
+  import WalletIcon from "phosphor-svelte/lib/Wallet"
+  import AddIcon from "phosphor-svelte/lib/Plus"
+  import SignOutIcon from "phosphor-svelte/lib/SignOut"
   import { nip19 } from 'nostr-tools';
   import { clickOutside } from '$lib/clickOutside';
 
@@ -39,7 +36,7 @@
   <div class="flex gap-4 self-center">
     <Button class="self-center" on:click={() => goto('/create')}>
       <div class="flex gap-2 font-semibold">
-        <Fa class="self-center" icon={faAdd} />
+        <AddIcon class="self-center" size={18} />
         <div class="hidden md:flex">Add Recipe</div>
       </div>
     </Button>
@@ -60,25 +57,25 @@
               on:click_outside={() => (dropdownActive = false)}
               class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6"
             >
-              <span
+              <div
                 class="flex gap-2 cursor-pointer"
                 on:click={() => goto(`/user/${nip19.npubEncode($userPublickey)}`)}
               >
-                <Fa class="self-center" icon={faUser} />
+                <UserIcon class="self-center" size={18} />
                 Profile
-              </span>
-              <span class="flex gap-2 cursor-pointer" on:click={() => goto('/settings')}>
-                <Fa class="self-center" icon={faGear} />
+              </div>
+              <div class="flex gap-2 cursor-pointer" on:click={() => goto('/settings')}>
+                <GearIcon class="self-center" size={18} />
                 Settings
-              </span>
-              <span class="flex gap-2 cursor-pointer" on:click={() => goto('/wallet')}>
-                <Fa class="self-center" icon={faWallet} />
+              </div>
+              <div class="flex gap-2 cursor-pointer" on:click={() => goto('/wallet')}>
+                <WalletIcon class="self-center" size={18} />
                 Wallet
-              </span>
-              <span class="flex gap-2 cursor-pointer" on:click={logout}>
-                <Fa class="self-center" icon={faRightFromBracket} />
+              </div>
+              <div class="flex gap-2 cursor-pointer" on:click={logout}>
+                <SignOutIcon class="self-center" size={18} />
                 Log out
-              </span>
+              </div>
             </div>
           </div>
         {/if}

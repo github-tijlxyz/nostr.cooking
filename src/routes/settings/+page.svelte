@@ -2,9 +2,8 @@
   import { browser } from '$app/environment';
   import { standardRelays } from '$lib/consts';
   import { translateOption } from '$lib/state';
-  import Login from '../../components/Login.svelte';
-  import Fa from 'svelte-fa';
-  import { faTrashCan, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+  import TrashIcon from "phosphor-svelte/lib/Trash";
+  import WarningIcon from "phosphor-svelte/lib/warning";
   import Button from '../../components/Button.svelte';
 
   let relays: string[] = [];
@@ -76,7 +75,7 @@
         <div class="flex bg-input p-3 rounded-xl">
           <span class="grow">{relay}</span>
           <button class="self-center text-danger" on:click={() => removeRelay(index)}>
-            <Fa icon={faTrashCan} />
+            <TrashIcon />
           </button>
         </div>
       {/each}
@@ -131,7 +130,7 @@
       primary={false}
       on:click={() => (window.location.href = '/clearall')}
     >
-      <Fa class="self-center" icon={faTriangleExclamation} />
+      <WarningIcon class="self-center" />
       Clear all data
     </Button>
   </div>

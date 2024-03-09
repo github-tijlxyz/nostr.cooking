@@ -2,8 +2,7 @@
   import { recipeTags, type recipeTagSimple } from '$lib/consts';
   import type { Writable } from 'svelte/store';
   import TagsSearchAutocomplete from './TagsSearchAutocomplete.svelte';
-  import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-  import Fa from 'svelte-fa';
+  import TrashIcon from "phosphor-svelte/lib/Trash"
 
   export let selectedTags: Writable<recipeTagSimple[]>;
 
@@ -43,7 +42,7 @@
           </span>
           <div class="flex gap-2">
             <button class="self-center text-danger" on:click={() => removeTag(index)}>
-              <Fa icon={faTrashCan} />
+              <TrashIcon />
             </button>
           </div>
         </li>
