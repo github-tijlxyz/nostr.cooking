@@ -204,7 +204,7 @@
             <TotalZaps {event} />
           </div>
         </div>
-        <div class="cursor-pointer" on:click={() => (dropdownActive = !dropdownActive)}>
+        <div class="cursor-pointer hover:bg-input rounded p-0.5 transition duration-300" on:click={() => (dropdownActive = !dropdownActive)}>
           <DotsIcon size={24} />
         </div>
         {#if dropdownActive}
