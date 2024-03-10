@@ -29,7 +29,9 @@
       <div class="flex flex-col gap-3">
         <div class="flex justify-between">
           <slot id="title" name="title" />
-          <CloseIcon size={24} />
+          <div on:click={close}>
+            <CloseIcon size={24} />
+          </div>
         </div>
         <slot />
       </div>
