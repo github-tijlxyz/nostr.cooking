@@ -17,16 +17,10 @@
       case 'easy':
       case 'beef':
       case 'chicken':
-      case 'vegetables':
       case 'seafood':
-      case 'soup':
       case 'italian':
-      case 'thai':
       case 'mexican':
-      case 'indian':
-      case 'korean':
       case 'dessert':
-      case 'slowcooked':
       case 'breakfast':
       case 'alcohol':
         return true;
@@ -66,7 +60,7 @@
   <title>recent recipes on nostr.cooking</title>
 </svelte:head>
 
-<div class="flex flex-col gap-10">
+<div class="flex flex-col gap-3 md:gap-10">
   <div class="flex flex-col gap-2">
     <div class="prose">
       <h2>
@@ -89,11 +83,12 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <div class="prose">
-      <h2>Popular Categories</h2>
+    <div class="flex">
+      <h1 class="grow">Popular Categories</h1>
+      <a href="/tags" class="self-center text-primary">View All</a>
     </div>
 
-    <div class="flex gap-4 overflow-y-hidden overflow-x-auto">
+    <div class="grid grid-cols-4 md:flex gap-4 overflow-y-hidden overflow-x-auto">
       {#each popTags as tag}
         <a href="/tag/{tag.title}" class="flex flex-col gap-2">
           <div class="table w-16 h-16 bg-input rounded-full place-self-center">
@@ -108,9 +103,7 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <div class="prose">
-      <h2>Recent Recipes</h2>
-    </div>
-    <Feed {events} hideHide={true} />
+    <h1>Recent Recipes</h1>
+    <div><Feed {events} hideHide={true} /></div>
   </div>
 </div>
