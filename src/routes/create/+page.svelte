@@ -2,7 +2,7 @@
   import { writable, type Writable } from 'svelte/store';
   import TagsComboBox from '../../components/TagsComboBox.svelte';
   import StringComboBox from '../../components/StringComboBox.svelte';
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import { createMarkdown, validateMarkdownTemplate } from '$lib/pharser';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import type { recipeTagSimple } from '$lib/consts';
@@ -12,6 +12,7 @@
   import { nip19 } from 'nostr-tools';
   import ImagesComboBox from '../../components/ImagesComboBox.svelte';
   import Button from '../../components/Button.svelte';
+  import { onMount } from 'svelte';
 
   let previewEvent: NDKEvent | undefined = undefined;
 
@@ -31,6 +32,11 @@
 
   let resultMessage = ' ';
   let disablePublishButton = false;
+
+  onMount(() => {
+    if ($userPublickey == "")
+      goto("/login")
+  })
 
   function formatStringArrays() {
     ingredients = '';

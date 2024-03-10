@@ -34,12 +34,14 @@
   </div>
 
   <div class="flex gap-4 self-center">
+    {#if $userPublickey !== ''}
     <Button class="self-center" on:click={() => goto('/create')}>
       <div class="flex gap-2 font-semibold">
         <AddIcon class="self-center" size={18} />
         <div class="hidden md:flex">Add Recipe</div>
       </div>
     </Button>
+    {/if}
     <div class="self-center">
       {#if $userPublickey !== ''}
         <div on:click={() => (dropdownActive = !dropdownActive)}>

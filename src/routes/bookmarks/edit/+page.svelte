@@ -14,6 +14,11 @@
   let summary = '';
   let resultMessage = '';
 
+  onMount(() => {
+    if ($userPublickey == "")
+      goto("/login")
+  })
+
   type Atype = {
     title?: string;
     naddr: string;

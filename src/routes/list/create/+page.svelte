@@ -1,16 +1,22 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import Button from '../../../components/Button.svelte';
   import ImagesComboBox from '../../../components/ImagesComboBox.svelte';
   import { writable, type Writable } from 'svelte/store';
+  import { onMount } from 'svelte';
 
   let title = '';
   let images: Writable<string[]> = writable([]);
   let summary = '';
   let resultMessage = '';
+
+  onMount(() => {
+    if ($userPublickey == "")
+      goto("/login")
+  })
 
   let disablePublishButton = false;
 

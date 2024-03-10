@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import { onMount } from 'svelte';
@@ -16,6 +16,11 @@
       loadData();
     }
   }
+
+  onMount(() => {
+    if ($userPublickey == "")
+      goto("/login")
+  })
 
   let title = '';
   let images: Writable<string[]> = writable([]);

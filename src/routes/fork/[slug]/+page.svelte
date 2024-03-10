@@ -1,6 +1,6 @@
 <script lang="ts">
   import TagsComboBox from '../../../components/TagsComboBox.svelte';
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import { createMarkdown, validateMarkdownTemplate } from '$lib/pharser';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { recipeTags, type recipeTagSimple } from '$lib/consts';
@@ -20,6 +20,11 @@
       loadData();
     }
   }
+
+  onMount(() => {
+    if ($userPublickey == "")
+      goto("/login")
+  })
 
   let previewEvent: NDKEvent | undefined = undefined;
 
