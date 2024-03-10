@@ -14,6 +14,8 @@
   import QrIcon from "phosphor-svelte/lib/QrCode";
   import { requestProvider } from 'webln';
   import ProfileLists from '../../../components/ProfileLists.svelte';
+  import Modal from '../../../components/Modal.svelte';
+  import QrCode from 'svelte-qrcode';
 
   export let data;
   let hexpubkey: string | undefined = undefined;
@@ -84,6 +86,12 @@
       }
     }
   }
+
+  let qrModal = false;
+
+  function qrModalCleanup() {
+    qrModal = false;
+  }
 </script>
 
 <svelte:head>
@@ -93,6 +101,14 @@
 {#if zapModal}
   <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
 {/if}
+
+<Modal cleanup={qrModalCleanup} open={qrModal}>
+  <h1 slot="title">{profile && profile.name ? profile.name : '...'}'s QR Code</h1>
+  Scan this on your mobile device to see their profile!
+  <div>
+    <QrCode value="nostr:{nip19.nprofileEncode({pubkey: user.pubkey, relays: user.relayUrls})}" />
+  </div>
+</Modal>
 
 <div class="flex flex-col gap-6">
   <div class="flex gap-20">
@@ -105,7 +121,7 @@
       <h1 class="self-center"><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
     </div>
     <div class="flex gap-2 self-center">
-      <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
+      <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3" on:click={() => (qrModal = true)}
         ><QrIcon /></Button
       >
       {#if hexpubkey !== $userPublickey}
