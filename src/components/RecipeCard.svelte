@@ -46,6 +46,6 @@
 
 <style lang="postcss">
   .image {
-    @apply rounded-3xl w-[160px] h-[237px] cursor-pointer relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse
+    @apply rounded-2xl w-[160px] h-[237px] cursor-pointer relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse
   }
 </style>
