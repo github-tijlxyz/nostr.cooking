@@ -11,8 +11,8 @@
 
   <div class="grid grid-cols-6 gap-8">
     {#each recipeTags as tag}
-      <a href="/tag/{tag.title}" class="flex flex-col gap-2">
-        <div class="table w-[120px] h-[120px] bg-input rounded-full place-self-center">
+      <a href="/tag/{tag.title}" class="flex flex-col gap-2 hover:text-primary transition duration-300">
+        <div class="table w-[120px] h-[120px] bg-input hover:bg-accent-gray transition duration-300 rounded-full place-self-center">
           <div class="table-cell align-middle place-self-center text-center text-7xl">
             {tag.emoji}
           </div>

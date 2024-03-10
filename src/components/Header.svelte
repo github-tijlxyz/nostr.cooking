@@ -11,6 +11,7 @@
   import SignOutIcon from "phosphor-svelte/lib/SignOut"
   import { nip19 } from 'nostr-tools';
   import { clickOutside } from '$lib/clickOutside';
+  import { fade } from 'svelte/transition';
 
   let dropdownActive = false;
 
@@ -28,9 +29,9 @@
   </a>
 
   <div class="hidden md:flex grow gap-10 self-center font-semibold">
-    <a href="/recent">Discover</a>
-    <a href="/tags">Categories</a>
-    <a href="/bookmarks">Bookmarks</a>
+    <a class="transition duration-300 hover:text-primary" href="/recent">Discover</a>
+    <a class="transition duration-300 hover:text-primary" href="/tags">Categories</a>
+    <a class="transition duration-300 hover:text-primary  " href="/bookmarks">Bookmarks</a>
   </div>
 
   <div class="flex gap-4 self-center">
@@ -52,7 +53,7 @@
           />
         </div>
         {#if dropdownActive}
-          <div class="relative">
+          <div class="relative z-10" transition:fade={{ delay: 0, duration: 150 }}>
             <div
               on:click={() => (dropdownActive = false)}
               use:clickOutside

@@ -2,6 +2,7 @@
   import type { Writable } from 'svelte/store';
   import Button from './Button.svelte';
   import TrashIcon from "phosphor-svelte/lib/Trash"
+  import { slide } from 'svelte/transition';
 
   let inputNewThing: string = '';
   export let selected: Writable<string[]>;
@@ -49,11 +50,11 @@
   }
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="mb-0">
   {#if $selected.length > 0}
     <ul class="flex flex-col gap-2">
       {#each $selected as tag, index}
-        <li class="flex input">
+        <li class="flex input" transition:slide|global={{ duration: 300 }}>
           <span class="grow">{tag}</span>
           <div class="flex gap-2">
             {#if showIndex && index > 0}
@@ -82,9 +83,9 @@
       {/each}
     </ul>
   {/if}
-
-  <form on:submit|preventDefault={addTag} class="flex gap-2">
-    <input bind:value={inputNewThing} class="input grow" {placeholder} />
-    <Button on:click={addTag} primary={false}>Add</Button>
-  </form>
 </div>
+
+<form on:submit|preventDefault={addTag} class="flex gap-2">
+  <input bind:value={inputNewThing} class="input grow" {placeholder} />
+  <Button on:click={addTag} primary={false}>Add</Button>
+</form>

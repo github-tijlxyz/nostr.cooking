@@ -19,6 +19,7 @@
   import Modal from '../Modal.svelte';
   import { clickOutside } from '$lib/clickOutside';
   import AuthorProfile from '../AuthorProfile.svelte';
+  import { fade } from 'svelte/transition';
 
   export let event: NDKEvent;
   const naddr = nip19.naddrEncode({
@@ -208,7 +209,7 @@
           <DotsIcon size={24} />
         </div>
         {#if dropdownActive}
-          <div class="relative">
+          <div class="relative" transition:fade={{ delay: 0, duration: 150 }}>
             <div
               on:click={() => (dropdownActive = false)}
               use:clickOutside

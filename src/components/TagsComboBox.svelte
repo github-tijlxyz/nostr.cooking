@@ -3,6 +3,7 @@
   import type { Writable } from 'svelte/store';
   import TagsSearchAutocomplete from './TagsSearchAutocomplete.svelte';
   import TrashIcon from "phosphor-svelte/lib/Trash"
+  import { slide } from 'svelte/transition';
 
   export let selectedTags: Writable<recipeTagSimple[]>;
 
@@ -33,7 +34,7 @@
   {#if $selectedTags.length > 0}
     <ul class="flex flex-col gap-2">
       {#each $selectedTags as tag, index}
-        <li class="flex input">
+        <li class="flex input" transition:slide|global={{ duration: 300 }}>
           <span class="grow">
             {#if tag.emoji}
               <span>{tag.emoji} </span>

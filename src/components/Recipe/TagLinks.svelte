@@ -34,7 +34,7 @@
   {#each tags as tag}
     <a
       href="/tag/{tag.title}"
-      class="rounded-full px-2 py-1 bg-accent-gray opacity-15
+        class="rounded-full px-2 py-1 bg-input text-black hover:bg-accent-gray transition duration-300
      cursor-pointer"
     >
       {tag.title}
