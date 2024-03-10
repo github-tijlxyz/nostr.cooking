@@ -336,16 +336,17 @@
       <Button disabled={disablePublishButton} type="submit">Publish Edits</Button>
     </div>
   </div>
+  {#if $images.length > 0 && title && $selectedTags.length > 0 && $directionsArray.length > 0 && $ingredientsArray.length > 0}
+    <div class="flex flex-col gap-2">
+      <h2>Card Preview</h2>
+      <div>
+        <Button on:click={loadPreview}>Load Preview</Button>
+      </div>
+      <div class="">
+        {#if previewEvent}
+          <FeedItem event={previewEvent} />
+        {/if}
+      </div>
+    </div>
+  {/if}
 </form>
-
-<div class="flex flex-col gap-2">
-  <h2>Card Preview</h2>
-  <div>
-    <Button on:click={loadPreview}>Load Preview</Button>
-  </div>
-  <div class="">
-    {#if previewEvent}
-      <FeedItem event={previewEvent} />
-    {/if}
-  </div>
-</div>
