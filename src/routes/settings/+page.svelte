@@ -3,7 +3,7 @@
   import { standardRelays } from '$lib/consts';
   import { translateOption } from '$lib/state';
   import TrashIcon from "phosphor-svelte/lib/Trash";
-  import WarningIcon from "phosphor-svelte/lib/warning";
+  import WarningIcon from "phosphor-svelte/lib/Warning";
   import Button from '../../components/Button.svelte';
 
   let relays: string[] = [];
