@@ -58,7 +58,7 @@
         for="file-upload"
         class="relative cursor-pointer rounded-md font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
       >
-        <span>Upload {name}</span>
+        <span class="text-primary">Upload {name}</span>
         <input id="file-upload" bind:this={input} type="file" class="sr-only" />
       </label>
       <p class="pl-1">or drag and drop</p>
