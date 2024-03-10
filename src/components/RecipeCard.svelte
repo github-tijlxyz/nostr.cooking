@@ -29,10 +29,11 @@
   href={link}
   class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary transition-colors duration-300"
 >
-  <div class="relative image"
-       style={
-      `background-image: url('/placeholder.png');`}>
-    <div class="absolute top-0 left-0 bottom-0 right-0 image hover:scale-105 transition-transform duration-700 ease-in-out" style={`background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}')`} />
+  <div class="relative image" style={`background-image: url('/placeholder.png');`}>
+    <div
+      class="absolute top-0 left-0 bottom-0 right-0 image hover:scale-105 transition-transform duration-700 ease-in-out"
+      style={`background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}')`}
+    />
   </div>
 
   <h5 class="text-md leading-tight text-wrap">
@@ -46,6 +47,6 @@
 
 <style lang="postcss">
   .image {
-    @apply rounded-2xl w-[160px] h-[237px] cursor-pointer relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse
+    @apply rounded-2xl w-[160px] h-[237px] cursor-pointer relative overflow-hidden object-cover bg-cover bg-center aspect-auto before:animate-pulse;
   }
 </style>

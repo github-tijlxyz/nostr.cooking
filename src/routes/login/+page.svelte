@@ -1,5 +1,5 @@
 <script lang="ts">
-  import KeyIcon from "phosphor-svelte/lib/Key";
+  import KeyIcon from 'phosphor-svelte/lib/Key';
   import Button from '../../components/Button.svelte';
   import { ndk, userPublickey } from '$lib/nostr';
   import { browser } from '$app/environment';

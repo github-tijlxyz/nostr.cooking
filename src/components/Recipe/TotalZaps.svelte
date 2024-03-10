@@ -4,7 +4,7 @@
   import { onMount } from 'svelte';
   import { decode } from '@gandlaf21/bolt11-decode';
   import { formatAmount } from '$lib/utils';
-  import LightningIcon from "phosphor-svelte/lib/Lightning"
+  import LightningIcon from 'phosphor-svelte/lib/Lightning';
 
   export let event: NDKEvent;
   let loading = true;

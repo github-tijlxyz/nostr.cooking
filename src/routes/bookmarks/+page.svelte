@@ -7,7 +7,7 @@
   import { onMount } from 'svelte';
   import Feed from '../../components/Feed.svelte';
   import { formatDate } from '$lib/utils';
-  import MagnifyingGlassIcon from "phosphor-svelte/lib/MagnifyingGlass"
+  import MagnifyingGlassIcon from 'phosphor-svelte/lib/MagnifyingGlass';
 
   let loaded = false;
   let event: NDKEvent;

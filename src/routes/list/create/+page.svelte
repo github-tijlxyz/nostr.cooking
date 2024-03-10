@@ -14,9 +14,8 @@
   let resultMessage = '';
 
   onMount(() => {
-    if ($userPublickey == "")
-      goto("/login")
-  })
+    if ($userPublickey == '') goto('/login');
+  });
 
   let disablePublishButton = false;
 

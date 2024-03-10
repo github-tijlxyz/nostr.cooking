@@ -34,9 +34,8 @@
   let disablePublishButton = false;
 
   onMount(() => {
-    if ($userPublickey == "")
-      goto("/login")
-  })
+    if ($userPublickey == '') goto('/login');
+  });
 
   function formatStringArrays() {
     ingredients = '';

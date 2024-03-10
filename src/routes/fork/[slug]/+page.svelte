@@ -22,9 +22,8 @@
   }
 
   onMount(() => {
-    if ($userPublickey == "")
-      goto("/login")
-  })
+    if ($userPublickey == '') goto('/login');
+  });
 
   let previewEvent: NDKEvent | undefined = undefined;
 

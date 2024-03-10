@@ -10,8 +10,8 @@
   import { page } from '$app/stores';
   import { Avatar, Name } from '@nostr-dev-kit/ndk-svelte-components';
   import Button from '../../../components/Button.svelte';
-  import LightningIcon from "phosphor-svelte/lib/Lightning";
-  import QrIcon from "phosphor-svelte/lib/QrCode";
+  import LightningIcon from 'phosphor-svelte/lib/Lightning';
+  import QrIcon from 'phosphor-svelte/lib/QrCode';
   import { requestProvider } from 'webln';
   import ProfileLists from '../../../components/ProfileLists.svelte';
   import Modal from '../../../components/Modal.svelte';
@@ -106,7 +106,7 @@
   <h1 slot="title">{profile && profile.name ? profile.name : '...'}'s QR Code</h1>
   Scan this on your mobile device to see their profile!
   <div>
-    <QrCode value="nostr:{nip19.nprofileEncode({pubkey: user.pubkey, relays: user.relayUrls})}" />
+    <QrCode value="nostr:{nip19.nprofileEncode({ pubkey: user.pubkey, relays: user.relayUrls })}" />
   </div>
 </Modal>
 
@@ -121,15 +121,16 @@
       <h1 class="self-center"><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
     </div>
     <div class="flex gap-2 self-center">
-      <Button class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3" on:click={() => (qrModal = true)}
-        ><QrIcon /></Button
-      >
-      {#if hexpubkey !== $userPublickey}
       <Button
         class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
-        on:click={() => (zapModal = true)}><LightningIcon /></Button
+        on:click={() => (qrModal = true)}><QrIcon /></Button
       >
-      <Button class="flex self-center">Follow</Button>
+      {#if hexpubkey !== $userPublickey}
+        <Button
+          class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
+          on:click={() => (zapModal = true)}><LightningIcon /></Button
+        >
+        <Button class="flex self-center">Follow</Button>
       {/if}
     </div>
   </div>

@@ -2,9 +2,9 @@
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import TagLinks from './TagLinks.svelte';
   import { ndk, userPublickey } from '$lib/nostr';
-  import DotsIcon from "phosphor-svelte/lib/DotsThreeVertical"
-  import PencilIcon from "phosphor-svelte/lib/Pencil"
-  import BookmarkIcon from "phosphor-svelte/lib/BookmarkSimple"
+  import DotsIcon from 'phosphor-svelte/lib/DotsThreeVertical';
+  import PencilIcon from 'phosphor-svelte/lib/Pencil';
+  import BookmarkIcon from 'phosphor-svelte/lib/BookmarkSimple';
   import Button from '../Button.svelte';
   import { translateOption } from '$lib/state';
   import { translate } from '$lib/translation';
@@ -205,7 +205,10 @@
             <TotalZaps {event} />
           </div>
         </div>
-        <div class="cursor-pointer hover:bg-input rounded p-0.5 transition duration-300" on:click={() => (dropdownActive = !dropdownActive)}>
+        <div
+          class="cursor-pointer hover:bg-input rounded p-0.5 transition duration-300"
+          on:click={() => (dropdownActive = !dropdownActive)}
+        >
           <DotsIcon size={24} />
         </div>
         {#if dropdownActive}

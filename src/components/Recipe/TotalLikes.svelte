@@ -2,7 +2,7 @@
   import { ndk, userPublickey } from '$lib/nostr';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
-  import HeartIcon from "phosphor-svelte/lib/Heart"
+  import HeartIcon from 'phosphor-svelte/lib/Heart';
 
   export let event: NDKEvent;
   let loading = true;

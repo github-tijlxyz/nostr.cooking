@@ -4,11 +4,11 @@
   import { Avatar } from '@nostr-dev-kit/ndk-svelte-components';
   import { ndk, userPublickey } from '$lib/nostr';
   import SVGNostrCookingWithText from '../assets/nostr.cooking-withtext.svg';
-  import UserIcon from "phosphor-svelte/lib/User"
-  import GearIcon from "phosphor-svelte/lib/Gear"
-  import WalletIcon from "phosphor-svelte/lib/Wallet"
-  import AddIcon from "phosphor-svelte/lib/Plus"
-  import SignOutIcon from "phosphor-svelte/lib/SignOut"
+  import UserIcon from 'phosphor-svelte/lib/User';
+  import GearIcon from 'phosphor-svelte/lib/Gear';
+  import WalletIcon from 'phosphor-svelte/lib/Wallet';
+  import AddIcon from 'phosphor-svelte/lib/Plus';
+  import SignOutIcon from 'phosphor-svelte/lib/SignOut';
   import { nip19 } from 'nostr-tools';
   import { clickOutside } from '$lib/clickOutside';
   import { fade } from 'svelte/transition';
@@ -31,17 +31,17 @@
   <div class="hidden md:flex grow gap-10 self-center font-semibold">
     <a class="transition duration-300 hover:text-primary" href="/recent">Discover</a>
     <a class="transition duration-300 hover:text-primary" href="/tags">Categories</a>
-    <a class="transition duration-300 hover:text-primary  " href="/bookmarks">Bookmarks</a>
+    <a class="transition duration-300 hover:text-primary" href="/bookmarks">Bookmarks</a>
   </div>
 
   <div class="flex gap-4 self-center">
     {#if $userPublickey !== ''}
-    <Button class="self-center" on:click={() => goto('/create')}>
-      <div class="flex gap-2 font-semibold">
-        <AddIcon class="self-center" size={18} />
-        <div class="hidden md:flex">Add Recipe</div>
-      </div>
-    </Button>
+      <Button class="self-center" on:click={() => goto('/create')}>
+        <div class="flex gap-2 font-semibold">
+          <AddIcon class="self-center" size={18} />
+          <div class="hidden md:flex">Add Recipe</div>
+        </div>
+      </Button>
     {/if}
     <div class="self-center">
       {#if $userPublickey !== ''}

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
   import Button from './Button.svelte';
-  import TrashIcon from "phosphor-svelte/lib/Trash"
+  import TrashIcon from 'phosphor-svelte/lib/Trash';
   import { slide } from 'svelte/transition';
 
   let inputNewThing: string = '';

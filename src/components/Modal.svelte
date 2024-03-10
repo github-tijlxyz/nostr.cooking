@@ -1,6 +1,6 @@
 <script lang="ts">
   import { blur, scale } from 'svelte/transition';
-  import CloseIcon from "phosphor-svelte/lib/XCircle"
+  import CloseIcon from 'phosphor-svelte/lib/XCircle';
   export let open = false;
   export let cleanup: (() => void) | null = null;
 

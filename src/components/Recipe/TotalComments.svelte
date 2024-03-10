@@ -2,7 +2,7 @@
   import { ndk } from '$lib/nostr';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
-  import CommentIcon from "phosphor-svelte/lib/ChatTeardropText"
+  import CommentIcon from 'phosphor-svelte/lib/ChatTeardropText';
 
   export let event: NDKEvent;
   let loading = true;

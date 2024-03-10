@@ -2,7 +2,7 @@
   import { recipeTags, type recipeTagSimple } from '$lib/consts';
   import type { Writable } from 'svelte/store';
   import TagsSearchAutocomplete from './TagsSearchAutocomplete.svelte';
-  import TrashIcon from "phosphor-svelte/lib/Trash"
+  import TrashIcon from 'phosphor-svelte/lib/Trash';
   import { slide } from 'svelte/transition';
 
   export let selectedTags: Writable<recipeTagSimple[]>;

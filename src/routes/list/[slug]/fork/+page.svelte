@@ -18,9 +18,8 @@
   }
 
   onMount(() => {
-    if ($userPublickey == "")
-      goto("/login")
-  })
+    if ($userPublickey == '') goto('/login');
+  });
 
   let title = '';
   let images: Writable<string[]> = writable([]);

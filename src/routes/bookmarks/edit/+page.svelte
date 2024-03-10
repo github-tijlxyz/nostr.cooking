@@ -15,9 +15,8 @@
   let resultMessage = '';
 
   onMount(() => {
-    if ($userPublickey == "")
-      goto("/login")
-  })
+    if ($userPublickey == '') goto('/login');
+  });
 
   type Atype = {
     title?: string;
