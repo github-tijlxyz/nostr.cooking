@@ -128,9 +128,7 @@
   }
 </script>
 
-{#if zapModal}
-  <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
-{/if}
+<ZapModal bind:open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />
 
 <Modal cleanup={cleanUpBookmarksModal} open={bookmarkModal}>
   <h1 slot="title">Save Recipe</h1>

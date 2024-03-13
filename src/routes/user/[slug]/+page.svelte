@@ -98,9 +98,7 @@
   <title>{profile && profile.name ? profile.name : '...'} on nostr.cooking</title>
 </svelte:head>
 
-{#if zapModal}
-  <ZapModal submit={zapEvt} cancel={() => (zapModal = false)} />
-{/if}
+<ZapModal open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />
 
 <Modal cleanup={qrModalCleanup} open={qrModal}>
   <h1 slot="title">{profile && profile.name ? profile.name : '...'}'s QR Code</h1>

@@ -23,13 +23,13 @@
       transition:scale={{ duration: 250 }}
       aria-labelledby="title"
       aria-modal="true"
-      class="absolute m-0 top-1/2 left-1/2 p-[1em] rounded-xl w-[calc(100vw - 4em)] max-w-xl h-[calc(100vh - 4em)] -translate-x-1/2 -translate-y-1/2 bg-white"
+      class="absolute m-0 top-1/2 left-1/2 px-8 pt-6 pb-8 rounded-3xl w-[calc(100vw - 4em)] max-w-xl h-[calc(100vh - 4em)] -translate-x-1/2 -translate-y-1/2 bg-white"
       open
     >
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-6">
         <div class="flex justify-between">
-          <slot id="title" name="title" />
-          <div on:click={close}>
+          <slot class="self-center" id="title" name="title" />
+          <div class="self-center cursor-pointer" on:click={close}>
             <CloseIcon size={24} />
           </div>
         </div>
