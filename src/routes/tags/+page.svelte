@@ -19,7 +19,7 @@
           class="table w-[120px] h-[120px] bg-input hover:bg-accent-gray transition duration-300 rounded-full place-self-center"
         >
           <div class="table-cell align-middle place-self-center text-center text-7xl">
-            {tag.emoji}
+            {tag.emoji || tag.title.charAt(0).toUpperCase()}
           </div>
         </div>
         <div class="place-self-center">{tag.title}</div>
