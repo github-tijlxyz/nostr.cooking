@@ -9,7 +9,7 @@
 <div class="flex flex-col gap-4">
   <h1>All Categories</h1>
 
-  <div class="grid grid-cols-6 gap-8">
+  <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-8">
     {#each recipeTags as tag}
       <a
         href="/tag/{tag.title}"
