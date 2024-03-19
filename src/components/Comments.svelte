@@ -5,6 +5,7 @@
   import { Avatar, Name } from '@nostr-dev-kit/ndk-svelte-components';
   import { nip19 } from 'nostr-tools';
   import Button from './Button.svelte';
+  import { format as formatDate } from 'timeago.js';
 
   export let event: NDKEvent;
   let events: Set<NDKEvent> = new Set();
@@ -44,7 +45,7 @@
                 ><Name ndk={$ndk} pubkey={ev.pubkey} /></a
               >
               ·
-              {new Date((ev.created_at || 0) * 1000).toLocaleDateString()}
+              {formatDate(new Date((ev.created_at || 0) * 1000).toLocaleDateString())}
             </div>
             <p class="text-wrap">
               {ev.content}

@@ -30,7 +30,10 @@
   }
 </script>
 
-<div on:click={likePost} class="flex gap-1.5 hover:bg-input rounded px-0.5 transition duration-300 cursor-pointer">
+<div
+  on:click={likePost}
+  class="flex gap-1.5 hover:bg-input rounded px-0.5 transition duration-300 cursor-pointer"
+>
   <HeartIcon size={24} />
   {#if loading}...{:else}{totalLikeAmount}{/if}
 </div>
