@@ -10,12 +10,12 @@
   let events: NDKEvent[] = [];
 
   function openTag(query: string) {
-    if(query.startsWith('npub')) {
+    if (query.startsWith('npub')) {
       goto(`/user/${query}`);
-    } else if(query.startsWith('naddr')) {
+    } else if (query.startsWith('naddr')) {
       goto(`/recipe/${query}`);
     } else {
-      goto(`/tag/${query}`)
+      goto(`/tag/${query}`);
     }
   }
 
