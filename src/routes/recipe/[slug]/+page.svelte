@@ -17,18 +17,16 @@
 
   async function loadData() {
     if ($page.params.slug.startsWith('naddr1')) {
-      const b = nip19.decode($page.params.slug).data;
+      const a = nip19.decode($page.params.slug);
+      if (!(a.type == "naddr")) { throw new Error() };
+      const b = a.data;
       naddr = nip19.naddrEncode({
-        // @ts-ignore
         identifier: b.identifier,
-        // @ts-ignore
         pubkey: b.pubkey,
         kind: 30023
       });
       let e = await $ndk.fetchEvent({
-        // @ts-ignore
         '#d': [b.identifier],
-        // @ts-ignore
         authors: [b.pubkey],
         kinds: [30023]
       });
@@ -39,19 +37,17 @@
       let e = await $ndk.fetchEvent($page.params.slug);
       if (e) {
         event = e;
+        const id = e.tags.find((z) => z[0] == 'd')?.[1]
+        if (!id || !e.kind) { throw new Error() }
         naddr = nip19.naddrEncode({
-          // @ts-ignore
-          identifier: e.tags.find((z) => z[0] == 'd')?.[1],
-          // @ts-ignore
+          identifier: id,
           kind: e.kind,
-          pubkey: e.author.hexpubkey
+          pubkey: e.author.pubkey
         });
         const c = nip19.naddrEncode({
-          // @ts-ignore
-          identifier: e.tags.find((z) => z[0] == 'd')?.[1],
-          // @ts-ignore
+          identifier: id,
           kind: e.kind,
-          pubkey: e.author.hexpubkey
+          pubkey: e.author.pubkey
         });
         goto(`/recipe/${c}`);
       }
