@@ -26,19 +26,22 @@
   let imageElement;
 
   onMount(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lazyImage = entry.target;
-          lazyImage.style.backgroundImage = `url('${event.tags.find((e) => e[0] == 'image')?.[1] || ''}')`;
+          lazyImage.style.backgroundImage = `url('${
+            event.tags.find((e) => e[0] == 'image')?.[1] || ''
+          }')`;
           observer.unobserve(lazyImage);
         }
       });
     });
 
     observer.observe(imageElement);
-  })
+  });
 </script>
+
 <a
   href={link}
   class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary transition-colors duration-300"

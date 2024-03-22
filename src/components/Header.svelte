@@ -58,7 +58,7 @@
               role="button"
               tabindex="-1"
               on:click={() => (dropdownActive = false)}
-              on:keydown={(e) => e. key === 'Escape' && (dropdownActive = false)}
+              on:keydown={(e) => e.key === 'Escape' && (dropdownActive = false)}
               use:clickOutside
               on:click_outside={() => (dropdownActive = false)}
               class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6"

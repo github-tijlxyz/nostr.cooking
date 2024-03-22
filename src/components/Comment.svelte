@@ -9,7 +9,7 @@
   export let replies: NDKEvent[] = [];
   export let event: NDKEvent;
 
-  let replyText = "";
+  let replyText = '';
 
   let showReplyBox = false;
 
@@ -18,9 +18,9 @@
     ev.kind = 1;
     ev.content = replyText;
     ev.tags = [
-      ['a', event!.getMatchingTags("a")[0][1]],
-      ['e', event!.id, "", "reply"],
-      ...event!.getMatchingTags("e")
+      ['a', event!.getMatchingTags('a')[0][1]],
+      ['e', event!.id, '', 'reply'],
+      ...event!.getMatchingTags('e')
     ];
 
     await ev.publish();
@@ -29,20 +29,21 @@
 
 <div id="comments" class="flex gap-4 break-all">
   <a class="flex flex-shrink-0" href="/user/{nip19.npubEncode(event.pubkey)}"
-  ><Avatar class="rounded-full w-12 h-12" ndk={$ndk} pubkey={event.pubkey} /></a
+    ><Avatar class="rounded-full w-12 h-12" ndk={$ndk} pubkey={event.pubkey} /></a
   >
   <div class="flex flex-col self-center">
     <div class="flex gap-2">
-      <a href="/user/{nip19.npubEncode(event.pubkey)}"
-      ><Name ndk={$ndk} pubkey={event.pubkey} /></a
-      >
+      <a href="/user/{nip19.npubEncode(event.pubkey)}"><Name ndk={$ndk} pubkey={event.pubkey} /></a>
       <div class="text-gray-500">{formatDate(new Date((event.created_at || 0) * 1000))}</div>
     </div>
     <div class="flex flex-col gap-3">
       <p class="text-wrap">
         {event.content}
       </p>
-      <button on:click={() => showReplyBox = !showReplyBox} class="text-gray-500 cursor-pointer self-start">
+      <button
+        on:click={() => (showReplyBox = !showReplyBox)}
+        class="text-gray-500 cursor-pointer self-start"
+      >
         Reply
       </button>
       {#if showReplyBox}
@@ -59,23 +60,27 @@
 </div>
 
 <ul>
-  {#each replies.filter((e) => e.getMatchingTags("e").length === event.getMatchingTags("e").length + 1) as re}
+  {#each replies.filter((e) => e.getMatchingTags('e').length === event.getMatchingTags('e').length + 1) as re}
     <li>
-      <svelte:self replies={replies.filter((e) => e.getMatchingTags("e").find((v) => v[1] === re.id))} event={re} />
+      <svelte:self
+        replies={replies.filter((e) => e.getMatchingTags('e').find((v) => v[1] === re.id))}
+        event={re}
+      />
     </li>
   {/each}
 </ul>
+
 <style>
-    ul {
-        /* user-agent styles */
-        display: block;
-        list-style-type: none;
-        margin-block-start: 1em;
-        margin-block-end: 1em;
-        padding-inline-start: 40px;
-    }
-    li {
-        display: list-item;
-        text-align: match-parent;
-    }
+  ul {
+    /* user-agent styles */
+    display: block;
+    list-style-type: none;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 40px;
+  }
+  li {
+    display: list-item;
+    text-align: match-parent;
+  }
 </style>

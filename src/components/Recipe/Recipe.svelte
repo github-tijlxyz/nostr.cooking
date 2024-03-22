@@ -148,7 +148,8 @@
                 checked={list
                   .getMatchingTags('a')
                   .find(
-                    (t) => t[1] === `${event.kind}:${event.author.pubkey}:${event.replaceableDTag()}`
+                    (t) =>
+                      t[1] === `${event.kind}:${event.author.pubkey}:${event.replaceableDTag()}`
                   )
                   ? true
                   : false}

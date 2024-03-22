@@ -32,9 +32,14 @@
   <h1>Comments</h1>
   <ul class="flex flex-col gap-4">
     {#if events}
-      {#each Array.from(events).filter((e) => e.getMatchingTags("e").length === 0) as ev, i}
+      {#each Array.from(events).filter((e) => e.getMatchingTags('e').length === 0) as ev, i}
         <li>
-          <Comment replies={Array.from(events).filter((e) => e.getMatchingTags("e").find((v) => v[1] === ev.id))} event={ev} />
+          <Comment
+            replies={Array.from(events).filter((e) =>
+              e.getMatchingTags('e').find((v) => v[1] === ev.id)
+            )}
+            event={ev}
+          />
           {#if Array.from(events)[i + 1]}
             <hr />
           {/if}
