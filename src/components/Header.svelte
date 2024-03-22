@@ -71,10 +71,6 @@
                 <GearIcon class="self-center" size={18} />
                 Settings
               </div>
-              <div class="flex gap-2 cursor-pointer" on:click={() => goto('/wallet')}>
-                <WalletIcon class="self-center" size={18} />
-                Wallet
-              </div>
               <div class="flex gap-2 cursor-pointer" on:click={logout}>
                 <SignOutIcon class="self-center" size={18} />
                 Log out
