@@ -18,7 +18,9 @@
   async function loadData() {
     if ($page.params.slug.startsWith('naddr1')) {
       const a = nip19.decode($page.params.slug);
-      if (!(a.type == "naddr")) { throw new Error() };
+      if (!(a.type == 'naddr')) {
+        throw new Error();
+      }
       const b = a.data;
       naddr = nip19.naddrEncode({
         identifier: b.identifier,
@@ -37,8 +39,10 @@
       let e = await $ndk.fetchEvent($page.params.slug);
       if (e) {
         event = e;
-        const id = e.tags.find((z) => z[0] == 'd')?.[1]
-        if (!id || !e.kind) { throw new Error() }
+        const id = e.tags.find((z) => z[0] == 'd')?.[1];
+        if (!id || !e.kind) {
+          throw new Error();
+        }
         naddr = nip19.naddrEncode({
           identifier: id,
           kind: e.kind,
