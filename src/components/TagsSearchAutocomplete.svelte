@@ -5,7 +5,6 @@
   const maxAutocompleteOptions = 7;
 
   export let placeholderString: string;
-  export let actionString: string;
   export let action: (query: string) => void;
 
   let tagquery = '';

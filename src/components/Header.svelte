@@ -6,7 +6,6 @@
   import SVGNostrCookingWithText from '../assets/nostr.cooking-withtext.svg';
   import UserIcon from 'phosphor-svelte/lib/User';
   import GearIcon from 'phosphor-svelte/lib/Gear';
-  import WalletIcon from 'phosphor-svelte/lib/Wallet';
   import AddIcon from 'phosphor-svelte/lib/Plus';
   import SignOutIcon from 'phosphor-svelte/lib/SignOut';
   import { nip19 } from 'nostr-tools';

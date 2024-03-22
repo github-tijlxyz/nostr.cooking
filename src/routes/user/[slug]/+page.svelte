@@ -14,6 +14,7 @@
   import { requestProvider } from 'webln';
   import ProfileLists from '../../../components/ProfileLists.svelte';
   import Modal from '../../../components/Modal.svelte';
+  // @ts-expect-error ehm svelte-qrcode doesn't have type support or something?
   import QrCode from 'svelte-qrcode';
 
   let hexpubkey: string | undefined = undefined;
@@ -77,7 +78,7 @@
       if (a) {
         try {
           const webln = await requestProvider();
-          const res = await webln.sendPayment(a);
+          await webln.sendPayment(a);
         } catch (err) {
           console.log('error while handleing zap', err);
         }

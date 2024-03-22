@@ -54,6 +54,5 @@
 
 <TagsSearchAutocomplete
   placeholderString={"Add a tag like 'italian' or 'steak' or 'glutenfree'"}
-  actionString={'Add'}
   action={addTag}
 />

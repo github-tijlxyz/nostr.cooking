@@ -50,7 +50,6 @@
 <div class="flex flex-col gap-8">
   <TagsSearchAutocomplete
     placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree'."}
-    actionString={'Go'}
     action={openTag}
   />
 

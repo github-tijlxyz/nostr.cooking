@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
-  import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
   export let event: NDKEvent;
@@ -16,13 +14,14 @@
         const naddr = nip19.naddrEncode({
           identifier: d,
           kind: event.kind,
-          pubkey: event.author.hexpubkey
+          pubkey: event.author.pubkey
         });
         link = `/${list ? 'list' : 'recipe'}/${naddr}`;
       }
     }
   }
 
+  // TODO FIX TYPES HERE
   let imageElement;
 
   onMount(() => {

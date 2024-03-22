@@ -77,7 +77,6 @@
     </div>
     <TagsSearchAutocomplete
       placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree'."}
-      actionString={'Go'}
       action={openTag}
     />
   </div>
