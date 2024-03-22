@@ -13,7 +13,7 @@
   onMount(async () => {
     events = await $ndk.fetchEvents({
       kinds: [1],
-      '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
+      '#a': [`${event.kind}:${event.author.pubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
     });
   });
 
@@ -23,7 +23,7 @@
     ev.kind = 1;
     ev.content = commentText;
     ev.tags = [
-      ['a', `${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
+      ['a', `${event.kind}:${event.author.pubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
     ];
 
     await ev.publish();
@@ -45,7 +45,7 @@
                 ><Name ndk={$ndk} pubkey={ev.pubkey} /></a
               >
               ·
-              {formatDate(new Date((ev.created_at || 0) * 1000).toLocaleDateString())}
+              {formatDate(new Date((ev.created_at || 0) * 1000))}
             </div>
             <p class="text-wrap">
               {ev.content}
