@@ -128,7 +128,7 @@
           class="flex self-center !bg-accent-gray !text-[#675F5F] !px-3"
           on:click={() => (zapModal = true)}><LightningIcon /></Button
         >
-        <Button class="flex self-center">Follow</Button>
+        <!-- <Button class="flex self-center">Follow</Button> -->
       {/if}
     </div>
   </div>

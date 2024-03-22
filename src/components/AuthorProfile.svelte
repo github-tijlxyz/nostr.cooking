@@ -13,5 +13,5 @@
     <Avatar class="w-14 h-14 rounded-full self-center" ndk={$ndk} {pubkey} />
     <Name class="self-center" ndk={$ndk} {pubkey} />
   </a>
-  <Button class="flex self-center">Follow</Button>
+  <!-- <Button class="flex self-center">Follow</Button> -->
 </div>
