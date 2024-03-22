@@ -2,10 +2,8 @@
   import { ndk } from '$lib/nostr';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { onMount } from 'svelte';
-  import { Avatar, Name } from '@nostr-dev-kit/ndk-svelte-components';
-  import { nip19 } from 'nostr-tools';
   import Button from './Button.svelte';
-  import { format as formatDate } from 'timeago.js';
+  import Comment from './Comment.svelte';
 
   export let event: NDKEvent;
   let events: Set<NDKEvent> = new Set();
@@ -32,33 +30,20 @@
 
 <div class="flex flex-col gap-6">
   <h1>Comments</h1>
-  <div class="flex flex-col gap-4">
+  <ul class="flex flex-col gap-4">
     {#if events}
-      {#each events as ev, i}
-        <div class="flex gap-4 break-all">
-          <a class="flex flex-shrink-0" href="/user/{nip19.npubEncode(ev.pubkey)}"
-            ><Avatar class="rounded-full w-12 h-12" ndk={$ndk} pubkey={ev.pubkey} /></a
-          >
-          <div class="flex flex-col self-center">
-            <div class="flex gap-2">
-              <a href="/user/{nip19.npubEncode(ev.pubkey)}"
-                ><Name ndk={$ndk} pubkey={ev.pubkey} /></a
-              >
-              <div class="text-gray-500">{formatDate(new Date((ev.created_at || 0) * 1000))}</div>
-            </div>
-            <p class="text-wrap">
-              {ev.content}
-            </p>
-          </div>
-        </div>
-        {#if Array.from(events)[i + 1]}
-          <hr />
-        {/if}
+      {#each Array.from(events).filter((e) => e.getMatchingTags("e").length === 0) as ev, i}
+        <li>
+          <Comment replies={Array.from(events).filter((e) => e.getMatchingTags("e").find((v) => v[1] === ev.id))} event={ev} />
+          {#if Array.from(events)[i + 1]}
+            <hr />
+          {/if}
+        </li>
       {/each}
     {:else}
       Loading...
     {/if}
-  </div>
+  </ul>
   <h2>Reply</h2>
   <textarea
     bind:value={commentText}
