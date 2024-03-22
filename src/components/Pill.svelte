@@ -8,7 +8,7 @@
   on:click={onClick}
   type="button"
   class={`
-    px-4
+    md:px-4
     py-3
     font-semibold
     rounded-full
