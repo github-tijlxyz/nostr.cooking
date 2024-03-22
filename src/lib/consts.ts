@@ -1,9 +1,8 @@
 export const standardRelays = [
-  'wss://nostr-pub.wellorder.net',
-  'wss://nos.lol',
-  'wss://relay.damus.io',
+  'wss://nostr.mom',
   'wss://relay.nostr.bg',
-  'wss://nostr.wine'
+  'wss://nostr.wine',
+  'wss://relay.nostr.band'
 ];
 
 export type recipeTag =
