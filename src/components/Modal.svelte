@@ -29,9 +29,9 @@
       <div class="flex flex-col gap-6">
         <div class="flex justify-between">
           <slot class="self-center" id="title" name="title" />
-          <div class="self-center cursor-pointer" on:click={close}>
+          <button class="self-center cursor-pointer" on:click={close}>
             <CloseIcon size={24} />
-          </div>
+          </button>
         </div>
         <slot />
       </div>

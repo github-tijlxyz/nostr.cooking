@@ -45,36 +45,39 @@
     {/if}
     <div class="self-center">
       {#if $userPublickey !== ''}
-        <div on:click={() => (dropdownActive = !dropdownActive)}>
+        <button class="flex self-center" on:click={() => (dropdownActive = !dropdownActive)}>
           <Avatar
             class="cursor-pointer w-12 h-12 object-center rounded-full"
             ndk={$ndk}
             pubkey={$userPublickey}
           />
-        </div>
+        </button>
         {#if dropdownActive}
-          <div class="relative z-10" transition:fade={{ delay: 0, duration: 150 }}>
+          <div class="relative z-20" transition:fade={{ delay: 0, duration: 150 }}>
             <div
+              role="button"
+              tabindex="-1"
               on:click={() => (dropdownActive = false)}
+              on:keydown={(e) => e. key === 'Escape' && (dropdownActive = false)}
               use:clickOutside
               on:click_outside={() => (dropdownActive = false)}
               class="flex flex-col right-3 gap-4 absolute z-10 bg-white rounded-3xl drop-shadow px-5 py-6"
             >
-              <div
+              <button
                 class="flex gap-2 cursor-pointer"
                 on:click={() => goto(`/user/${nip19.npubEncode($userPublickey)}`)}
               >
                 <UserIcon class="self-center" size={18} />
                 Profile
-              </div>
-              <div class="flex gap-2 cursor-pointer" on:click={() => goto('/settings')}>
+              </button>
+              <button class="flex gap-2 cursor-pointer" on:click={() => goto('/settings')}>
                 <GearIcon class="self-center" size={18} />
                 Settings
-              </div>
-              <div class="flex gap-2 cursor-pointer" on:click={logout}>
+              </button>
+              <button class="flex gap-2 cursor-pointer" on:click={logout}>
                 <SignOutIcon class="self-center" size={18} />
                 Log out
-              </div>
+              </button>
             </div>
           </div>
         {/if}

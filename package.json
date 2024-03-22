@@ -53,5 +53,8 @@
     "vite": "^4.4.2",
     "webln": "^0.3.2",
     "zapthreads": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^13.0.7"
   }
 }

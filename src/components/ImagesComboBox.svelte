@@ -41,7 +41,7 @@
       {#each $uploadedImages as image, index}
         <li class="flex items-center justify-between p-2 hover:bg-gray-100">
           <div class="flex items-center">
-            <img class="rounded" src={image} />
+            <img class="rounded" src={image} alt="Uploaded" />
           </div>
           <button
             type="button"

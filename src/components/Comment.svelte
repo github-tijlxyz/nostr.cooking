@@ -7,7 +7,7 @@
   import Button from './Button.svelte';
 
   export let replies: NDKEvent[] = [];
-  export let event: NDKEvent | undefined;
+  export let event: NDKEvent;
 
   let replyText = "";
 
@@ -18,16 +18,16 @@
     ev.kind = 1;
     ev.content = replyText;
     ev.tags = [
-      ['a', event.getMatchingTags("a")[0][1]],
-      ['e', event.id, "", "reply"],
-      ...event.getMatchingTags("e")
+      ['a', event!.getMatchingTags("a")[0][1]],
+      ['e', event!.id, "", "reply"],
+      ...event!.getMatchingTags("e")
     ];
 
     await ev.publish();
   }
 </script>
 
-<div class="flex gap-4 break-all">
+<div id="comments" class="flex gap-4 break-all">
   <a class="flex flex-shrink-0" href="/user/{nip19.npubEncode(event.pubkey)}"
   ><Avatar class="rounded-full w-12 h-12" ndk={$ndk} pubkey={event.pubkey} /></a
   >
@@ -42,9 +42,9 @@
       <p class="text-wrap">
         {event.content}
       </p>
-      <div on:click={() => showReplyBox = !showReplyBox} role="button" class="text-gray-500 cursor-pointer">
+      <button on:click={() => showReplyBox = !showReplyBox} class="text-gray-500 cursor-pointer self-start">
         Reply
-      </div>
+      </button>
       {#if showReplyBox}
         <textarea
           bind:value={replyText}
@@ -65,7 +65,6 @@
     </li>
   {/each}
 </ul>
-
 <style>
     ul {
         /* user-agent styles */

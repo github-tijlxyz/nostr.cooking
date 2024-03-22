@@ -3,7 +3,6 @@
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
 
   export let event: NDKEvent;
-  export let link = true;
 
   let nameTagFound = false;
 

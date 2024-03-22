@@ -148,7 +148,7 @@
                 checked={list
                   .getMatchingTags('a')
                   .find(
-                    (t) => t[1] == `${event.kind}:${event.author.pubkey}:${event.replaceableDTag()}`
+                    (t) => t[1] === `${event.kind}:${event.author.pubkey}:${event.replaceableDTag()}`
                   )
                   ? true
                   : false}
@@ -199,19 +199,19 @@
         <div class="flex gap-6 grow">
           <TotalLikes {event} />
           <TotalComments {event} />
-          <div class="cursor-pointer" on:click={() => (zapModal = true)}>
+          <button class="cursor-pointer" on:click={() => (zapModal = true)}>
             <TotalZaps {event} />
-          </div>
+          </button>
         </div>
-        <div
+        <button
           class="cursor-pointer hover:bg-input rounded p-0.5 transition duration-300"
           on:click={() => (dropdownActive = !dropdownActive)}
         >
           <DotsIcon size={24} />
-        </div>
+        </button>
         {#if dropdownActive}
-          <div class="relative" transition:fade={{ delay: 0, duration: 150 }}>
-            <div
+          <div class="relative" tabindex="-1" transition:fade={{ delay: 0, duration: 150 }}>
+            <button
               on:click={() => (dropdownActive = false)}
               use:clickOutside
               on:click_outside={() => (dropdownActive = false)}
@@ -223,11 +223,11 @@
                   Edit
                 </a>
               {/if}
-              <div class="flex gap-2 cursor-pointer" on:click={() => (bookmarkModal = true)}>
+              <button class="flex gap-2 cursor-pointer" on:click={() => (bookmarkModal = true)}>
                 <BookmarkIcon size={24} />
                 Save
-              </div>
-            </div>
+              </button>
+            </button>
           </div>
         {/if}
       </div>
@@ -238,7 +238,7 @@
           {:then result}
             <!-- TODO: clean this up -->
             {#if result !== ''}
-              {#if result.from.language.iso == $translateOption.lang}
+              {#if result.from.language.iso === $translateOption.lang}
                 {@html parseMarkdown(event.content)}
               {:else}
                 <hr />

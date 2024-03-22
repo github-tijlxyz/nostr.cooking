@@ -1,8 +1,7 @@
 <script lang="ts">
   import { ndk, userPublickey } from '$lib/nostr';
-  import { type NDKEvent, type NDKFilter, NDKUser, type NDKUserProfile } from '@nostr-dev-kit/ndk';
+  import type { NDKEvent, NDKFilter, NDKUser, NDKUserProfile } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
-  import { onMount } from 'svelte';
   import ZapModal from '../../../components/ZapModal.svelte';
   import Feed from '../../../components/Feed.svelte';
   import { validateMarkdownTemplate } from '$lib/pharser';
@@ -17,7 +16,6 @@
   import Modal from '../../../components/Modal.svelte';
   import QrCode from 'svelte-qrcode';
 
-  export let data;
   let hexpubkey: string | undefined = undefined;
   let events: NDKEvent[] = [];
   let user: NDKUser;
@@ -137,22 +135,22 @@
 
   <div class="flex flex-col gap-4">
     <div class="flex gap-2">
-      <div
+      <button
         class="rounded-full px-4 py-2 font-semibold cursor-pointer bg-accent-gray {recipesTab
           ? ''
           : 'opacity-70'}"
         on:click={() => (recipesTab = true)}
       >
         Recipes
-      </div>
-      <div
+      </button>
+      <button
         class="rounded-full px-4 py-2 font-semibold bg-accent-gray cursor-pointer {recipesTab
           ? 'opacity-70'
           : ''}"
         on:click={() => (recipesTab = false)}
       >
         Lists
-      </div>
+      </button>
     </div>
 
     {#if recipesTab}
@@ -161,7 +159,7 @@
       </h2>
       {#if events.length > 0}
         <Feed {events} />
-      {:else if loaded == false}
+      {:else if loaded === false}
         <p>loading</p>
       {:else}
         <p>Nothing found here :(</p>

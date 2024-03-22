@@ -20,7 +20,7 @@
   loading = false;
 </script>
 
-<div class="flex gap-1.5">
+<a href="#comments" class="flex gap-1.5">
   <CommentIcon size={24} />
   {#if loading}...{:else}{totalLikeAmount}{/if}
-</div>
+</a>
