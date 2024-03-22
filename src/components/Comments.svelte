@@ -44,8 +44,7 @@
               <a href="/user/{nip19.npubEncode(ev.pubkey)}"
                 ><Name ndk={$ndk} pubkey={ev.pubkey} /></a
               >
-              ·
-              {formatDate(new Date((ev.created_at || 0) * 1000))}
+              <div class="text-gray-500">{formatDate(new Date((ev.created_at || 0) * 1000))}</div>
             </div>
             <p class="text-wrap">
               {ev.content}
