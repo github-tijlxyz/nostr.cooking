@@ -32,7 +32,7 @@
   <div class="relative image" style={`background-image: url('/placeholder.png');`}>
     <div
       class="absolute top-0 left-0 bottom-0 right-0 image hover:scale-105 transition-transform duration-700 ease-in-out"
-      style={`background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1]}')`}
+      style={`background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1] || ''}')`}
     />
   </div>
 

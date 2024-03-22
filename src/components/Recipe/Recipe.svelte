@@ -38,7 +38,7 @@
       if (a) {
         try {
           const webln = await requestProvider();
-          const res = await webln.sendPayment(a);
+          await webln.sendPayment(a);
         } catch (err) {
           console.log('error while handleing zap', err);
         }
