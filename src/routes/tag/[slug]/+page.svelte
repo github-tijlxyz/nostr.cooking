@@ -2,14 +2,13 @@
   import { page } from '$app/stores';
   import { ndk } from '$lib/nostr';
   import type { NDKEvent, NDKFilter } from '@nostr-dev-kit/ndk';
-  import { onMount } from 'svelte';
   import Feed from '../../../components/Feed.svelte';
   import { validateMarkdownTemplate } from '$lib/pharser';
   import { recipeTags } from '$lib/consts';
   import { goto } from '$app/navigation';
   import TagsSearchAutocomplete from '../../../components/TagsSearchAutocomplete.svelte';
 
-  let tag: string | undefined = undefined;
+  // let tag: string | undefined = undefined;
   let events: NDKEvent[] = [];
   let loaded = false;
 
