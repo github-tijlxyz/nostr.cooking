@@ -29,7 +29,7 @@
   });
 </script>
 
-<div class="flex gap-2 text-[14px]">
+<div class="flex flex-wrap gap-2 text-[14px]">
   {#each tags as tag}
     <a
       href="/tag/{tag.title}"
