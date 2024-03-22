@@ -3,6 +3,7 @@
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import { page } from '$app/stores';
+  import { onMount } from 'svelte';
 
   export let event: NDKEvent;
   export let list = false;
@@ -21,18 +22,31 @@
       }
     }
   }
-</script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+  let imageElement;
+
+  onMount(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          lazyImage.style.backgroundImage = `url('${event.tags.find((e) => e[0] == 'image')?.[1] || ''}')`;
+          observer.unobserve(lazyImage);
+        }
+      });
+    });
+
+    observer.observe(imageElement);
+  })
+</script>
 <a
   href={link}
   class="flex flex-col gap-4 max-w-[160px] place-self-center md:place-self-start self-start hover:text-primary transition-colors duration-300"
 >
   <div class="relative image" style={`background-image: url('/placeholder.png');`}>
     <div
+      bind:this={imageElement}
       class="absolute top-0 left-0 bottom-0 right-0 image hover:scale-105 transition-transform duration-700 ease-in-out"
-      style={`background-image: url('${event.tags.find((e) => e[0] == 'image')?.[1] || ''}')`}
     />
   </div>
 

@@ -67,10 +67,6 @@
   });
 </script>
 
-<svelte:head>
-  <link rel="preload" as="image" href="/placeholder.png" />
-</svelte:head>
-
 <div class="h-[100%] scroll-smooth">
   <div class="flex h-screen">
     <div class=" mx-auto flex-1 pt-3 px-3">

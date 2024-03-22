@@ -10,6 +10,10 @@
     events = events.filter((e) => typeof validateMarkdownTemplate(e.content) !== 'string');
 </script>
 
+<svelte:head>
+  <link rel="preload" as="image" href="/placeholder.png" />
+</svelte:head>
+
 <div
   class="grid gap-x-2 gap-y-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8"
 >
