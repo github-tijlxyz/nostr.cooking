@@ -120,11 +120,13 @@
       {/if}
     </div>
 
+    <!--
     NONFUNCTIONAL:
     <div class="flex bg-input mx-0.5 rounded-xl">
       <input class="rounded-xl bg-input border-none grow" type="search" placeholder="Search" />
       <MagnifyingGlassIcon class="self-center mr-3" />
     </div>
+    -->
 
     {#if events.length > 0 && loaded == true}
       <Feed {events} />
