@@ -8,12 +8,14 @@
   export let event: NDKEvent;
   let events: Set<NDKEvent> = new Set();
 
-  onMount(async () => {
+  async function fetch() {
     events = await $ndk.fetchEvents({
       kinds: [1],
       '#a': [`${event.kind}:${event.author.pubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
     });
-  });
+  }
+
+  $: {fetch()}
 
   let commentText = '';
   async function postComment() {
@@ -25,6 +27,7 @@
     ];
 
     await ev.publish();
+    await fetch();
   }
 </script>
 
@@ -39,6 +42,7 @@
               e.getMatchingTags('e').find((v) => v[1] === ev.id)
             )}
             event={ev}
+            refresh={fetch}
           />
           {#if Array.from(events)[i + 1]}
             <hr />

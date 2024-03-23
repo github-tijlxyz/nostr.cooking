@@ -8,6 +8,7 @@
 
   export let replies: NDKEvent[] = [];
   export let event: NDKEvent;
+  export let refresh: () => void;
 
   let replyText = '';
 
@@ -24,6 +25,7 @@
     ];
 
     await ev.publish();
+    refresh();
   }
 </script>
 
@@ -65,6 +67,7 @@
       <svelte:self
         replies={replies.filter((e) => e.getMatchingTags('e').find((v) => v[1] === re.id))}
         event={re}
+        refresh={refresh}
       />
     </li>
   {/each}

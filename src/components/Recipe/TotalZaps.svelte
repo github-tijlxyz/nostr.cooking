@@ -12,7 +12,7 @@
   let didSigs = new Map();
   let zapped = false;
 
-  onMount(async () => {
+  async function fetch() {
     const evs = await $ndk.fetchEvents({
       kinds: [9735],
       '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
@@ -29,7 +29,9 @@
         }
       }
     });
-  });
+  }
+
+  $: {fetch()}
   loading = false;
 </script>
 

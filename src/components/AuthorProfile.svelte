@@ -2,8 +2,6 @@
   import { nip19 } from 'nostr-tools';
   import { ndk } from '$lib/nostr.js';
   import { Avatar, Name } from '@nostr-dev-kit/ndk-svelte-components';
-  import Button from './Button.svelte';
-  import type { NDKUser } from '@nostr-dev-kit/ndk';
 
   export let pubkey: string;
 </script>
