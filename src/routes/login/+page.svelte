@@ -3,9 +3,8 @@
   import Button from '../../components/Button.svelte';
   import { ndk, userPublickey } from '$lib/nostr';
   import { browser } from '$app/environment';
-  import { NDKNip07Signer, NDKNip46Signer, NDKPrivateKeySigner, NDKUser } from '@nostr-dev-kit/ndk';
+  import { NDKNip07Signer } from '@nostr-dev-kit/ndk';
   import { goto } from '$app/navigation';
-  import { generatePrivateKey } from 'nostr-tools';
 
   async function loadUserData() {
     if ($ndk.signer && $userPublickey == '') {
@@ -32,29 +31,6 @@
     }
     loadUserData();
   }
-
-  async function generateNewPrivkey() {
-    if (browser) {
-      try {
-        const pk = generatePrivateKey()
-        localStorage.setItem('nostrcooking_privateKey', pk);
-        const signer = new NDKPrivateKeySigner(pk);
-        $ndk.signer = signer;
-        ndk.set($ndk);
-        await loadUserData();
-        let profile = $ndk.activeUser?.profile
-        if (!profile) {
-          profile = {}
-          profile.image = "https://zap.cooking/default-pfp.jpg"
-          profile.displayName = "Zap Cooking Chef"
-          $ndk.activeUser.profile = profile;
-          await $ndk.activeUser.publish()
-        }
-      } catch (error) {
-        console.error("Error when trying to publish profile update:", error)
-      }
-    }
-  }
 </script>
 
 <svelte:head>
@@ -80,6 +56,8 @@
   </div>
   <div class="flex flex-col font-semibold gap-3">
     Don't have an account?
-    <Button on:click={generateNewPrivkey} class="self-center" primary={false}>Sign up</Button>
+    <a href="/onboarding">
+      <Button class="self-center" primary={false}>Sign up</Button>
+    </a>
   </div>
 </div>

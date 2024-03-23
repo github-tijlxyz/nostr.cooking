@@ -17,6 +17,7 @@
   import Modal from '../../../components/Modal.svelte';
   // @ts-expect-error ehm svelte-qrcode doesn't have type support or something?
   import QrCode from 'svelte-qrcode';
+  import { Fetch } from 'hurdak';
 
   let hexpubkey: string | undefined = undefined;
   let events: NDKEvent[] = [];
@@ -101,8 +102,6 @@
     editModal = false;
   }
 
-  import { Fetch } from 'hurdak';
-
   let input: HTMLElement, listener;
   let url = '';
 
@@ -147,14 +146,29 @@
 
   let profileName = ""
   async function updateProfile() {
-    await $ndk.signer.user();
+    const metaEvent = new NDKEvent($ndk);
+    metaEvent.kind = 0;
+    metaEvent.tags = [];
+    // @ts-expect-error typescript is wrong
     profile = user.profile
+    if (!profile) profile = {}
     profile.image = url;
     profile.displayName = profileName;
     console.log(profile)
 
     try {
-      await user.publish();
+      console.log(hexpubkey, profile)
+      $ndk.cacheAdapter!.saveProfile!(hexpubkey!, profile) // for some reason the caching doesn't happen automatically
+      metaEvent.content = JSON.stringify(profile);
+      let relays = await metaEvent.publish();
+      relays.forEach((relay) => {
+        relay.once('published', () => {
+          console.log('published to', relay);
+        });
+        relay.once('publish:failed', (relay, err) => {
+          console.log('publish failed to', relay, err);
+        });
+      });
     } catch (error) {
       console.error("error while publishing update: ", error)
     }
@@ -172,7 +186,7 @@
   <h1 slot="title">Edit Profile</h1>
   <div class="flex gap-10 mx-0.5">
     <div class="">
-      <label for="file-upload">
+      <label for="file-upload" class="cursor-pointer">
         <img class="w-[200px] h-[200px] rounded-full bg-input" src={url} alt="Profile" />
         <input id="file-upload" bind:this={input} type="file" class="sr-only" />
       </label>

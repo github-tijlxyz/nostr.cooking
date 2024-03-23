@@ -6,6 +6,8 @@
   import { browser } from '$app/environment';
   import { ndk, userPublickey } from '$lib/nostr';
   import { onMount } from 'svelte';
+  import Button from '../../components/Button.svelte';
+  import { Fetch } from 'hurdak';
 
   let step = 0;
   let seed = '';
@@ -15,7 +17,7 @@
 
   let disableStepButtons = false;
   let name = '';
-  let picture = '';
+  let picture = "https://zap.cooking/default-pfp.jpg";
   let about = '';
 
   if ($userPublickey !== '') {
@@ -56,7 +58,7 @@
       const metaEvent = new NDKEvent($ndk);
       metaEvent.kind = 0;
       metaEvent.tags = [];
-      metaEvent.content = JSON.stringify({ name, picture, about });
+      metaEvent.content = JSON.stringify({ displayName: name, picture });
       let relays = await metaEvent.publish();
       relays.forEach((relay) => {
         relay.once('published', () => {
@@ -77,7 +79,7 @@
   function backstep() {
     disableStepButtons = true;
     if (step == 0) {
-      goto('/settings');
+      goto('/login');
     }
     step--;
     disableStepButtons = false;
@@ -86,6 +88,47 @@
   onMount(async () => {
     seed = nip06.generateSeedWords();
   });
+
+  let input: HTMLElement, listener;
+
+  $: {
+    if (input) {
+      input.addEventListener('change', async (e) => {
+        const target = e.target as HTMLInputElement;
+        console.log('attempted');
+        if (target.files && target.files?.length > 0) {
+          const body = new FormData();
+          body.append('file[]', target.files[0]);
+          const result = await uploadToNostrBuild(body);
+          console.log(result);
+          if (result && result.data && result.data[0].url) {
+            picture = result.data[0].url;
+          }
+        }
+      });
+    }
+  }
+
+  export async function uploadToNostrBuild(body: any) {
+    const url = 'https://nostr.build/api/v2/upload/profile';
+    const template = new NDKEvent($ndk);
+    template.kind = 27235;
+    template.content = '';
+    template.tags = [
+      ['u', url],
+      ['method', 'POST']
+    ];
+
+    template.sign();
+
+    return Fetch.fetchJson(url, {
+      body,
+      method: 'POST',
+      headers: {
+        Authorization: `Nostr ${btoa(JSON.stringify(event))}`
+      }
+    });
+  }
 </script>
 
 <!-- TODO -->
@@ -94,7 +137,7 @@
   <title>welcome to nostr.cooking</title>
 </svelte:head>
 
-<div class="prose mb-4">
+<div class="prose flex flex-col text-black mb-4">
   <h1>Welcome</h1>
   {#if step == 0}
     <p>
@@ -116,16 +159,12 @@
       your permanent password for the nostr network; It's crucial to store them in a secure location
       and avoid sharing them with anyone.
     </p>
-    <div class="mt-1 bg-white rounded-md shadow-sm -space-y-px">
-      <div>
-        <input
-          bind:value={seed}
-          type="text"
-          disabled
-          class="focus:ring-indigo-500 focus:border-indigo-500 relative block w-full rounded-md bg-transparent focus:z-10 sm:text-sm border-gray-300"
-        />
-      </div>
-    </div>
+    <input
+      bind:value={seed}
+      type="text"
+      disabled
+      class="input w-full"
+    />
     <p>
       While generating a seed on the web is convenient, it may not be the most secure option.
       Consider downloading a native Nostr client for a more robust and secure experience.
@@ -137,40 +176,28 @@
       Your public key, often referred to as npub, can be shared with anyone. With this public key,
       others can discover your profile and posts.
     </p>
-    <div class="mt-1 bg-white rounded-md shadow-sm -space-y-px">
-      <div>
-        <input
-          bind:value={npub}
-          type="text"
-          disabled
-          class="focus:ring-indigo-500 focus:border-indigo-500 relative block w-full rounded-md bg-transparent focus:z-10 sm:text-sm border-gray-300"
-        />
-      </div>
-    </div>
+    <input
+      bind:value={npub}
+      type="text"
+      disabled
+      class="input w-full"
+    />
     <p>
       Regarding your profile, we need your input to create it. Please provide the following details
       for publication.
     </p>
-    <div class="">
-      <div>
-        <input
-          type="text"
-          bind:value={name}
-          class="focus:ring-indigo-500 focus:border-indigo-500 relative block w-full rounded-md bg-transparent focus:z-10 sm:text-sm border-gray-300"
-          placeholder="Username"
-        />
+    <div class="flex gap-10 mx-auto">
+      <div class="flex flex-col">
+        <label for="file-upload" class="cursor-pointer">
+          <img class="w-[200px] h-[200px] rounded-full bg-input" src={picture} alt="Profile" />
+          <input id="file-upload" bind:this={input} type="file" class="sr-only" />
+        </label>
+        Click ^ to upload profile image.
       </div>
-      <div>
-        <ImageUploader name="Profile Picture" setUrl={(u) => (picture = u)} />
-      </div>
-      <div class="mt-2">
-        <textarea
-          bind:value={about}
-          class="focus:ring-indigo-500 focus:border-indigo-500 relative block w-full rounded-md bg-transparent focus:z-10 sm:text-sm border-gray-300"
-          cols="10"
-          rows="4"
-          placeholder="About"
-        />
+      <div class="flex flex-col gap-2">
+        <h2>Display Name</h2>
+        <p class="break-words">This will be visible to others.</p>
+        <input bind:value={name} class="input" type="text" placeholder="Zap Cooking Chef" />
       </div>
     </div>
   {:else}
@@ -180,19 +207,18 @@
 
 <div class="flex mb-4">
   <div class="flex-1">
-    <button
+    <Button
       on:click={backstep}
       disabled={disableStepButtons}
-      class="disabled:border-transparent disabled:bg-gray-50 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:text-gray-500"
+      primary={false}
     >
       Back
-    </button>
+    </Button>
   </div>
   <div>
-    <button
+    <Button
       on:click={continuestep}
       disabled={disableStepButtons || (step == 2 && name == '')}
-      class="inline-flex items-center px-4 py-2 text-sm border border-transparent font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
     >
       {#if disableStepButtons == true}
         loading...
@@ -207,10 +233,10 @@
           Publish Profile
         {/if}
       {:else if step == 3}
-        Go to nostr.cooking!
+        Go to zap.cooking!
       {:else}
         Continue
       {/if}
-    </button>
+    </Button>
   </div>
 </div>
