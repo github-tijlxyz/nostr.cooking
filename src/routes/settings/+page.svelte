@@ -145,7 +145,7 @@
           class="input !border-accent-gray !border-2 flex flex-wrap text-wrap break-all"
         >
           {#if showPrivkey}
-            {nip19.npubEncode(sk)}
+            {nip19.nsecEncode(sk)}
           {:else}
             Click to show your private key
           {/if}
