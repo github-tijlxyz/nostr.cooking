@@ -137,7 +137,7 @@
   <title>welcome to nostr.cooking</title>
 </svelte:head>
 
-<div class="prose flex flex-col text-black mb-4">
+<div class="prose flex flex-col text-black mb-4 mx-auto">
   <h1>Welcome</h1>
   {#if step == 0}
     <p>
@@ -203,40 +203,40 @@
   {:else}
     <p>Okay, now you are ready to explore Nostr.</p>
   {/if}
-</div>
 
-<div class="flex mb-4">
-  <div class="flex-1">
-    <Button
-      on:click={backstep}
-      disabled={disableStepButtons}
-      primary={false}
-    >
-      Back
-    </Button>
-  </div>
-  <div>
-    <Button
-      on:click={continuestep}
-      disabled={disableStepButtons || (step == 2 && name == '')}
-    >
-      {#if disableStepButtons == true}
-        loading...
-      {:else if step == 0}
-        Continue with this seed
-      {:else if step == 1}
-        I saved the seed pharse
-      {:else if step == 2}
-        {#if name == ''}
-          please enter a username
+  <div class="flex mb-4">
+    <div class="flex-1">
+      <Button
+        on:click={backstep}
+        disabled={disableStepButtons}
+        primary={false}
+      >
+        Back
+      </Button>
+    </div>
+    <div>
+      <Button
+        on:click={continuestep}
+        disabled={disableStepButtons || (step == 2 && name == '')}
+      >
+        {#if disableStepButtons == true}
+          loading...
+        {:else if step == 0}
+          Continue with this seed
+        {:else if step == 1}
+          I saved the seed pharse
+        {:else if step == 2}
+          {#if name == ''}
+            please enter a username
+          {:else}
+            Publish Profile
+          {/if}
+        {:else if step == 3}
+          Go to zap.cooking!
         {:else}
-          Publish Profile
+          Continue
         {/if}
-      {:else if step == 3}
-        Go to zap.cooking!
-      {:else}
-        Continue
-      {/if}
-    </Button>
+      </Button>
+    </div>
   </div>
 </div>
