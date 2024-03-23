@@ -216,10 +216,10 @@
 </Modal>
 
 <div class="flex flex-col gap-6">
-  <div class="flex gap-20">
+  <div class="flex gap-16 md:gap-20">
     <div class="flex gap-4">
       <Avatar
-        class="cursor-pointer w-[100px] h-[100px] object-center rounded-full self-center"
+        class="cursor-pointer w-[100px] h-[100px] object-center rounded-full self-center hidden md:flex"
         ndk={$ndk}
         pubkey={hexpubkey}
       />
