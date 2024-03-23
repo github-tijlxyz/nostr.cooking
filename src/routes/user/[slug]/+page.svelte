@@ -184,17 +184,17 @@
 
 <Modal cleanup={editModalCleanup} open={editModal}>
   <h1 slot="title">Edit Profile</h1>
-  <div class="flex gap-10 mx-0.5">
-    <div class="">
-      <label for="file-upload" class="cursor-pointer">
-        <img class="w-[200px] h-[200px] rounded-full bg-input" src={url} alt="Profile" />
-        <input id="file-upload" bind:this={input} type="file" class="sr-only" />
+  <div class="flex gap-4 md:gap-10 mx-auto">
+    <div class="flex flex-col self-center">
+      <h2 class="text-white">Picture</h2>
+      <label for="file-upload" class="cursor-pointer self-center">
+        <img class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full bg-input self-center" src={url} alt="Profile" />
+        <input id="file-upload" bind:this={input} type="file" class="sr-only self-center" />
       </label>
-      Click ^ to upload profile image.
     </div>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 self-center">
       <h2>Display Name</h2>
-      <p class="break-words">This will be visible to others.</p>
+      <p class="break-words hidden md:visible">This will be visible to others.</p>
       <input bind:value={profileName} class="input" type="text" placeholder="Zap Cooking Chef" />
     </div>
   </div>
