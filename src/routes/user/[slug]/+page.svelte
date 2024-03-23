@@ -223,7 +223,7 @@
         ndk={$ndk}
         pubkey={hexpubkey}
       />
-      <h1 class="self-center"><Name ndk={$ndk} pubkey={hexpubkey} /></h1>
+      <h1 class="self-center"><Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} /></h1>
     </div>
     <div class="flex gap-2 self-center">
       <Button
