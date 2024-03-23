@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ndk, userPublickey } from '$lib/nostr';
-  import { NDKEvent } from "@nostr-dev-kit/ndk"
+  import { NDKEvent } from '@nostr-dev-kit/ndk';
   import type { NDKFilter, NDKUser, NDKUserProfile } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import ZapModal from '../../../components/ZapModal.svelte';
@@ -71,8 +71,8 @@
 
       loaded = true;
     }
-    profileName = profile && profile.displayName ? profile.displayName : ""
-    url = profile && profile.image ? profile.image : ""
+    profileName = profile && profile.displayName ? profile.displayName : '';
+    url = profile && profile.image ? profile.image : '';
   }
 
   async function zapEvt(amount: number, message: string) {
@@ -144,21 +144,21 @@
     });
   }
 
-  let profileName = ""
+  let profileName = '';
   async function updateProfile() {
     const metaEvent = new NDKEvent($ndk);
     metaEvent.kind = 0;
     metaEvent.tags = [];
     // @ts-expect-error typescript is wrong
-    profile = user.profile
-    if (!profile) profile = {}
+    profile = user.profile;
+    if (!profile) profile = {};
     profile.image = url;
     profile.displayName = profileName;
-    console.log(profile)
+    console.log(profile);
 
     try {
-      console.log(hexpubkey, profile)
-      $ndk.cacheAdapter!.saveProfile!(hexpubkey!, profile) // for some reason the caching doesn't happen automatically
+      console.log(hexpubkey, profile);
+      $ndk.cacheAdapter!.saveProfile!(hexpubkey!, profile); // for some reason the caching doesn't happen automatically
       metaEvent.content = JSON.stringify(profile);
       let relays = await metaEvent.publish();
       relays.forEach((relay) => {
@@ -170,7 +170,7 @@
         });
       });
     } catch (error) {
-      console.error("error while publishing update: ", error)
+      console.error('error while publishing update: ', error);
     }
     editModalCleanup();
   }
@@ -188,7 +188,11 @@
     <div class="flex flex-col self-center">
       <h2 class="text-white">Picture</h2>
       <label for="file-upload" class="cursor-pointer self-center">
-        <img class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full bg-input self-center" src={url} alt="Profile" />
+        <img
+          class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full bg-input self-center"
+          src={url}
+          alt="Profile"
+        />
         <input id="file-upload" bind:this={input} type="file" class="sr-only self-center" />
       </label>
     </div>
@@ -238,10 +242,8 @@
         <!-- <Button class="flex self-center">Follow</Button> -->
       {/if}
       {#if hexpubkey === $userPublickey}
-        <Button
-          class="flex self-center"
-          primary="false"
-          on:click={() => (editModal = true)}>Edit Profile</Button
+        <Button class="flex self-center" primary="false" on:click={() => (editModal = true)}
+          >Edit Profile</Button
         >
       {/if}
     </div>

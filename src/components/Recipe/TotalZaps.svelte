@@ -31,7 +31,9 @@
     });
   }
 
-  $: {fetch()}
+  $: {
+    fetch();
+  }
   loading = false;
 </script>
 

@@ -15,7 +15,9 @@
     });
   }
 
-  $: {fetch()}
+  $: {
+    fetch();
+  }
 
   let commentText = '';
   async function postComment() {

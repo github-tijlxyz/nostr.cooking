@@ -67,7 +67,7 @@
       <svelte:self
         replies={replies.filter((e) => e.getMatchingTags('e').find((v) => v[1] === re.id))}
         event={re}
-        refresh={refresh}
+        {refresh}
       />
     </li>
   {/each}

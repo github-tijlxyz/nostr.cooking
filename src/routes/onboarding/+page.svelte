@@ -17,7 +17,7 @@
 
   let disableStepButtons = false;
   let name = '';
-  let picture = "https://zap.cooking/default-pfp.jpg";
+  let picture = 'https://zap.cooking/default-pfp.jpg';
   let about = '';
 
   if ($userPublickey !== '') {
@@ -159,12 +159,7 @@
       your permanent password for the nostr network; It's crucial to store them in a secure location
       and avoid sharing them with anyone.
     </p>
-    <input
-      bind:value={seed}
-      type="text"
-      disabled
-      class="input w-full"
-    />
+    <input bind:value={seed} type="text" disabled class="input w-full" />
     <p>
       While generating a seed on the web is convenient, it may not be the most secure option.
       Consider downloading a native Nostr client for a more robust and secure experience.
@@ -176,12 +171,7 @@
       Your public key, often referred to as npub, can be shared with anyone. With this public key,
       others can discover your profile and posts.
     </p>
-    <input
-      bind:value={npub}
-      type="text"
-      disabled
-      class="input w-full"
-    />
+    <input bind:value={npub} type="text" disabled class="input w-full" />
     <p>
       Regarding your profile, we need your input to create it. Please provide the following details
       for publication.
@@ -190,7 +180,11 @@
       <div class="flex flex-col self-center">
         <h2 class="text-white">Picture</h2>
         <label for="file-upload" class="cursor-pointer self-center">
-          <img class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full bg-input self-center" src={picture} alt="Profile" />
+          <img
+            class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full bg-input self-center"
+            src={picture}
+            alt="Profile"
+          />
           <input id="file-upload" bind:this={input} type="file" class="sr-only self-center" />
         </label>
       </div>
@@ -206,19 +200,10 @@
 
   <div class="flex mb-4">
     <div class="flex-1">
-      <Button
-        on:click={backstep}
-        disabled={disableStepButtons}
-        primary={false}
-      >
-        Back
-      </Button>
+      <Button on:click={backstep} disabled={disableStepButtons} primary={false}>Back</Button>
     </div>
     <div>
-      <Button
-        on:click={continuestep}
-        disabled={disableStepButtons || (step == 2 && name == '')}
-      >
+      <Button on:click={continuestep} disabled={disableStepButtons || (step == 2 && name == '')}>
         {#if disableStepButtons == true}
           loading...
         {:else if step == 0}

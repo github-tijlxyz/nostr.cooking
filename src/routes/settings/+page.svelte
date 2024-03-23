@@ -63,7 +63,7 @@
   }
 
   let showPrivkey = false;
-  const sk = localStorage.getItem("nostrcooking_privateKey");
+  const sk = localStorage.getItem('nostrcooking_privateKey');
 </script>
 
 <svelte:head>
@@ -133,9 +133,17 @@
       <h3>Account Private Key</h3>
       <div>
         <div>
-          Your Account's Private Key. <span class="text-danger font-bold">DO NOT SHOW THIS TO ANYONE ELSE!</span>
+          Your Account's Private Key. <span class="text-danger font-bold"
+            >DO NOT SHOW THIS TO ANYONE ELSE!</span
+          >
         </div>
-        <div role="button" tabindex="0" on:keydown={()=> showPrivkey=true} on:click={() => showPrivkey = true} class="input !border-accent-gray !border-2 flex flex-wrap text-wrap break-all">
+        <div
+          role="button"
+          tabindex="0"
+          on:keydown={() => (showPrivkey = true)}
+          on:click={() => (showPrivkey = true)}
+          class="input !border-accent-gray !border-2 flex flex-wrap text-wrap break-all"
+        >
           {#if showPrivkey}
             {nip19.npubEncode(sk)}
           {:else}
@@ -143,7 +151,7 @@
           {/if}
         </div>
         {#if showPrivkey}
-          <button on:click={() => showPrivkey = false}>Click here to hide.</button>
+          <button on:click={() => (showPrivkey = false)}>Click here to hide.</button>
         {/if}
       </div>
     {/if}

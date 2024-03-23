@@ -35,8 +35,8 @@
     loadUserData();
   }
 
-  let nsecInput = "";
-  let nsecError = "";
+  let nsecInput = '';
+  let nsecError = '';
   async function loginWithSk() {
     try {
       if (browser && nsecInput) {
@@ -58,10 +58,10 @@
           $userPublickey = newUserPublicKey;
           userPublickey.set($userPublickey);
         }
-        goto("/");
+        goto('/');
       }
     } catch (error) {
-      nsecError = "Error! Make sure private key is valid.";
+      nsecError = 'Error! Make sure private key is valid.';
       console.error(error);
     }
   }
@@ -72,8 +72,8 @@
     nsecModal = false;
   }
 
-  let seedInput = "";
-  let seedError = "";
+  let seedInput = '';
+  let seedError = '';
   async function loginWithSeed() {
     try {
       if (browser && seedInput) {
@@ -95,10 +95,10 @@
           $userPublickey = newUserPublicKey;
           userPublickey.set($userPublickey);
         }
-        goto("/");
+        goto('/');
       }
     } catch (error) {
-      seedError = "Error! Make sure seed is valid.";
+      seedError = 'Error! Make sure seed is valid.';
       console.error(error);
     }
   }
@@ -131,7 +131,12 @@
 
 <Modal open={seedModal} cleanup={seedModalCleanup}>
   <h2 slot="title">Login with Seed</h2>
-  <input class="input" type="text" bind:value={seedInput} placeholder="beyond mobile enough risk kite mechanic exact around..." />
+  <input
+    class="input"
+    type="text"
+    bind:value={seedInput}
+    placeholder="beyond mobile enough risk kite mechanic exact around..."
+  />
   <div class="flex">
     <span class="flex grow text-danger self-center">{seedError}</span>
     <div class="flex gap-2 justify-end">
@@ -160,7 +165,7 @@
         <span class="self-center">Sign in with extension</span>
       </button>
       <button
-        on:click={() => nsecModal = true}
+        on:click={() => (nsecModal = true)}
         class="flex w-[320px] h-[52px] gap-2 shadow rounded-xl justify-center text-center font-semibold border box-border border-[#D1D3DC]"
       >
         <span
@@ -171,7 +176,7 @@
         <span class="self-center">Log in with Private Key</span>
       </button>
       <button
-        on:click={() => seedModal = true}
+        on:click={() => (seedModal = true)}
         class="flex w-[320px] h-[52px] gap-2 shadow rounded-xl justify-center text-center font-semibold border box-border border-[#D1D3DC]"
       >
         <span
