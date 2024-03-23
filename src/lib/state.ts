@@ -16,4 +16,6 @@ if (l) {
   to = JSON.parse(l);
 }
 
-export const translateOption: Writable<TranslateOption> = writable(to || { option: '', lang: '' });
+export const translateOption: Writable<TranslateOption> = writable(
+  to || { option: '', lang: '', data: '' }
+);

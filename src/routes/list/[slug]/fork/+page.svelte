@@ -1,13 +1,15 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import { onMount } from 'svelte';
   import StringComboBox from '../../../../components/StringComboBox.svelte';
   import { writable, type Writable } from 'svelte/store';
   import ListComboBox from '../../../../components/ListComboBox.svelte';
+  import Button from '../../../../components/Button.svelte';
+  import ImagesComboBox from '../../../../components/ImagesComboBox.svelte';
 
   $: {
     if ($page.params.slug) {
@@ -15,8 +17,12 @@
     }
   }
 
+  onMount(() => {
+    if ($userPublickey == '') goto('/login');
+  });
+
   let title = '';
-  let image = '';
+  let images: Writable<string[]> = writable([]);
   let summary = '';
   let resultMessage = '';
 
@@ -65,7 +71,7 @@
       }
       let nimage = event.tags.find((t) => t[0] == 'image')?.[1];
       if (nimage) {
-        image = nimage;
+        $images = [nimage];
       }
       let nsummary = event.tags.find((t) => t[0] == 'summary')?.[1];
       if (nsummary) {
@@ -124,8 +130,8 @@
       if (summary !== '') {
         nevent.tags.push(['summary', summary]);
       }
-      if (image !== '') {
-        nevent.tags.push(['image', image]);
+      if ($images.length === 1) {
+        event.tags.push(['image', $images[0]]);
       }
       $items.forEach((e) => {
         const data = nip19.decode(e.naddr).data;
@@ -201,100 +207,48 @@
 {#if loaded == false}
   <div>Loading...</div>
 {:else}
-  <form on:submit|preventDefault={createList} class="space-y-8 m-2 divide-y divide-gray-200">
-    <div class="space-y-8 divide-y divide-gray-200">
+  <form on:submit|preventDefault={createList} class="flex flex-col gap-6 max-w-[760px] mx-auto">
+    <h1>Edit List</h1>
+    <div class="flex flex-col gap-2">
+      <h3>Title*</h3>
+      <span class="text-caption">Remember to make your title unique!</span>
+      <input placeholder="Italian Favorites" bind:value={title} class="input" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <h3>Summary</h3>
+      <textarea
+        placeholder="A brief description of what this list is about."
+        bind:value={summary}
+        rows="6"
+        class="input"
+      />
+    </div>
+
+    <div>
+      <h3>Cover Image</h3>
+      <span class="text-caption">Appears on your Profile and on the List's page, optional.</span>
+      <ImagesComboBox uploadedImages={images} limit={1} />
+    </div>
+
+    <div class="pt-8">
       <div>
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Title*</h3>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Recipes</h3>
+        <p class="mt-1 text-sm text-gray-500">Recipes in this list</p>
+      </div>
+
+      <div class="sm:col-span-6">
+        <div class="mt-1">
+          <ListComboBox showIndex={true} placeholder="naddr1..." selected={items} />
         </div>
+      </div>
+    </div>
 
-        <div class="sm:col-span-6">
-          <div class="mt-1">
-            <input
-              disabled={true}
-              bind:value={title}
-              placeholder="My List, e.g. 'good recipies for weekdays'"
-              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-
-        <div class="pt-8">
-          <div>
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Image</h3>
-            <p class="mt-1 text-sm text-gray-500">
-              Optional. you can upload a file and get a link on <a
-                class="underline"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://nostr.build">nostr.build</a
-              >
-            </p>
-          </div>
-
-          <div class="sm:col-span-6">
-            <div class="mt-1">
-              <input
-                placeholder="https://example.com/image.png"
-                bind:value={image}
-                class="shadow-sm mt-3 focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-              />
-            </div>
-          </div>
-
-          <div class="pt-8">
-            <div>
-              <h3 class="text-lg leading-6 font-medium text-gray-900">Summary</h3>
-              <p class="mt-1 text-sm text-gray-500">
-                Optional. Show's up in lists, at recent recipies or profile page
-              </p>
-            </div>
-
-            <div class="sm:col-span-6">
-              <div class="mt-1">
-                <textarea
-                  placeholder="What is this list about?"
-                  bind:value={summary}
-                  rows="3"
-                  class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-8">
-          <div>
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Items</h3>
-            <p class="mt-1 text-sm text-gray-500">Items in this list</p>
-          </div>
-
-          <div class="sm:col-span-6">
-            <div class="mt-1">
-              <ListComboBox showIndex={true} placeholder="naddr1..." selected={items} />
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-5">Warning: Anyone can view this list!</div>
-
-        <div class="pt-2">
-          <div class="columns-2">
-            <div>
-              {resultMessage}
-              <button />
-            </div>
-            <div class="flex justify-end">
-              <button
-                disabled={disablePublishButton == true}
-                type="submit"
-                class="disabled inline-flex disabled:border-gray-300 items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 disabled:bg-gray-50 disabled:hover:bg-gray-100 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:ring-gray-300 focus:ring-blue-300"
-              >
-                Publish
-              </button>
-            </div>
-          </div>
-        </div>
+    <div class="flex justify-end">
+      <div>
+        {resultMessage}
+        <button />
+        <Button disabled={disablePublishButton} type="submit">Update List</Button>
       </div>
     </div>
   </form>

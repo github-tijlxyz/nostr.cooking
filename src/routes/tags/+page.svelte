@@ -6,17 +6,26 @@
   <title>all tags on nostr.cooking</title>
 </svelte:head>
 
-<h1 class="text-3xl text-center mt-5 mb-0">All Tags</h1>
+<div class="flex flex-col gap-4">
+  <h1>All Categories</h1>
 
-<div class="text-xl text-center px-[10vw] pt-6 pb-2">
-  {#each recipeTags as recipeTag}
-    <a
-      href={`/tag/${recipeTag.title.toLowerCase().replaceAll(' ', '-')}`}
-      class="mb-3 inline-block hover:underline mx-3"
-    >
-      {#if recipeTag.emoji}{recipeTag.emoji} {recipeTag.title}{:else}{recipeTag.title}{/if}
-    </a>
-  {/each}
+  <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-8">
+    {#each recipeTags as tag}
+      <a
+        href="/tag/{tag.title}"
+        class="flex flex-col gap-2 hover:text-primary transition duration-300"
+      >
+        <div
+          class="table w-[120px] h-[120px] bg-input hover:bg-accent-gray transition duration-300 rounded-full place-self-center"
+        >
+          <div class="table-cell align-middle place-self-center text-center text-7xl">
+            {tag.emoji || tag.title.charAt(0).toUpperCase()}
+          </div>
+        </div>
+        <div class="place-self-center">{tag.title}</div>
+      </a>
+    {/each}
+  </div>
 </div>
 
 <div class="text-center text-lg">

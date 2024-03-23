@@ -2,6 +2,8 @@
   import { recipeTags, type recipeTagSimple } from '$lib/consts';
   import type { Writable } from 'svelte/store';
   import TagsSearchAutocomplete from './TagsSearchAutocomplete.svelte';
+  import TrashIcon from 'phosphor-svelte/lib/Trash';
+  import { slide } from 'svelte/transition';
 
   export let selectedTags: Writable<recipeTagSimple[]>;
 
@@ -30,22 +32,20 @@
 
 <div class="mb-2">
   {#if $selectedTags.length > 0}
-    <ul class="bg-white border border-gray-300 rounded-lg mt-1">
+    <ul class="flex flex-col gap-2">
       {#each $selectedTags as tag, index}
-        <li class="flex items-center justify-between p-2 hover:bg-gray-100">
-          <div class="flex items-center">
+        <li class="flex input" transition:slide|global={{ duration: 300 }}>
+          <span class="grow">
             {#if tag.emoji}
               <span>{tag.emoji} </span>
             {/if}
             {tag.title}
+          </span>
+          <div class="flex gap-2">
+            <button class="self-center text-danger" on:click={() => removeTag(index)}>
+              <TrashIcon />
+            </button>
           </div>
-          <button
-            type="button"
-            class="ml-2 px-3 py-[0.05rem] bg-red-500 hover:bg-red-600 text-white rounded"
-            on:click={() => removeTag(index)}
-          >
-            X
-          </button>
         </li>
       {/each}
     </ul>
@@ -54,6 +54,5 @@
 
 <TagsSearchAutocomplete
   placeholderString={"Add a tag like 'italian' or 'steak' or 'glutenfree'"}
-  actionString={'Add'}
   action={addTag}
 />

@@ -2,15 +2,17 @@
   import { writable, type Writable } from 'svelte/store';
   import TagsComboBox from '../../components/TagsComboBox.svelte';
   import StringComboBox from '../../components/StringComboBox.svelte';
-  import { ndk } from '$lib/nostr';
+  import { ndk, userPublickey } from '$lib/nostr';
   import { createMarkdown, validateMarkdownTemplate } from '$lib/pharser';
   import { NDKEvent } from '@nostr-dev-kit/ndk';
   import type { recipeTagSimple } from '$lib/consts';
-  import FeedItem from '../../components/FeedItem.svelte';
+  import FeedItem from '../../components/RecipeCard.svelte';
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
   import { nip19 } from 'nostr-tools';
   import ImagesComboBox from '../../components/ImagesComboBox.svelte';
+  import Button from '../../components/Button.svelte';
+  import { onMount } from 'svelte';
 
   let previewEvent: NDKEvent | undefined = undefined;
 
@@ -30,6 +32,10 @@
 
   let resultMessage = ' ';
   let disablePublishButton = false;
+
+  onMount(() => {
+    if ($userPublickey == '') goto('/login');
+  });
 
   function formatStringArrays() {
     ingredients = '';
@@ -59,6 +65,8 @@
       const va = validateMarkdownTemplate(md);
       if (typeof va == 'string') {
         resultMessage = `Error: ${va}`;
+      } else if ($images.length == 0) {
+        resultMessage = `Error: No Image Uploaded`;
       } else if (va) {
         previewEvent = new NDKEvent($ndk);
         previewEvent.kind = 30023;
@@ -102,6 +110,8 @@
       const va = validateMarkdownTemplate(md);
       if (typeof va == 'string') {
         resultMessage = `Error: ${va}`;
+      } else if ($images.length == 0) {
+        resultMessage = `Error: No Image Uploaded`;
       } else if (va) {
         const event = new NDKEvent($ndk);
         event.kind = 30023;
@@ -159,210 +169,87 @@
   <title>create a recipe on nostr.cooking</title>
 </svelte:head>
 
-<form on:submit|preventDefault={publishRecipe} class="space-y-8 m-2 divide-y divide-gray-200">
-  <div class="space-y-8 divide-y divide-gray-200">
-    <div>
-      <div>
-        <h3 class="text-lg leading-6 font-medium text-gray-900">Title*</h3>
-        <p class="mt-1 text-sm text-gray-500">Remember to make your title unqiue!</p>
-      </div>
+<form on:submit|preventDefault={publishRecipe} class="flex flex-col max-w-[760px] mx-auto gap-6">
+  <h1>Create Recipe</h1>
+  <div class="flex flex-col gap-2">
+    <h3>Title*</h3>
+    <span class="text-caption">Remember to make your title unique!</span>
+    <input placeholder="Title" bind:value={title} class="input" />
+  </div>
 
-      <div class="sm:col-span-6">
-        <div class="mt-1">
-          <input
-            placeholder="My Recipe"
-            bind:value={title}
-            class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-          />
-        </div>
-      </div>
+  <div class="flex flex-col gap-2">
+    <h3>Tags*</h3>
+    <span class="text-caption">Remember to make your title unique!</span>
+    <TagsComboBox {selectedTags} />
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h3>Brief Summary</h3>
+    <textarea
+      placeholder="Some brief description of the dish (can be the same as chef’s notes)"
+      bind:value={summary}
+      rows="6"
+      class="input"
+    />
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <h3>Chef's Notes</h3>
+    <span class="text-caption">Some notes about this recipe. (Markdown is supported)</span>
+    <textarea
+      placeholder="Eg. where the recipe is from, or any additional information"
+      bind:value={chefsnotes}
+      rows="6"
+      class="input"
+    />
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <h3>Details</h3>
+    <div class="flex flex-col gap-2">
+      <span class="font-bold">Prep Time</span>
+      <input placeholder="20 min" bind:value={preptime} class="input" />
     </div>
-
-    <div class="pt-8">
-      <div>
-        <h3 class="text-lg leading-6 font-medium text-gray-900">Images</h3>
-        <p class="mt-1 text-sm text-gray-500">
-          Recommended to add for more interest! Show's up in lists, at recent recipies or profile
-          page
-        </p>
-      </div>
-
-      <ImagesComboBox uploadedImages={images} />
-
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Tags*</h3>
-          <p class="mt-1 text-sm text-gray-500">
-            Please add some tags. Start typing to view autocomplete's or click enter for custom Tags
-          </p>
-        </div>
-
-        <div class="sm:col-span-6">
-          <TagsComboBox {selectedTags} />
-        </div>
-      </div>
-
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Summary</h3>
-        </div>
-
-        <div class="sm:col-span-6">
-          <div class="mt-1">
-            <textarea
-              placeholder="Some brief description of the dish (can also be the same as chef's notes)"
-              bind:value={summary}
-              rows="3"
-              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Chef's Notes</h3>
-          <p class="mt-1 text-sm text-gray-500">
-            Some notes about this recipe. (Markdown is supported)
-          </p>
-        </div>
-
-        <div class="sm:col-span-6">
-          <div class="mt-1">
-            <textarea
-              placeholder="Here are some Chef's notes. Like where the recipe came from, and more additional information."
-              bind:value={chefsnotes}
-              rows="6"
-              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Details</h3>
-        </div>
-
-        <div class="sm:col-span-4">
-          <label class="block text-sm font-medium text-gray-700"> ⏲️ Prep time </label>
-          <div class="mt-1">
-            <input
-              placeholder="20 min"
-              bind:value={preptime}
-              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-
-        <div class="sm:col-span-4">
-          <label for="email" class="block text-sm font-medium text-gray-700"> 🍳 Cook time </label>
-          <div class="mt-1">
-            <input
-              placeholder="1 hour and 5 min"
-              bind:value={cooktime}
-              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-
-        <div class="sm:col-span-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">
-            🍽️ Servings (persons)
-          </label>
-          <div class="mt-1">
-            <input
-              placeholder="4"
-              bind:value={servings}
-              class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Ingredients*</h3>
-        </div>
-        <div class="sm:col-span-6">
-          <div class="mt-1">
-            <StringComboBox placeholder={'2 eggs'} selected={ingredientsArray} showIndex={false} />
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Directions*</h3>
-        </div>
-        <div class="sm:col-span-6">
-          <div class="mt-1">
-            <StringComboBox
-              placeholder={'bake it for 30 min'}
-              selected={directionsArray}
-              showIndex={true}
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- <details class="pt-8">
-				<summary>Add Additional Resources (Custom Markdown)</summary>
-				<div class="pt-1">
-					<div>
-						<h3 class="text-lg leading-6 font-medium text-gray-900">Addtional Resources</h3>
-					</div>
-					<div class="sm:col-span-6">
-						<div class="mt-1">
-							<textarea
-							bind:value={additionalMarkdown}
-							placeholder="Use **markdown**, you can add a image or video like this ![alt text](https://example.com/test.mp4) or a [link](https://example.com)"
-							rows="6"
-							class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border border-gray-300 rounded-md"
-							/>
-						</div>
-					</div>
-				</div>
-			</details> -->
+    <div class="flex flex-col gap-2">
+      <span class="font-bold">Cooking Time</span>
+      <input placeholder="1 hour and 5 min" bind:value={cooktime} class="input" />
     </div>
-
-    <div class="pt-5">
-      <div class="columns-2">
-        <div>
-          {resultMessage}
-          <button />
-        </div>
-        <div class="flex justify-end">
-          <button
-            type="submit"
-            disabled={disablePublishButton == true}
-            class="disabled inline-flex disabled:border-gray-300 items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 disabled:bg-gray-50 disabled:hover:bg-gray-100 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:ring-gray-300 focus:ring-blue-300"
-          >
-            Publish Recipe
-          </button>
-        </div>
-      </div>
+    <div class="flex flex-col gap-2">
+      <span class="font-bold">Servings (persons)</span>
+      <input placeholder="4" bind:value={servings} class="input" />
     </div>
   </div>
-</form>
-
-<hr class="mt-5 mb-5" />
-
-<div class="columns-2">
-  <div class="text-lg font-medium">Card Preview</div>
+  <div class="flex flex-col gap-2">
+    <h3>Ingredients*</h3>
+    <StringComboBox placeholder={'2 eggs'} selected={ingredientsArray} showIndex={false} />
+  </div>
+  <div class="flex flex-col gap-2">
+    <h3>Directions*</h3>
+    <StringComboBox placeholder={'Bake for 30 min'} selected={directionsArray} showIndex={false} />
+  </div>
+  <div>
+    <h3>Cover Image*</h3>
+    <span class="text-caption">Appears on the recipe card</span>
+    <ImagesComboBox uploadedImages={images} />
+  </div>
   <div class="flex justify-end">
-    <button
-      type="button"
-      on:click={loadPreview}
-      class="disabled inline-flex disabled:border-gray-300 items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 disabled:bg-gray-50 disabled:hover:bg-gray-100 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:ring-gray-300 focus:ring-blue-300"
-    >
-      Load Preview
-    </button>
+    <div>
+      {resultMessage}
+      <button />
+      <Button disabled={disablePublishButton} type="submit">Publish</Button>
+    </div>
   </div>
-</div>
-
-<div class="mt-4">
-  {#if previewEvent}
-    <FeedItem event={previewEvent} />
+  {#if $images.length > 0 && title && $selectedTags.length > 0 && $directionsArray.length > 0 && $ingredientsArray.length > 0}
+    <div class="flex flex-col gap-2">
+      <h2>Card Preview</h2>
+      <div>
+        <Button on:click={loadPreview}>Load Preview</Button>
+      </div>
+      <div class="">
+        {#if previewEvent}
+          <FeedItem event={previewEvent} />
+        {/if}
+      </div>
+    </div>
   {/if}
-</div>
+</form>

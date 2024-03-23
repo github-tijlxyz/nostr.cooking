@@ -1,5 +1,8 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store';
+  import Button from './Button.svelte';
+  import TrashIcon from 'phosphor-svelte/lib/Trash';
+  import { slide } from 'svelte/transition';
 
   let inputNewThing: string = '';
   export let selected: Writable<string[]>;
@@ -47,19 +50,17 @@
   }
 </script>
 
-<div class="mb-2">
+<div class="mb-0">
   {#if $selected.length > 0}
-    <ul class="bg-white border border-gray-300 rounded-lg mt-1">
+    <ul class="flex flex-col gap-2">
       {#each $selected as tag, index}
-        <li class="flex items-center justify-between p-2 hover:bg-gray-100">
-          <div class="flex items-center pl-1">
-            {#if showIndex}{index + 1}. {/if}{tag}
-          </div>
-          <div class="flex">
+        <li class="flex input" transition:slide|global={{ duration: 300 }}>
+          <span class="grow">{tag}</span>
+          <div class="flex gap-2">
             {#if showIndex && index > 0}
               <button
                 type="button"
-                class="ml-2 px-2 py-[0.05rem] bg-gray-400 hover:bg-gray-500 text-white rounded"
+                class="px-2 py-[0.05rem] rounded"
                 on:click={() => moveTagUp(index)}
               >
                 ↑
@@ -68,18 +69,14 @@
             {#if showIndex && index < $selected.length - 1}
               <button
                 type="button"
-                class="ml-2 px-2 py-[0.05rem] bg-gray-400 hover:bg-gray-500 text-white rounded"
+                class="px-2 py-[0.05rem] rounded"
                 on:click={() => moveTagDown(index)}
               >
                 ↓
               </button>
             {/if}
-            <button
-              type="button"
-              class="ml-2 px-2 py-[0.05rem] bg-red-500 hover:bg-red-600 text-white rounded"
-              on:click={() => removeTag(index)}
-            >
-              X
+            <button class="self-center text-danger" on:click={() => removeTag(index)}>
+              <TrashIcon />
             </button>
           </div>
         </li>
@@ -88,19 +85,7 @@
   {/if}
 </div>
 
-<form on:submit|preventDefault={addTag} class="mt- flex rounded-md shadow-sm">
-  <div class="flex items-stretch flex-grow focus-within:z-10">
-    <input
-      bind:value={inputNewThing}
-      class="focus:ring-blue-300 focus:border-blue-300 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
-      {placeholder}
-    />
-  </div>
-  <button
-    type="button"
-    on:click={addTag}
-    class="-ml-px inline-flex items-center space-x-2 px-3 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-300 focus:border-blue-300"
-  >
-    Add
-  </button>
+<form on:submit|preventDefault={addTag} class="flex gap-2">
+  <input bind:value={inputNewThing} class="input grow" {placeholder} />
+  <Button on:click={addTag} primary={false}>Add</Button>
 </form>

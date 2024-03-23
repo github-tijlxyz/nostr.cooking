@@ -1,9 +1,8 @@
 export const standardRelays = [
-  'wss://nostr-pub.wellorder.net',
-  'wss://nos.lol',
-  'wss://relay.damus.io',
+  'wss://nostr.mom',
   'wss://relay.nostr.bg',
-  'wss://nostr.wine'
+  'wss://nostr.wine',
+  'wss://relay.nostr.band'
 ];
 
 export type recipeTag =
@@ -64,12 +63,12 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Dominican', emoji: '🇩🇴' },
   { title: 'Dough' },
   { title: 'Dressing' },
-  { title: 'Drink', emoji: '🥤' },
+  { title: 'Drinks', emoji: '🥤' },
   { title: 'Duck', emoji: '🦆' },
   { title: 'Dumpling', emoji: '🥟' },
   { title: 'Dutch', emoji: '🇳🇱' },
   { title: 'Easter', emoji: '🐰' },
-  { title: 'Easy' },
+  { title: 'Easy', emoji: '😌' },
   { title: 'Eggs', emoji: '🥚' },
   { title: 'English', emoji: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
   { title: 'Fasting' },
@@ -125,7 +124,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Potato', emoji: '🥔' },
   { title: 'Pub' },
   { title: 'Quebec', emoji: '🍁' },
-  { title: 'Quick' },
+  { title: 'Quick', emoji: '🌭' },
   { title: 'Raw' },
   { title: 'Rice', emoji: '🍚' },
   { title: 'Roast', emoji: '🍖' },
@@ -139,7 +138,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Shaken', emoji: '🫨' },
   { title: 'Shrimp', emoji: '🦐' },
   { title: 'Side' },
-  { title: 'Slowcooked' },
+  { title: 'Slowcooked', emoji: '⏲️' },
   { title: 'Snack', emoji: '🍿' },
   { title: 'Soup', emoji: '🍲' },
   { title: 'Sourdough', emoji: '🍞' },

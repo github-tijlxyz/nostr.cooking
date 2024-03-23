@@ -84,6 +84,7 @@ export function validateMarkdownTemplate(markdown: string): MarkdownTemplate | s
       let prevStepNumber = 0;
       for (const line of directionsLines) {
         if (line.match(/^\d+\./)) {
+          // @ts-expect-error i'm not going to mess with this, it's probably fine though.
           const stepNumber = parseInt(line.match(/^\d+/)[0], 10);
           if (stepNumber !== prevStepNumber + 1) {
             return 'Directions are not in the correct ordered list format.';

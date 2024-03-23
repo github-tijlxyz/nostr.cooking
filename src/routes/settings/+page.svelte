@@ -2,7 +2,10 @@
   import { browser } from '$app/environment';
   import { standardRelays } from '$lib/consts';
   import { translateOption } from '$lib/state';
-  import Login from '../../components/Login.svelte';
+  import TrashIcon from 'phosphor-svelte/lib/Trash';
+  import WarningIcon from 'phosphor-svelte/lib/Warning';
+  import Button from '../../components/Button.svelte';
+  import { nip19 } from 'nostr-tools';
 
   let relays: string[] = [];
   let newRelay = '';
@@ -58,106 +61,108 @@
     translationLanguage = $translateOption.lang;
     translationOption = $translateOption.data;
   }
+
+  let showPrivkey = false;
+  const sk = localStorage.getItem('nostrcooking_privateKey');
 </script>
 
 <svelte:head>
   <title>nostr.cooking settings</title>
 </svelte:head>
 
-<div class="lg:max-w-4xl">
-  <div class="mb-6">
-    <Login />
-  </div>
-
-  <div class="font-sans mx-auto p-2">
-    <div class="prose">
-      <h1 class="mt-0">Settings</h1>
-    </div>
-
-    <!-- Relay Selection -->
-    <div class="my-6">
-      <p class="text-sm">Relays</p>
+<div class="flex flex-col gap-5">
+  <h1>Settings</h1>
+  <div class="flex flex-col gap-4">
+    <h2>Relays</h2>
+    <div class="flex flex-col gap-2">
       {#each relays as relay, index}
-        <div class="border rounded-full pl-2 my-1">
-          <button
-            class="text-red-500 py-0.5 px-1.5 rounded-full text-xl font-medium"
-            on:click={() => removeRelay(index)}
-          >
-            x
+        <div class="flex bg-input p-3 rounded-xl">
+          <span class="grow">{relay}</span>
+          <button class="self-center text-danger" on:click={() => removeRelay(index)}>
+            <TrashIcon />
           </button>
-          {relay}
         </div>
       {/each}
-      <div class="flex">
+      <div class="flex gap-4 mx-0.5">
         <input
           bind:value={newRelay}
-          type="text"
-          class="inline mr-0 rounded-md rounded-r-none shadow-sm focus:ring-blue-300 focus:border-blue-300 sm:text-sm border-gray-400"
           placeholder="wss://relay.example.com"
+          class="flex p-3 bg-input rounded-xl border-none"
         />
-        <button
-          on:click={addRelay}
-          type="button"
-          class="inline-flex ml-0 rounded-md rounded-l-none border-blue-300 items-center px-2.5 py-1.5 border text-sm font-medium shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
-          >Add</button
-        >
+        <Button on:click={addRelay} primary={false}>Add</Button>
       </div>
     </div>
+  </div>
 
-    <!-- Translation -->
-    <div class="my-6">
-      <p class="text-sm">Translation (exprimental)</p>
-      <div>
-        <select
-          bind:value={translation}
-          class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-300 focus:border-blue-300 sm:text-sm rounded-md"
-        >
-          <option value="">Disabled</option>
-          <option value="google">Google Translate (with proxy)</option>
-          <!--<option value="libretranslate">Libretranslate Instance</option>-->
-        </select>
-        {#if translation !== ''}
-          <input
-            bind:value={translationLanguage}
-            placeholder="2 letter language code, like: 'en', 'es', 'fr' ect"
-            class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-          />
-          <input
-            bind:value={translationOption}
-            placeholder={(translation == 'google'
-              ? 'set CORS proxy url,'
-              : translation == 'libretranslate'
-              ? 'libretranslate instance url,'
-              : '') + ' leave blank for default'}
-            class="shadow-sm focus:ring-blue-300 focus:border-blue-300 block w-full sm:text-sm border-gray-300 rounded-md"
-          />
-        {/if}
-      </div>
+  <div class="flex flex-col gap-4">
+    <h2>Translation</h2>
+    <div class="flex flex-col mx-0.5 gap-4">
+      <select bind:value={translation} class="flex p-3 bg-input rounded-xl border-none">
+        <option value="">Disabled</option>
+        <option value="google">Google Translate (with proxy)</option>
+        <!--<option value="libretranslate">Libretranslate Instance</option>-->
+      </select>
       {#if translation !== ''}
-        <p class="mt-2">Warning: You may leak data to third parties while using this.</p>
+        <input
+          bind:value={translationLanguage}
+          placeholder="2 letter language code, like: 'en', 'es', 'fr' ect"
+          class="flex p-3 bg-input rounded-xl border-none"
+        />
+        <input
+          bind:value={translationOption}
+          placeholder={(translation == 'google'
+            ? 'set CORS proxy url,'
+            : translation == 'libretranslate'
+            ? 'libretranslate instance url,'
+            : '') + ' leave blank for default'}
+          class="flex p-3 bg-input rounded-xl border-none"
+        />
       {/if}
     </div>
+    {#if translation !== ''}
+      Warning: You may leak data to third parties while using this.
+    {/if}
+  </div>
 
-    <!-- Save button -->
-    <button
-      on:click={saveData}
-      type="button"
-      class="mb-6 inline-flex items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
-    >
-      Save & Reload
-    </button>
-    <hr />
-    <div class="my-6">
-      <p class="text-sm">Danger</p>
+  <Button on:click={saveData}>Save</Button>
+  <hr />
+
+  <div class="flex flex-col gap-5">
+    <h2>Danger</h2>
+    {#if sk}
+      <h3>Account Private Key</h3>
       <div>
-        <button
-          on:click={() => (window.location.href = '/clearall')}
-          type="button"
-          class="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-md shadow-sm text-black bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300"
+        <div>
+          Your Account's Private Key. <span class="text-danger font-bold"
+            >DO NOT SHOW THIS TO ANYONE ELSE!</span
+          >
+        </div>
+        <div
+          role="button"
+          tabindex="0"
+          on:keydown={() => (showPrivkey = true)}
+          on:click={() => (showPrivkey = true)}
+          class="input !border-accent-gray !border-2 flex flex-wrap text-wrap break-all"
         >
-          Clear all data & Reload
-        </button>
+          {#if showPrivkey}
+            {nip19.npubEncode(sk)}
+          {:else}
+            Click to show your private key
+          {/if}
+        </div>
+        {#if showPrivkey}
+          <button on:click={() => (showPrivkey = false)}>Click here to hide.</button>
+        {/if}
       </div>
-    </div>
+    {/if}
+    <h3>Clear all Data</h3>
+    <Button
+      class="flex !bg-danger self-start gap-2"
+      primary={false}
+      on:click={() => (window.location.href = '/clearall')}
+    >
+      <WarningIcon class="self-center" />
+      Clear all data
+    </Button>
   </div>
 </div>

@@ -6,11 +6,17 @@
   import { onMount } from 'svelte';
   import { writable, type Writable } from 'svelte/store';
   import ListComboBox from '../../../components/ListComboBox.svelte';
+  import Button from '../../../components/Button.svelte';
+  import ImagesComboBox from '../../../components/ImagesComboBox.svelte';
 
   let title = '';
   let image = '';
   let summary = '';
   let resultMessage = '';
+
+  onMount(() => {
+    if ($userPublickey == '') goto('/login');
+  });
 
   type Atype = {
     title?: string;
@@ -98,7 +104,7 @@
       const nevent = new NDKEvent($ndk);
       nevent.kind = 30001;
       nevent.tags.push(['d', 'nostrcooking-bookmarks']);
-      nevent.tags.push(['title', title]);
+      nevent.tags.push(['title', 'Zap Cooking Bookmarks']);
       if (summary !== '') {
         nevent.tags.push(['summary', summary]);
       }
@@ -175,54 +181,26 @@
 {#if loaded == false}
   <div>Loading...</div>
 {:else}
-  <form on:submit|preventDefault={createList} class="space-y-8 m-2 divide-y divide-gray-200">
-    <div class="space-y-8 divide-y divide-gray-200">
+  <form on:submit|preventDefault={createList} class="flex flex-col gap-6 max-w-[760px] mx-auto">
+    <h1>Edit Bookmarks</h1>
+    <div>
       <div>
-        <div>
-          <h3 class="text-lg leading-6 font-medium text-gray-900">Title*</h3>
-        </div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Recipes</h3>
+        <p class="mt-1 text-sm text-gray-500">Recipes that you've bookmarked</p>
+      </div>
 
-        <div class="sm:col-span-6">
-          <div class="mt-1">
-            <input
-              disabled={true}
-              bind:value={title}
-              placeholder="My List, e.g. 'good recipies for weekdays'"
-              class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-            />
-          </div>
+      <div class="sm:col-span-6">
+        <div class="mt-1">
+          <ListComboBox showIndex={true} placeholder="naddr1..." selected={items} />
         </div>
+      </div>
+    </div>
 
-        <div class="pt-8">
-          <div>
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Items</h3>
-            <p class="mt-1 text-sm text-gray-500">Items in this list</p>
-          </div>
-
-          <div class="sm:col-span-6">
-            <div class="mt-1">
-              <ListComboBox showIndex={true} placeholder="naddr1..." selected={items} />
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-8">
-          <div class="columns-2">
-            <div>
-              {resultMessage}
-              <button />
-            </div>
-            <div class="flex justify-end">
-              <button
-                disabled={disablePublishButton == true}
-                type="submit"
-                class="disabled inline-flex disabled:border-gray-300 items-center px-4 py-2 border border-blue-300 text-sm font-medium rounded-md shadow-sm text-black bg-blue-50 disabled:bg-gray-50 disabled:hover:bg-gray-100 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:ring-gray-300 focus:ring-blue-300"
-              >
-                Publish
-              </button>
-            </div>
-          </div>
-        </div>
+    <div class="flex justify-end">
+      <div>
+        {resultMessage}
+        <button />
+        <Button disabled={disablePublishButton} type="submit">Update Bookmarks</Button>
       </div>
     </div>
   </form>

@@ -8,23 +8,12 @@
   on:click={onClick}
   type="button"
   class={`
-    ml-1
-    mb-1
-    inline-flex
-    items-center
-    px-3
-    py-1.5
-    border
-    border-transparent
-    text-xs
-    font-medium
+    md:px-4
+    py-3
+    font-semibold
     rounded-full
-    shadow-sm
-    text-white
-    ${selected ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-gray-400 hover:bg-gray-500'}
-    focus:outline-none
-    focus:ring-2
-    focus:ring-offset-2
-    focus:ring-yellow-500
+    text-black
+    text-center
+    ${selected ? 'bg-accent-gray' : 'bg-input hover:bg-gray-200'}
     `}>{text}</button
 >

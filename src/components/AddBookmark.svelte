@@ -15,9 +15,7 @@
 
     // load event
     let e = await $ndk.fetchEvent({
-      // @ts-ignore
       '#d': ['nostrcooking-bookmarks'],
-      // @ts-ignore
       authors: [$userPublickey],
       kinds: [30001]
     });
@@ -28,7 +26,7 @@
           (t) =>
             t[0] == 'a' &&
             t[1] ==
-              `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+              `${event.kind}:${event.author.pubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
         )
       ) {
         show = true;
@@ -43,9 +41,7 @@
   async function removeBookmark() {
     // load event
     let e = await $ndk.fetchEvent({
-      // @ts-ignore
       '#d': ['nostrcooking-bookmarks'],
-      // @ts-ignore
       authors: [$userPublickey],
       kinds: [30001]
     });
@@ -56,7 +52,7 @@
           (t) =>
             t[0] == 'a' &&
             t[1] ==
-              `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+              `${event.kind}:${event.author.pubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
         )
       ) {
         removeBookmarkShow = false;
@@ -64,15 +60,14 @@
       }
     }
 
-    if (event && bookmarkEvent && event.author.hexpubkey && bookmarkEvent.sig) {
+    if (event && bookmarkEvent && event.author.pubkey && bookmarkEvent.sig) {
       removeBookmarkShow = false;
       const nevent = new NDKEvent($ndk);
       nevent.kind = 30001;
       bookmarkEvent.tags.forEach((t) => {
         if (
           t[0] == 'a' &&
-          t[1] ==
-            `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+          t[1] == `${event.kind}:${event.author.pubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
         ) {
         } else {
           nevent.tags.push(t);
@@ -94,9 +89,7 @@
   async function addBookMark() {
     // load event
     let e = await $ndk.fetchEvent({
-      // @ts-ignore
       '#d': ['nostrcooking-bookmarks'],
-      // @ts-ignore
       authors: [$userPublickey],
       kinds: [30001]
     });
@@ -107,7 +100,7 @@
           (t) =>
             t[0] == 'a' &&
             t[1] ==
-              `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+              `${event.kind}:${event.author.pubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
         )
       ) {
         show = false;
@@ -115,14 +108,14 @@
       }
     }
 
-    if (event && bookmarkEvent && event.author.hexpubkey && bookmarkEvent.sig) {
+    if (event && bookmarkEvent && event.author.pubkey && bookmarkEvent.sig) {
       show = false;
       const nevent = new NDKEvent($ndk);
       nevent.kind = 30001;
       nevent.tags = bookmarkEvent.tags;
       nevent.tags.push([
         'a',
-        `${event.kind}:${event.author.hexpubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
+        `${event.kind}:${event.author.pubkey}:${event.tags.find((t) => t[0] == 'd')?.[1]}`
       ]);
       let relays = await nevent.publish();
       relays.forEach((relay) => {
@@ -134,7 +127,7 @@
         });
         close();
       });
-    } else if (event && event.author.hexpubkey) {
+    } else if (event && event.author.pubkey) {
       // needs to init bookmark event, for now, go to /bookmarks to do that
       goto('/bookmarks');
     }

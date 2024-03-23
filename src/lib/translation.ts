@@ -1,11 +1,11 @@
 import { setCORS as googletranslate } from 'google-translate-api-browser';
-import { type TranslateOption } from './state';
+import type { TranslateOption } from './state';
 //import { translate as libretranslate } from 'libretranslate';
 
 export async function translate(translateOption: TranslateOption, string: string) {
   if (translateOption.option == 'google') {
     const gTranslate = googletranslate(translateOption.data);
-    // @ts-ignore
+    // @ts-expect-error not my code, eslint got mad :(
     const e = await gTranslate(string, { to: translateOption.lang });
     return e;
   }
