@@ -1,6 +1,7 @@
 <script lang="ts">
   import { ndk, userPublickey } from '$lib/nostr';
-  import type { NDKEvent, NDKFilter, NDKUser, NDKUserProfile } from '@nostr-dev-kit/ndk';
+  import { NDKEvent } from "@nostr-dev-kit/ndk"
+  import type { NDKFilter, NDKUser, NDKUserProfile } from '@nostr-dev-kit/ndk';
   import { nip19 } from 'nostr-tools';
   import ZapModal from '../../../components/ZapModal.svelte';
   import Feed from '../../../components/Feed.svelte';
@@ -69,6 +70,8 @@
 
       loaded = true;
     }
+    profileName = profile && profile.displayName ? profile.displayName : ""
+    url = profile && profile.image ? profile.image : ""
   }
 
   async function zapEvt(amount: number, message: string) {
@@ -91,6 +94,72 @@
   function qrModalCleanup() {
     qrModal = false;
   }
+
+  let editModal = false;
+
+  function editModalCleanup() {
+    editModal = false;
+  }
+
+  import { Fetch } from 'hurdak';
+
+  let input: HTMLElement, listener;
+  let url = '';
+
+  $: {
+    if (input) {
+      input.addEventListener('change', async (e) => {
+        const target = e.target as HTMLInputElement;
+        console.log('attempted');
+        if (target.files && target.files?.length > 0) {
+          const body = new FormData();
+          body.append('file[]', target.files[0]);
+          const result = await uploadToNostrBuild(body);
+          console.log(result);
+          if (result && result.data && result.data[0].url) {
+            url = result.data[0].url;
+          }
+        }
+      });
+    }
+  }
+
+  export async function uploadToNostrBuild(body: any) {
+    const url = 'https://nostr.build/api/v2/upload/profile';
+    const template = new NDKEvent($ndk);
+    template.kind = 27235;
+    template.content = '';
+    template.tags = [
+      ['u', url],
+      ['method', 'POST']
+    ];
+
+    template.sign();
+
+    return Fetch.fetchJson(url, {
+      body,
+      method: 'POST',
+      headers: {
+        Authorization: `Nostr ${btoa(JSON.stringify(event))}`
+      }
+    });
+  }
+
+  let profileName = ""
+  async function updateProfile() {
+    await $ndk.signer.user();
+    profile = user.profile
+    profile.image = url;
+    profile.displayName = profileName;
+    console.log(profile)
+
+    try {
+      await user.publish();
+    } catch (error) {
+      console.error("error while publishing update: ", error)
+    }
+    editModalCleanup();
+  }
 </script>
 
 <svelte:head>
@@ -98,6 +167,31 @@
 </svelte:head>
 
 <ZapModal open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />
+
+<Modal cleanup={editModalCleanup} open={editModal}>
+  <h1 slot="title">Edit Profile</h1>
+  <div class="flex gap-10 mx-0.5">
+    <div class="">
+      <label for="file-upload">
+        <img class="w-[200px] h-[200px] rounded-full bg-input" src={url} alt="Profile" />
+        <input id="file-upload" bind:this={input} type="file" class="sr-only" />
+      </label>
+      Click ^ to upload profile image.
+    </div>
+    <div class="flex flex-col gap-2">
+      <h2>Display Name</h2>
+      <p class="break-words">This will be visible to others.</p>
+      <input bind:value={profileName} class="input" type="text" placeholder="Zap Cooking Chef" />
+    </div>
+  </div>
+  <div class="flex gap-2 justify-end">
+    <Button
+      class="!text-black bg-white border border-[#ECECEC] hover:bg-accent-gray"
+      on:click={editModalCleanup}>Cancel</Button
+    >
+    <Button on:click={updateProfile}>Save</Button>
+  </div>
+</Modal>
 
 <Modal cleanup={qrModalCleanup} open={qrModal}>
   <h1 slot="title">{profile && profile.name ? profile.name : '...'}'s QR Code</h1>
@@ -128,6 +222,13 @@
           on:click={() => (zapModal = true)}><LightningIcon /></Button
         >
         <!-- <Button class="flex self-center">Follow</Button> -->
+      {/if}
+      {#if hexpubkey === $userPublickey}
+        <Button
+          class="flex self-center"
+          primary="false"
+          on:click={() => (editModal = true)}>Edit Profile</Button
+        >
       {/if}
     </div>
   </div>

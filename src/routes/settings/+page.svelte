@@ -5,6 +5,7 @@
   import TrashIcon from 'phosphor-svelte/lib/Trash';
   import WarningIcon from 'phosphor-svelte/lib/Warning';
   import Button from '../../components/Button.svelte';
+  import { nip19 } from 'nostr-tools';
 
   let relays: string[] = [];
   let newRelay = '';
@@ -60,6 +61,9 @@
     translationLanguage = $translateOption.lang;
     translationOption = $translateOption.data;
   }
+
+  let showPrivkey = false;
+  const sk = localStorage.getItem("nostrcooking_privateKey");
 </script>
 
 <svelte:head>
@@ -125,6 +129,25 @@
 
   <div class="flex flex-col gap-5">
     <h2>Danger</h2>
+    {#if sk}
+      <h3>Account Private Key</h3>
+      <div>
+        <div>
+          Your Account's Private Key. <span class="text-danger font-bold">DO NOT SHOW THIS TO ANYONE ELSE!</span>
+        </div>
+        <div role="button" tabindex="0" on:keydown={()=> showPrivkey=true} on:click={() => showPrivkey = true} class="input !border-accent-gray !border-2 flex flex-wrap text-wrap break-all">
+          {#if showPrivkey}
+            {nip19.npubEncode(sk)}
+          {:else}
+            Click to show your private key
+          {/if}
+        </div>
+        {#if showPrivkey}
+          <button on:click={() => showPrivkey = false}>Click here to hide.</button>
+        {/if}
+      </div>
+    {/if}
+    <h3>Clear all Data</h3>
     <Button
       class="flex !bg-danger self-start gap-2"
       primary={false}
