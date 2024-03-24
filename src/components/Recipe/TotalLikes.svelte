@@ -1,7 +1,6 @@
 <script lang="ts">
   import { ndk, userPublickey } from '$lib/nostr';
   import type { NDKEvent } from '@nostr-dev-kit/ndk';
-  import { onMount } from 'svelte';
   import HeartIcon from 'phosphor-svelte/lib/Heart';
 
   export let event: NDKEvent;
@@ -9,20 +8,16 @@
   let totalLikeAmount: number = 0;
   let liked = false;
 
-  onMount(async () => {
-    const evs = await $ndk.fetchEvents({
-      kinds: [7],
-      '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
-    });
-    evs.forEach((a) => {
-      if (a.content == '+') {
-        totalLikeAmount = totalLikeAmount + 1;
-        if (a.pubkey == $userPublickey) {
-          liked = true;
-        }
-      }
-    });
-  });
+  $: {
+    (async () => {
+      const evs = await $ndk.fetchEvents({
+        kinds: [7],
+        '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
+      });
+      if (Array.from(evs).find((e) => e.pubkey == $userPublickey)) liked = true;
+      totalLikeAmount = evs.size;
+    })()
+  }
   loading = false;
   async function likePost() {
     if (liked) return;
