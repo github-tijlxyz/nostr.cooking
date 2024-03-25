@@ -267,6 +267,10 @@
           {@html parseMarkdown(event.content)}
         {/if}
       </div>
+      <div class="flex flex-col items-center gap-4 bg-input py-6 rounded-3xl">
+        <h2>Enjoy this recipe?</h2>
+        <Button on:click={() => zapModal = true}>Zap it</Button>
+      </div>
       <Comments {event} />
     </div>
   {:else}
