@@ -176,7 +176,7 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Vietnamese', emoji: '🇻🇳' },
   { title: 'Wholemeal' },
   { title: 'Wine', emoji: '🍷' },
-  { title: 'Yucatecan', emoji: '🇲🇽' }
-  { title: 'Healthy', emoji: '🍏'}
+  { title: 'Yucatecan', emoji: '🇲🇽' },
+  { title: 'Healthy', emoji: '🍏'},
   { title: 'Gluten Free', emoji: '🥗'}
 ];
