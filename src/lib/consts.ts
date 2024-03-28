@@ -177,4 +177,6 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Wholemeal' },
   { title: 'Wine', emoji: '🍷' },
   { title: 'Yucatecan', emoji: '🇲🇽' }
+  { title: 'Healthy', emoji: '🍏'}
+  { title: 'Gluten Free', emoji: '🥗'}
 ];
