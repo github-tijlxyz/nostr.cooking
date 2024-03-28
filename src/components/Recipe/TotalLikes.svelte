@@ -12,11 +12,13 @@
     (async () => {
       const evs = await $ndk.fetchEvents({
         kinds: [7],
-        '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
+        '#a': [
+          `${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`
+        ]
       });
       if (Array.from(evs).find((e) => e.pubkey == $userPublickey)) liked = true;
       totalLikeAmount = evs.size;
-    })()
+    })();
   }
   loading = false;
   async function likePost() {

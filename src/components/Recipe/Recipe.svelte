@@ -128,10 +128,9 @@
     else toggleLists.add(id);
   }
 
-
-  const firstTag = recipeTags.find(
+  /*const firstTag = recipeTags.find(
     (e) => e.title.toLowerCase().replaceAll(' ', '-') == event.getMatchingTags("t").filter((t) => t[1].slice(13)[0])[0][1].slice(13)
-  );
+  );*/
 </script>
 
 <ZapModal bind:open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />
@@ -224,7 +223,7 @@
               on:click_outside={() => (dropdownActive = false)}
               class="flex flex-col right-0 gap-4 absolute z-20 bg-white rounded-3xl drop-shadow px-5 py-6 my-6"
             >
-              {#if event.author.pubkey === $userPublickey}
+              {#if event.author?.pubkey === $userPublickey}
                 <a class="flex gap-2 cursor-pointer" href="/fork/{naddr}">
                   <PencilIcon size={24} />
                   Edit
@@ -275,12 +274,14 @@
       </div>
       <div class="flex flex-col items-center gap-4 bg-input py-6 rounded-3xl">
         <h2>Enjoy this recipe?</h2>
-        <Button on:click={() => zapModal = true}>Zap it</Button>
+        <Button on:click={() => (zapModal = true)}>Zap it</Button>
       </div>
+      <!--
       <div class="flex flex-col gap-4">
         {firstTag}
         <h2>More {firstTag[1].split("nostrcooking-")[1]}</h2>
       </div>
+      -->
       <Comments {event} />
     </div>
   {:else}

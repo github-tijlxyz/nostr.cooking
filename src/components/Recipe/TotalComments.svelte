@@ -11,10 +11,12 @@
     (async () => {
       const evs = await $ndk.fetchEvents({
         kinds: [1],
-        '#a': [`${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`]
+        '#a': [
+          `${event.kind}:${event.author.hexpubkey}:${event.tags.find((e) => e[0] == 'd')?.[1]}`
+        ]
       });
-      totalCommentAmount = evs.size // normal way
-    })()
+      totalCommentAmount = evs.size; // normal way
+    })();
   }
   loading = false;
 </script>
