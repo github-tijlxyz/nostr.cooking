@@ -43,7 +43,7 @@
 </script>
 
 <svelte:head>
-  <title>recipes with tag "{$page.params.slug}" on nostr.cooking</title>
+  <title>recipes with tag "{$page.params.slug}" on zap.cooking</title>
 </svelte:head>
 
 <div class="flex flex-col gap-8">

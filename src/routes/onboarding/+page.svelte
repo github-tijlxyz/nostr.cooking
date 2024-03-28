@@ -134,7 +134,7 @@
 <!-- TODO -->
 
 <svelte:head>
-  <title>welcome to nostr.cooking</title>
+  <title>welcome to zap.cooking</title>
 </svelte:head>
 
 <div class="prose flex flex-col text-black mb-4 mx-auto">

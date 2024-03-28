@@ -65,7 +65,7 @@
       ? event.tags.find((e) => e[0] == 'title')?.[1]
         ? event.tags.find((e) => e[0] == 'title')?.[1]
         : event.tags.find((e) => e[0] == 'd')?.[1]
-      : '...'} on nostr.cooking</title
+      : '...'} on zap.cooking</title
   >
 </svelte:head>
 

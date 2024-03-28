@@ -1,7 +1,7 @@
-# nostr.cooking
+# zap.cooking
 
 _A recipe-sharing client for nostr._
-Check it out at [nostr.cooking](https://zap.cooking)!
+Check it out at [zap.cooking](https://zap.cooking)!
 
 ## Contributing
 

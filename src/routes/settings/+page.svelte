@@ -67,7 +67,7 @@
 </script>
 
 <svelte:head>
-  <title>nostr.cooking settings</title>
+  <title>zap.cooking settings</title>
 </svelte:head>
 
 <div class="flex flex-col gap-5">

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>all tags on nostr.cooking</title>
+  <title>all tags on zap.cooking</title>
 </svelte:head>
 
 <div class="flex flex-col gap-4">

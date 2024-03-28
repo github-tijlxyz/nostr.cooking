@@ -57,7 +57,7 @@
 </script>
 
 <svelte:head>
-  <title>recent recipes on nostr.cooking</title>
+  <title>recent recipes on zap.cooking</title>
 </svelte:head>
 
 <div class="flex flex-col gap-3 md:gap-10">

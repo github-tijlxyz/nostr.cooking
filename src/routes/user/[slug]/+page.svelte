@@ -177,7 +177,7 @@
 </script>
 
 <svelte:head>
-  <title>{profile && profile.name ? profile.name : '...'} on nostr.cooking</title>
+  <title>{profile && profile.name ? profile.name : '...'} on zap.cooking</title>
 </svelte:head>
 
 <ZapModal open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />

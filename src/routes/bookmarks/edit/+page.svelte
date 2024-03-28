@@ -175,7 +175,7 @@
 </script>
 
 <svelte:head>
-  <title>edit bookmarks nostr.cooking</title>
+  <title>edit bookmarks zap.cooking</title>
 </svelte:head>
 
 {#if loaded == false}

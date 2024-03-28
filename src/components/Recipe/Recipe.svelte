@@ -20,6 +20,7 @@
   import { clickOutside } from '$lib/clickOutside';
   import AuthorProfile from '../AuthorProfile.svelte';
   import { fade } from 'svelte/transition';
+  import { recipeTags, type recipeTagSimple } from '$lib/consts';
 
   export let event: NDKEvent;
   const naddr = nip19.naddrEncode({
@@ -126,6 +127,11 @@
     if (toggleLists.has(id)) toggleLists.delete(id);
     else toggleLists.add(id);
   }
+
+
+  const firstTag = recipeTags.find(
+    (e) => e.title.toLowerCase().replaceAll(' ', '-') == event.getMatchingTags("t").filter((t) => t[1].slice(13)[0])[0][1].slice(13)
+  );
 </script>
 
 <ZapModal bind:open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />
@@ -270,6 +276,10 @@
       <div class="flex flex-col items-center gap-4 bg-input py-6 rounded-3xl">
         <h2>Enjoy this recipe?</h2>
         <Button on:click={() => zapModal = true}>Zap it</Button>
+      </div>
+      <div class="flex flex-col gap-4">
+        {firstTag}
+        <h2>More {firstTag[1].split("nostrcooking-")[1]}</h2>
       </div>
       <Comments {event} />
     </div>

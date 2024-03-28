@@ -111,7 +111,7 @@
 </script>
 
 <svelte:head>
-  <title>login to nostr.cooking</title>
+  <title>login to zap.cooking</title>
 </svelte:head>
 
 <Modal open={nsecModal} cleanup={nsecModalCleanup}>

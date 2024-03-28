@@ -262,7 +262,7 @@
 </script>
 
 <svelte:head>
-  <title>edit recipe {title} on nostr.cooking</title>
+  <title>edit recipe {title} on zap.cooking</title>
 </svelte:head>
 
 <form on:submit|preventDefault={publishRecipe} class="flex flex-col gap-6 max-w-[760px] mx-auto">
