@@ -9,7 +9,7 @@ export const relays = JSON.parse(
 );
 
 const dexieAdapter = new NDKCacheAdapterDexie({ dbName: 'nostrcooking-ndk-cache-db' });
-const Ndk: NDK = new NDK({ explicitRelayUrls: relays, cacheAdapter: dexieAdapter });
+const Ndk: NDK = new NDK({ outboxRelayUrls: ["wss://purplepag.es"], enableOutboxModel: true, explicitRelayUrls: relays, cacheAdapter: dexieAdapter });
 browser && Ndk.connect().then(() => console.log('ndk connected'));
 
 export const ndk: Writable<NDK> = writable(Ndk);
