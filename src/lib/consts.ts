@@ -173,6 +173,8 @@ export const recipeTags: recipeTagSimple[] = [
   { title: 'Uzbek', emoji: '🇺🇿' },
   { title: 'Veal', emoji: '🐄' },
   { title: 'Vegetables', emoji: '🥦' },
+  { title: 'Vegan', emoji: '🌱' },
+  { title: 'Raw Vegan' },
   { title: 'Vietnamese', emoji: '🇻🇳' },
   { title: 'Wholemeal' },
   { title: 'Wine', emoji: '🍷' },
