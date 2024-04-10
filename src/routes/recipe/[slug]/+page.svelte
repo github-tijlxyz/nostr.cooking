@@ -5,14 +5,25 @@
   import { nip19 } from 'nostr-tools';
   import { goto } from '$app/navigation';
   import Recipe from '../../../components/Recipe/Recipe.svelte';
+  import { MetaTags } from 'svelte-meta-tags';
 
   let event: NDKEvent;
   let naddr: string = '';
+  let title: string = ' on zap.cooking';
+  let description: string;
+  let image: string;
 
   $: {
     if ($page.params.slug) {
       loadData();
     }
+  }
+
+  $: if (event) {
+    const titleTag = event.tags.find((e) => e[0] == 'title')?.[1];
+    if (titleTag) title = titleTag + title;
+    description = event.tags.find((e) => e[0] == 'summary')?.[1] ?? '';
+    image = event.tags.find((e) => e[0] == 'image')?.[1] ?? '';
   }
 
   async function loadData() {
@@ -60,15 +71,18 @@
 </script>
 
 <svelte:head>
-  <title
-    >{event
-      ? event.tags.find((e) => e[0] == 'title')?.[1]
-        ? event.tags.find((e) => e[0] == 'title')?.[1]
-        : event.tags.find((e) => e[0] == 'd')?.[1]
-      : '...'} on zap.cooking</title
-  >
+  <title>{title}</title>
 </svelte:head>
 
 {#if event}
+  <MetaTags
+    openGraph={{
+      title: title,
+      description: description,
+      images: [{ url: image }],
+      siteName: 'zap.cooking'
+    }}
+  />
+
   <Recipe {event} />
 {/if}
