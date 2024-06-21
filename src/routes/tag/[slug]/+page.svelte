@@ -104,7 +104,9 @@
   {#if events.length > 0}
     <Feed {events} />
   {:else if loaded == false}
-    <p>loading</p>
+  <div class="flex justify-center items-center h-screen">
+    <img class="w-64" src="/pan-animated.svg" alt="Loading" />
+  </div>
   {:else}
     <p>Nothing found here :(</p>
   {/if}

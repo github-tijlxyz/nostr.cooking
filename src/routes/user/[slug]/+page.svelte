@@ -302,13 +302,7 @@
       <h2>
         <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Recipes
       </h2>
-      {#if events.length > 0}
         <Feed {events} />
-      {:else if loaded === false}
-        <p>loading</p>
-      {:else}
-        <p>Nothing found here :(</p>
-      {/if}
     {:else}
       <h2>
         <Name ndk={$ndk} pubkey={hexpubkey} npubMaxLength={10} />'s Lists

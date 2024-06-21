@@ -105,8 +105,7 @@
     <meta property="twitter:image" content="https://zap.cooking/logo_with_text.png" />
   {/if}
 </svelte:head>
-
-{#if event}
+{#if loaded && event}
   <div class="mb-6 prose">
     <h1 class="mb-0">
       {event.tags.find((t) => t[0] == 'title')?.[1]}
@@ -126,14 +125,10 @@
       </p>
     {/if}
   </div>
-{:else}
-  <div>...</div>
-{/if}
 
-{#if events.length > 0 && loaded == true}
   <Feed {events} />
-{:else if loaded == false}
-  <p>loading</p>
-{:else}
-  <p>Nothing found here :(</p>
+  {:else}
+  <div class="flex justify-center items-center h-screen">
+    <img class="w-64" src="/pan-animated.svg" alt="Loading" />
+  </div>
 {/if}

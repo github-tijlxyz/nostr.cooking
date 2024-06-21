@@ -95,4 +95,8 @@
 
 {#if event}
   <Recipe {event} />
+  {:else}
+  <div class="flex justify-center items-center h-screen">
+    <img class="w-64" src="/pan-animated.svg" alt="Loading" />
+  </div>
 {/if}

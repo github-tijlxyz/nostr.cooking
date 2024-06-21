@@ -179,7 +179,9 @@
 </svelte:head>
 
 {#if loaded == false}
-  <div>Loading...</div>
+  <div class="flex justify-center items-center h-screen">
+    <img class="w-64" src="/pan-animated.svg" alt="Loading" />
+  </div>
 {:else}
   <form on:submit|preventDefault={createList} class="flex flex-col gap-6 max-w-[760px] mx-auto">
     <h1>Edit Bookmarks</h1>
