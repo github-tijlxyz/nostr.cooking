@@ -76,7 +76,7 @@
       : '...'} on zap.cooking</title
   >
 
-  {#if event}
+  {#key og_meta}
     <meta name="description" content={og_meta.description} />
     <meta property="og:url" content={`https://zap.cooking/recipe/${$page.params.slug}`} />
     <meta property="og:type" content="article" />
@@ -90,7 +90,7 @@
     <meta name="twitter:title" content={og_meta.title} />
     <meta name="twitter:description" content={og_meta.description} />
     <meta name="twitter:image" content={og_meta.image} />
-  {/if}
+  {/key}
 </svelte:head>
 
 {#if event}
