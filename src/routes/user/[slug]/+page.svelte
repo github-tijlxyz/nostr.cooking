@@ -21,8 +21,8 @@
 
   let hexpubkey: string | undefined = undefined;
   let events: NDKEvent[] = [];
-  let user: NDKUser;
-  let profile: NDKUserProfile;
+  let user: NDKUser | null = null;
+  let profile: NDKUserProfile | null = null;
   let loaded = false;
   let zapModal = false;
   let recipesTab = true;
@@ -78,7 +78,7 @@
   async function zapEvt(amount: number, message: string) {
     zapModal = false;
     if (amount) {
-      const a = await user.zap(amount * 1000, message);
+      const a = await user!.zap(amount * 1000, message);
       if (a) {
         try {
           const webln = await requestProvider();
@@ -174,10 +174,37 @@
     }
     editModalCleanup();
   }
+
+  $: og_meta = {
+    title:
+      (profile
+        ? profile.displayName ||
+          profile.name ||
+          (user ? user.npub.slice(0, 10) + '...' : 'Unknown User')
+        : 'Unknown User') + ' on Zap Cooking',
+    description: "View this user's recipes on Zap Cooking",
+    image: profile ? profile.image : 'https://zap.cooking/logo_with_text.png'
+  };
 </script>
 
 <svelte:head>
-  <title>{profile && profile.name ? profile.name : '...'} on zap.cooking</title>
+  <title>{og_meta.title}</title>
+
+  {#if loaded}
+    <meta name="description" content={og_meta.description} />
+    <meta property="og:url" content={`https://zap.cooking/user/${$page.params.slug}`} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={og_meta.title} />
+    <meta property="og:description" content={og_meta.description} />
+    <meta property="og:image" content={og_meta.image} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:domain" content="zap.cooking" />
+    <meta property="twitter:url" content={`https://zap.cooking/user/${$page.params.slug}`} />
+    <meta name="twitter:title" content={og_meta.title} />
+    <meta name="twitter:description" content={og_meta.description} />
+    <meta name="twitter:image" content={og_meta.image} />
+  {/if}
 </svelte:head>
 
 <ZapModal open={zapModal} submit={zapEvt} cancel={() => (zapModal = false)} />

@@ -16,7 +16,7 @@
   }
 
   let loaded = false;
-  let event: NDKEvent;
+  let event: NDKEvent | null = null;
   let events: NDKEvent[] = [];
   let user: NDKUserProfile;
 
@@ -79,10 +79,31 @@
 
     loaded = true;
   }
+
+  $: og_meta = {
+    title: event ? event.tags.find((t) => t[0] == 'title')?.[1] + ' list' : 'Unknown Recipe list',
+    description: 'View this list on Zap Cooking'
+  };
 </script>
 
 <svelte:head>
-  <title>{event ? event.tags.find((t) => t[0] == 'title')?.[1] : '...'} on zap.cooking</title>
+  <title>{og_meta.title}</title>
+
+  {#if loaded}
+    <meta name="description" content={og_meta.description} />
+    <meta property="og:url" content={`https://zap.cooking/list/${$page.params.slug}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={og_meta.title} />
+    <meta property="og:description" content={og_meta.description} />
+    <meta property="og:image" content="https://zap.cooking/logo_with_text.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:domain" content="zap.cooking" />
+    <meta property="twitter:url" content={`https://zap.cooking/list/${$page.params.slug}`} />
+    <meta name="twitter:title" content={og_meta.title} />
+    <meta name="twitter:description" content={og_meta.description} />
+    <meta property="twitter:image" content="https://zap.cooking/logo_with_text.png" />
+  {/if}
 </svelte:head>
 
 {#if event}

@@ -6,7 +6,7 @@
   import { goto } from '$app/navigation';
   import Recipe from '../../../components/Recipe/Recipe.svelte';
 
-  let event: NDKEvent;
+  let event: NDKEvent | null = null;
   let naddr: string = '';
 
   $: {
@@ -57,6 +57,14 @@
       }
     }
   }
+
+  $: og_meta = {
+    title: event
+      ? event.tags.find((tag) => tag[0] === 'title')?.[1] || event.content.slice(0, 60) + '...'
+      : 'Recipe on Zap Cooking',
+    description: event ? event.content.slice(0, 200) + '...' : 'Click to view on Zap Cooking',
+    image: event ? event.tags.find((tag) => tag[0] === 'image')?.[1] || '' : ''
+  };
 </script>
 
 <svelte:head>
@@ -67,6 +75,22 @@
         : event.tags.find((e) => e[0] == 'd')?.[1]
       : '...'} on zap.cooking</title
   >
+
+  {#if event}
+    <meta name="description" content={og_meta.description} />
+    <meta property="og:url" content={`https://zap.cooking/recipe/${$page.params.slug}`} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={og_meta.title} />
+    <meta property="og:description" content={og_meta.description} />
+    <meta property="og:image" content={og_meta.image} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="zap.cooking" />
+    <meta property="twitter:url" content={`https://zap.cooking/recipe/${$page.params.slug}`} />
+    <meta name="twitter:title" content={og_meta.title} />
+    <meta name="twitter:description" content={og_meta.description} />
+    <meta name="twitter:image" content={og_meta.image} />
+  {/if}
 </svelte:head>
 
 {#if event}
