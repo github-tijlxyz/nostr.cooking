@@ -1,11 +1,11 @@
 <script lang="ts">
   import MagnifyingIcon from 'phosphor-svelte/lib/MagnifyingGlass';
   import LightningIcon from 'phosphor-svelte/lib/Lightning';
-  import BookmarkIcon from 'phosphor-svelte/lib/BookmarkSimple';
+  import BookmarkIcon from 'phosphor-svelte/lib/Bookmark';
 </script>
 
 <nav
-  class="md:hidden pt-2 bg-white w-full fixed bottom-0 left-0 grid grid-cols-3 grid-rows-1 text-center"
+  class="lg:hidden pt-2 bg-white w-full fixed bottom-0 left-0 grid grid-cols-3 grid-rows-1 text-center"
 >
   <a href="/recent" class="flex flex-col">
     <MagnifyingIcon class="self-center" size={24} />

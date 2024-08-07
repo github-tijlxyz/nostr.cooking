@@ -33,16 +33,6 @@
 
   let events: NDKEvent[] = [];
 
-  function openTag(query: string) {
-    if (query.startsWith('npub')) {
-      goto(`/user/${query}`);
-    } else if (query.startsWith('naddr')) {
-      goto(`/recipe/${query}`);
-    } else {
-      goto(`/tag/${query}`);
-    }
-  }
-
   onMount(async () => {
     let filter: NDKFilter = { limit: 256, kinds: [30023], '#t': ['nostrcooking'] };
     const evts = await $ndk.fetchEvents(filter);
@@ -74,53 +64,19 @@
 </svelte:head>
 
 <div class="flex flex-col gap-3 md:gap-10">
-  <div class="flex flex-col gap-2">
-    <div>
-      <h2>
-        {#if $userPublickey}
-          What are you in the mood for <Name
-            ndk={$ndk}
-            pubkey={$userPublickey}
-            npubMaxLength={10}
-          />?
-        {:else}
-          What are you in the mood for?
-        {/if}
-      </h2>
-    </div>
-    <TagsSearchAutocomplete
-      placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree'."}
-      action={openTag}
-    />
+  <div class="hidden lg:flex w-screen gap-6 overflow-y-hidden overflow-x-auto">
+    {#each popTags as tag}
+      <a class="flex transition duration-300 hover:text-primary" href="/tag/{tag.title}">{tag.title}</a>
+    {/each}
   </div>
 
-  <div class="flex flex-col gap-2">
-    <div class="flex">
-      <h2 class="grow">Popular Categories</h2>
-      <a
-        href="/tags"
-        class="self-center text-primary hover:text-[#d64000] transition-colors duration-300"
-        >View All</a
-      >
-    </div>
-
-    <div class="grid grid-cols-4 md:flex gap-4 overflow-y-hidden overflow-x-auto">
+  <div class="lg:hidden">
+    <select class="w-full input" onchange="window.location.href=this.value">
+      <option value="">All categories</option>
       {#each popTags as tag}
-        <a
-          href="/tag/{tag.title}"
-          class="flex flex-col gap-2 hover:text-primary transition-colors duration-300"
-        >
-          <div
-            class="table w-16 h-16 bg-input hover:bg-accent-gray transition-colors duration-300 rounded-full place-self-center"
-          >
-            <div class="table-cell align-middle place-self-center text-center text-4xl">
-              {tag.emoji}
-            </div>
-          </div>
-          <div class="place-self-center">{tag.title}</div>
-        </a>
+        <option value="/tag/{tag.title}">{tag.title}</option>
       {/each}
-    </div>
+    </select>
   </div>
 
   <div class="flex flex-col gap-2">

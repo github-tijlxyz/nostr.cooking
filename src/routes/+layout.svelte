@@ -69,7 +69,7 @@
 
 <div class="h-[100%] scroll-smooth">
   <div class="flex h-screen">
-    <div class=" mx-auto flex-1 pt-3 px-3">
+    <div class=" mx-auto flex-1 pt-2 px-4">
       <Header />
       <div class="container mx-auto mt-6 pb-24">
         <slot />

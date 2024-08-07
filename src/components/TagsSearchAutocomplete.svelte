@@ -5,6 +5,7 @@
   const maxAutocompleteOptions = 7;
 
   export let placeholderString: string;
+  export let autofocus = false;
   export let action: (query: string) => void;
 
   let tagquery = '';
@@ -30,7 +31,8 @@
       .map((item) => item.tag)
       .slice(0, 512);
 
-    showAutocomplete = tagquery.length > 0 && inputFocused;
+    showAutocomplete = tagquery.length > 0 && (inputFocused || autofocus);
+    console.debug(showAutocomplete, tagquery, inputFocused);
 
     // Listen for mousedown events on the autocomplete items to prevent event propagation
     const autocompleteItems = document.querySelectorAll('.autocomplete-item');
@@ -62,7 +64,7 @@
   });
 </script>
 
-<div class="relative">
+<div class="relative flex-1">
   <form
     class="flex rounded-xl shadow-sm bg-input"
     on:submit|preventDefault={() => {
@@ -73,6 +75,17 @@
     }}
   >
     <div class="flex mx-0.5 items-stretch flex-grow focus-within:z-10">
+      {#if autofocus}
+      <input
+        bind:value={tagquery}
+        on:input={handleInputChange}
+        on:focus={handleInputFocus}
+        on:blur={handleInputBlur}
+        class="block w-full input"
+        placeholder={placeholderString}
+        autofocus
+      />
+      {:else}
       <input
         bind:value={tagquery}
         on:input={handleInputChange}
@@ -81,6 +94,7 @@
         class="block w-full input"
         placeholder={placeholderString}
       />
+      {/if}
     </div>
     <input type="submit" class="hidden" />
   </form>

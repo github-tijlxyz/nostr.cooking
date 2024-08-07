@@ -6,7 +6,6 @@
   import { validateMarkdownTemplate } from '$lib/pharser';
   import { recipeTags } from '$lib/consts';
   import { goto } from '$app/navigation';
-  import TagsSearchAutocomplete from '../../../components/TagsSearchAutocomplete.svelte';
 
   // let tag: string | undefined = undefined;
   let events: NDKEvent[] = [];
@@ -61,11 +60,6 @@
 </svelte:head>
 
 <div class="flex flex-col gap-8">
-  <TagsSearchAutocomplete
-    placeholderString={"Search by tag, like 'italian', 'steak' or 'glutenfree'."}
-    action={openTag}
-  />
-
   <div class="prose">
     <!-- TODO: Clean up this mess -->
     <h1>
@@ -104,9 +98,9 @@
   {#if events.length > 0}
     <Feed {events} />
   {:else if loaded == false}
-  <div class="flex justify-center items-center h-screen">
-    <img class="w-64" src="/pan-animated.svg" alt="Loading" />
-  </div>
+    <div class="flex justify-center items-center h-screen">
+      <img class="w-64" src="/pan-animated.svg" alt="Loading" />
+    </div>
   {:else}
     <p>Nothing found here :(</p>
   {/if}
