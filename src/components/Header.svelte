@@ -65,11 +65,11 @@
       action={openTag}
     />
   </div>
-  
   <div class="flex gap-4 self-center flex-none">
     <div class="block sm:hidden self-center">
-      <Button class="self-center w-10 h-10 flex justify-center px-1 py-1 bg-[#FFECE8]" on:click={() => searchActive = true}>
-        <SearchIcon class="self-center text-primary" size={16} weight="bold" />
+      <!-- for some reason if i have all of these selector classes then it styles correctly. wtf. -->
+      <Button class="self-center max-md:w-10 max-md:h-10 flex max-md:justify-center max-md:px-1 max-md:py-1 font-semibold !bg-[#FFECE8]" on:click={() => searchActive = true}>
+          <SearchIcon class="self-center text-primary" size={16} weight="bold" />
       </Button>
     </div>
     {#if $userPublickey !== ''}
