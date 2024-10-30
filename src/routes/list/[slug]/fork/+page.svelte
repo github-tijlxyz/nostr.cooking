@@ -149,7 +149,7 @@
           console.log('publish failed to', relay, err);
         });
       });
-      resultMessage = 'Succes!';
+      resultMessage = 'Success!';
       let naddr = nip19.naddrEncode({
         identifier: title.toLowerCase().replaceAll(' ', '-'),
         kind: 30001,
